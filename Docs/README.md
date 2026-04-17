@@ -1,5 +1,6 @@
 # BookJournal
-*estructura del proyecto*
+
+## Estructura del proyecto
 Book-Journal/
 ├── frontend/                   // Interfaz de usuario y lógica de cliente
 │   ├── html/                   // Vistas de la aplicación
@@ -60,11 +61,10 @@ También se creó un archivo JavaScript por cada módulo, encargado de:
 
 ## Frontend Laura Lopez
 ## Índice
-- [Descripción](#descripción)
-- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Descripción](#descripcion)
 - [Módulos](#módulos)
 - [Componentes Compartidos](#componentes-compartidos)
-- [Estilos (CSS explicado)](#estilos-css-explicado)
+- [Estilos CSS](#estilos-css-explicado)
 - [Lógica JavaScript](#lógica-javascript)
 - [Stack Tecnológico](#stack-tecnológico)
 
@@ -82,6 +82,9 @@ La pagina permite gestionar usuarios, registrar libros, visualizar historial de 
 ## Módulos
 
 ### Login
+formulario para el ingreso a las pagina de Book Journal se solicita que se ingrese el correo o usuario y la contraseña además de dos botones el que da inicio de sesión y otro que dirige a la página de registro. Además, tiene una imagen de unos libros.
+
+![captura de pantalla login](imagenesdoc/Login.png)
 
 ```html
 <form id="loginForm">
@@ -102,6 +105,10 @@ La pagina permite gestionar usuarios, registrar libros, visualizar historial de 
 - no envía el formulario, solo ejecuta una acción en caso que las credenciales sean correctas y se dirige a la pagina principal lectura_actual.html
 
 ### Registro
+formulario diseñado para capturar los datos de un nuevo usuario (nombre completo, correo electrónico, crear una contraseña, fecha de nacimiento, promedio de lectura diaria y genero favorito), tiene dos botones Finalizar registro para que se guarden los datos del formulario en la base de datos y volver para regresar a login.
+
+
+![captura de pantalla registo](imagenesdoc/Registro.png)
 
 ```html
 <form id="registroForm">
@@ -120,6 +127,8 @@ La pagina permite gestionar usuarios, registrar libros, visualizar historial de 
 
 ### Perfil
 
+![Captura de pantalla perfil](imagenesdoc/Perfil.png)
+
 ```html
 <div id="perfil">
     <p id="nombre"></p>
@@ -129,8 +138,33 @@ La pagina permite gestionar usuarios, registrar libros, visualizar historial de 
 
 - los datos se muestran encontenedor principal y se utiliza `<p>` para mostrar datos dinámicos.
 
+
+## Editar Peril
+Formulario sencillo para el ingreso de nuevos libros a la lista de deseos, una vez ingresados los libros que se desea ver en el futuro cada libro aparecerá en una tarjeta y se permite seleccionar cuando ya se hallando leído.
+
+![Captura de pantalla editar el perfil](imagenesdoc/Edit_perfil.png)
+
+## Lista Deseos
+formulario donde se ingresa los datos sobre un libro que se está leyendo en el momento (Nombre del libro, autor, genero, reseña, fecha inicio y fecha final, calificación mediante 5 estrellas interactivas). al final del formulario tiene un botón el cual permite guardar los datos del formulario y se dirige al módulo de libros leídos.
+
+![Captura de pantalla lista libros deseados](imagenesdoc/Lista_deseos.png)
+
+## Lectura Actual
+ en este módulo se pueden visualizar los libros que ya se han agregado desde el módulo lectura actual, cada libro aparece en una tarjeta diferente y se puede borrar en caso de que haya un error o solo se quiera borrar del registro, este módulo cuenta con una barra de búsqueda, en la cual se podrá buscar dentro de la base de datos.
+
+![Captura de pantalla lectura actual](imagenesdoc/Lectura_actual.png)
+
+## Libros Leidos
+
+Para cada uno de los módulos se creó un css personalizado a pesar de que muchas de las funciones son muy parecidas hay algunas funciones diferentes en cada módulo, a nivel general los css tiene dos fuentes (Patrick hand y dancing script), da tonalidades verdes y pone imágenes decorativas de hojas. en el caso de lectura actual y libros leídos también maneja las interacciones de colores de las estrellas, también permite visualizar mejor las fechas.
+
+![Captura de pantalla lista de libros leidos](imagenesdoc/Libros_leidos.png)
+
 ### Navbar 
-este es un componene que esta en varios de los modulos como lectura_actual.html libros_leidos.html y lista_deseos.html
+una vez dentro de la página de Book Journal hay partes que se comparten en todos los módulos. En la parte superior se encuentra una barra, en la parte izquierda se encuentra un menú desplegable en el cual se puede navegar en toda la página (lectura actual, libros leídos, libros deseados y cerrar sesión) en la mitad se encuentra el nombre de la página BOOK JOURNAL y en la parte derecha esta una imagen que funciona como un botón el cual llevara al módulo de perfil.
+
+![Captura de pantalla navbar](imagenesdoc/Navbar.png)
+![Captura de menu desplegable ](imagenesdoc/Menu_desplegable.png)
 
 ```html
 <header>
@@ -154,7 +188,7 @@ este es un componene que esta en varios de los modulos como lectura_actual.html 
 - `<img>` funciona como botón de acceso al perfil.
 
 
-## Estilos 
+## Estilos CSS
 En los archivos CSS hay partes que estan repetidas como body el cual controla el color de fondo de toda la pagina los tipos de letras, el color de los botones etc.
 
 ### Estilo base del documento
@@ -172,8 +206,17 @@ body {
 - Aplica un color de fondo verde claro para mantener la estética del diario.
 - Elimina los márgenes y espacios por defecto del navegador para evitar inconsistencias visuales.
 
+## Tipografia 
+```
+    font-family: 'Patrick Hand', cursive;
+    font-family: 'Dancing Script', cursive;
+```
+![Captura de titulo y tipografia](imagenesdoc/Titulos_tipografia.png) 
+
+- define el tipo de letra que va a tener la pafina.
 
 ### Botones
+![Captura de pantalla botones](imagenesdoc/Botones.png)
 
 ```css
 button {
@@ -209,6 +252,8 @@ button:hover {
 
 ### Inputs y áreas de texto
 
+![Captura de pantalla input en formularios](Imagenesdoc/Formularios.png)
+
 ```css
 input, textarea {
     padding: 10px;
@@ -226,7 +271,9 @@ input, textarea {
 - Agrega separación entre campos para evitar que se vean pegados.
 
 
-### Tarjetas (cards de libros)
+### Cards de libros
+
+![Captura de pantalla cards de los libros e historial](imagenesdoc/Tarjetas_libros.png)
 
 ```css
 .card {
@@ -242,6 +289,11 @@ input, textarea {
 - Añade espacio interno para organizar el contenido.
 - Aplica una sombra ligera para dar sensación de profundidad.
 
+## Sistema de Estrellas
+![Captura de pantalla sistema de estrellas calificacion](imagenesdoc/Sistema_estrellas.png)
+
+## Perfil e Imágenes Laterales
+![Captura de pantalla Perfil y hojas de corativas](imagenesdoc/Perfil-hojasdecorativas.png)
 
 ### Barra de navegación (Navbar)
 
@@ -289,7 +341,7 @@ nav a:hover {
 - Mejora la accesibilidad y experiencia de navegación.
 
 
-## JavaScript
+## Lógica JavaScript
 En esta parte se podra encontrar la forma logica en la que funciona toda la pagina web, como la navegacion entre modulos, como funcionan los botones, etc.
 
 ### Login.js
@@ -378,7 +430,7 @@ Redirige al usuario.
 ```
 Captura errores de red o del servidor.
 
-## Stack tecnologico
+## Stack Tecnológico
 1. Frontend: Maneja la lógica de interacción y estilos interfaz con el cliente.
     - Lenguaje base: HTML5 para la estructura de cada pagina (login.html, registro.html, perfil.html, edit_perfil.html, lista_deseos.html, lectura_actual.html y libros_leidos.html) y css3 para el diseño visual (login.css, registro.css, perfil.css, edit_perfil.css, lista_deseos.css, lectura_actual.css y libros_leidos.css).
     - Tipografía: Integración con Google Font (Dancing Script y Patrick Hand)
