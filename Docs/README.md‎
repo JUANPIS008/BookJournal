@@ -1,5 +1,6 @@
 # BookJournal
 ## Estructura del proyecto
+
 ```
     Book-Journal/
     ├── frontend/                   // Interfaz de usuario y lógica de cliente
