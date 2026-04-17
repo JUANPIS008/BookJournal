@@ -1,44 +1,46 @@
 # BookJournal
 ## Estructura del proyecto
-Book-Journal/
-├── frontend/                   // Interfaz de usuario y lógica de cliente
-│   ├── html/                   // Vistas de la aplicación
-│   │   ├── login.html          // Acceso al sistema
-│   │   ├── registro.html       // Creación de nuevas cuentas
-│   │   ├── perfil.html         // Datos del usuario y configuración
-│   │   ├── lista_deseos.html   // Libros pendientes por leer
-│   │   ├── lectura_actual.html // Seguimiento del libro en curso
-│   │   ├── libros_leidos.html  // Historial y calificación (estrellas)
-│   │   └── home.html           // Pantalla principal / Dashboard
-│   ├── css/                    // Estilos visuales consolidados
-│   │   ├── estilos.css         // Archivo unificado de estilos
-│   │   └── componentes.css     // Estilos de cards, botones y estrellas
-│   ├── java-script/            // Lógica de interacción y consumo de API
-│   │   ├── login.js            // Validación y envío de credenciales
-│   │   ├── registro.js         // Lógica de creación de usuarios
-│   │   ├── historial.js        // Manejo de la lista de libros y estrellas
-│   │   └── api-config.js       // Configuración de Fetch y endpoints
-│   └── recursos/               // Activos estáticos y multimedia
-│       ├── Imagen1.png         // Decoraciones de libros
-│       ├── Imagen2.png         // Decoraciones laterales del diario
-│       └── icon-perfil.png     // Avatar por defecto del usuario
-├── Book-Journal/
-├── backend/                   // Código fuente en Java (Spring Boot)
-│   ├── src/main/java/com/bookjournal/
-│   │   ├── controllers/       // Endpoints REST (@RestController)
-│   │   ├── models/            // Entidades de base de datos (@Entity)
-│   │   ├── repositories/      // Interfaces para consultas SQL (JPA)
-│   │   ├── services/          // Lógica de negocio avanzada
-│   │   └── security/          // Configuración de filtros y JWT
-│   ├── src/main/resources/
-│   │   └── application.properties // Configuración de conexión a PostgreSQL
-│   └── pom.xml                // Dependencias de Maven
-├── database/                   // Persistencia de datos (PostgreSQL)
-│   ├── scripts/                // Scripts de creación de tablas y datos iniciales
-│   │   ├── create_tables.sql   // Definición de tablas de usuarios y libros
-│   │   └── seed_data.sql       // Datos de prueba para el desarrollo
-│   └── diagramas/              // Modelo Entidad-Relación (MER)
-└── README.md                   // Documentación técnica completa del proyecto
+```
+    Book-Journal/
+    ├── frontend/                   // Interfaz de usuario y lógica de cliente
+    │   ├── html/                   // Vistas de la aplicación
+    │   │   ├── login.html          // Acceso al sistema
+    │   │   ├── registro.html       // Creación de nuevas cuentas
+    │   │   ├── perfil.html         // Datos del usuario y configuración
+    │   │   ├── lista_deseos.html   // Libros pendientes por leer
+    │   │   ├── lectura_actual.html // Seguimiento del libro en curso
+    │   │   ├── libros_leidos.html  // Historial y calificación (estrellas)
+    │   │   └── home.html           // Pantalla principal / Dashboard
+    │   ├── css/                    // Estilos visuales consolidados
+    │   │   ├── estilos.css         // Archivo unificado de estilos
+    │   │   └── componentes.css     // Estilos de cards, botones y estrellas
+    │   ├── java-script/            // Lógica de interacción y consumo de API
+    │   │   ├── login.js            // Validación y envío de credenciales
+    │   │   ├── registro.js         // Lógica de creación de usuarios
+    │   │   ├── historial.js        // Manejo de la lista de libros y estrellas
+    │   │   └── api-config.js       // Configuración de Fetch y endpoints
+    │   └── recursos/               // Activos estáticos y multimedia
+    │       ├── Imagen1.png         // Decoraciones de libros
+    │       ├── Imagen2.png         // Decoraciones laterales del diario
+    │       └── icon-perfil.png     // Avatar por defecto del usuario
+    ├── Book-Journal/
+    ├── backend/                   // Código fuente en Java (Spring Boot)
+    │   ├── src/main/java/com/bookjournal/
+    │   │   ├── controllers/       // Endpoints REST (@RestController)
+    │   │   ├── models/            // Entidades de base de datos (@Entity)
+    │   │   ├── repositories/      // Interfaces para consultas SQL (JPA)
+    │   │   ├── services/          // Lógica de negocio avanzada
+    │   │   └── security/          // Configuración de filtros y JWT
+    │   ├── src/main/resources/
+    │   │   └── application.properties // Configuración de conexión a PostgreSQL
+    │   └── pom.xml                // Dependencias de Maven
+    ├── database/                   // Persistencia de datos (PostgreSQL)
+    │   ├── scripts/                // Scripts de creación de tablas y datos iniciales
+    │   │   ├── create_tables.sql   // Definición de tablas de usuarios y libros
+    │   │   └── seed_data.sql       // Datos de prueba para el desarrollo
+    │   └── diagramas/              // Modelo Entidad-Relación (MER)
+    └── README.md                   // Documentación técnica completa del proyecto
+```
 
 ## Explicación estructura del Proyecto
 Se crearon 7 archivos HTML:
