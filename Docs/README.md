@@ -143,21 +143,110 @@ Formulario sencillo para el ingreso de nuevos libros a la lista de deseos, una v
 
 ![Captura de pantalla editar el perfil](imagenesdoc/Edit_perfil.png)
 
+```html
+<form id="form-editar-perfil" class="datos-perfil" autocomplete="off">
+            <div class="campo">
+                <label for="nombre">Nombre completo:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div class="campo">
+                <label for="correo">Correo:</label>
+                <input type="email" id="correo" name="correo" required>
+            </div>
+            <div class="campo">
+                <label for="fechaNacimiento">Fecha de nacimiento:</label>
+                <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+            </div>
+            <div class="campo">
+                <label for="promedioLectura">Promedio de lectura (min):</label>
+                <input type="number" id="promedioLectura" name="promedioLectura" required>
+            </div>
+            <div class="campo">
+                <label for="generoFavorito">Género favorito:</label>
+                <input type="text" id="generoFavorito" name="generoFavorito" required>
+            </div>
+            <div class="botones-acciones">
+                <button type="submit" class="btn-editar">Guardar Cambios</button>
+                <button type="button" onclick="irperfil()" class="btn-cancelar">Cancelar</button>
+            </div>
+        </form>
+```
+
 ## Lista Deseos
 formulario donde se ingresa los datos sobre un libro que se está leyendo en el momento (Nombre del libro, autor, genero, reseña, fecha inicio y fecha final, calificación mediante 5 estrellas interactivas). al final del formulario tiene un botón el cual permite guardar los datos del formulario y se dirige al módulo de libros leídos.
 
 ![Captura de pantalla lista libros deseados](imagenesdoc/Lista_deseos.png)
+
+```html
+        <div class="container">
+            <h1 class="titulo-libros-deseados">Lista de libros deseados</h1>
+            <div class="lista-libros-deseados" id="lista-deseados">
+                <div class="input-section">
+                    <input type="text" id="wish-input" placeholder="Escribe un libro que desees...">
+                    <button onclick="addWish()">Agregar</button>
+                </div>
+                <div id="lista-deseos-container"></div>
+            </div>
+        </div>
+```
 
 ## Lectura Actual
  en este módulo se pueden visualizar los libros que ya se han agregado desde el módulo lectura actual, cada libro aparece en una tarjeta diferente y se puede borrar en caso de que haya un error o solo se quiera borrar del registro, este módulo cuenta con una barra de búsqueda, en la cual se podrá buscar dentro de la base de datos.
 
 ![Captura de pantalla lectura actual](imagenesdoc/Lectura_actual.png)
 
+```html
+<div class="form-content">
+                <input type="text" id="titulo" placeholder="Nombre del Libro" required>
+                <input type="text" id="autor" placeholder="Autor" required>
+                <input type="text" id="genero" placeholder="Género">
+                <textarea id="resena" placeholder="Escribe aquí tu reseña o notas sobre el libro..."></textarea>
+                <div class="fechas">
+                    <div class="date-group">
+                        <label for="inicio">Fecha de inicio</label>
+                        <input type="date" id="inicio">
+                    </div>
+                    <div class="date-group">
+                        <label for="final">Fecha de fin</label>
+                        <input type="date" id="final">
+                    </div>
+                </div>
+                <div class="rating-container">
+                    <label>Calificación:</label>
+                    <div class="stars" id="star-rating">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+                    </div>
+                    <input type="hidden" id="calificacion" value="0">
+                </div>
+                <button type="button" class="boton_terminar_lectura" onclick="Guardar_libro()">
+                    Finalizar lectura
+                </button>
+            </div>
+```
+
 ## Libros Leidos
 
 Para cada uno de los módulos se creó un css personalizado a pesar de que muchas de las funciones son muy parecidas hay algunas funciones diferentes en cada módulo, a nivel general los css tiene dos fuentes (Patrick hand y dancing script), da tonalidades verdes y pone imágenes decorativas de hojas. en el caso de lectura actual y libros leídos también maneja las interacciones de colores de las estrellas, también permite visualizar mejor las fechas.
 
 ![Captura de pantalla lista de libros leidos](imagenesdoc/Libros_leidos.png)
+
+```html
+<div style="margin-bottom:20px;">
+                <input type="text" id="busqueda" placeholder="Buscar libro..." 
+                       style="padding:10px; width:70%;">
+                <button onclick="buscarLibros()" style="padding:10px;">
+                    Buscar
+                </button>
+            </div>
+            <div class="historia-containerS" id="historial-libros">
+                <!-- Aquí se renderizan los libros -->
+            </div>
+```
+
 ### Componentes Compartidos
 ### Navbar 
 una vez dentro de la página de Book Journal hay partes que se comparten en todos los módulos. En la parte superior se encuentra una barra, en la parte izquierda se encuentra un menú desplegable en el cual se puede navegar en toda la página (lectura actual, libros leídos, libros deseados y cerrar sesión) en la mitad se encuentra el nombre de la página BOOK JOURNAL y en la parte derecha esta una imagen que funciona como un botón el cual llevara al módulo de perfil.
