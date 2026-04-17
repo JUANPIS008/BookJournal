@@ -1,5 +1,4 @@
 # BookJournal
-
 ## Estructura del proyecto
 Book-Journal/
 ├── frontend/                   // Interfaz de usuario y lógica de cliente
@@ -60,11 +59,11 @@ También se creó un archivo JavaScript por cada módulo, encargado de:
 - El manejo de errores (conexión, validaciones y eliminación de datos)
 
 ## Frontend Laura Lopez
-## Índice
+## Índice frontend
 - [Descripción](#descripcion)
 - [Módulos](#módulos)
 - [Componentes Compartidos](#componentes-compartidos)
-- [Estilos CSS](#estilos-css-explicado)
+- [Estilos CSS](#estilos-css)
 - [Lógica JavaScript](#lógica-javascript)
 - [Stack Tecnológico](#stack-tecnológico)
 
