@@ -1,4 +1,43 @@
 # BookJournal
+## Identificación, delimitación del problema dominio elegido
+En la actualidad, muchas personas que tienen el hábito de la lectura no cuentan con una herramienta centralizada que les permita organizar, hacer seguimiento y evaluar su progreso lector de manera estructurada. Esto genera dificultades para recordar libros leídos, gestionar listas de lectura futuras y mantener un control sobre el avance personal.
+
+En este contexto, surge la necesidad de desarrollar una solución tecnológica que permita gestionar de forma eficiente la información relacionada con la lectura personal, integrando funcionalidades básicas pero esenciales para el usuario.
+
+El dominio de la aplicación corresponde a la gestión de biblioteca personal, abarcando entidades como usuarios, libros y listas de deseos. Este dominio fue seleccionado por su simplicidad y valor educativo, permitiendo implementar de manera clara patrones CRUD y principios básicos de diseño de software.
+
+## Propósito de la aplicación
+Book Journal es una API diseñada para facilitar la gestión de la lectura personal, permitiendo a los usuarios registrar, organizar y consultar información sobre libros leídos, en progreso o pendientes.
+
+El propósito principal es proporcionar una base sólida para el desarrollo de aplicaciones que apoyen el hábito de la lectura mediante el uso de operaciones CRUD y buenas prácticas de desarrollo backend.
+
+## Alcance del sistema
+La aplicación se enfoca en un entorno de uso individual, donde cada usuario puede:
+- Administrar su propia colección de libros
+- Registrar su progreso de lectura
+- Gestionar listas de deseos
+- Evaluar y calificar libros leídos
+
+El sistema está orientado a fines educativos y de aprendizaje, permitiendo implementar y comprender conceptos fundamentales como persistencia de datos, diseño de APIs y arquitectura backend.
+
+## Funcionalidades principales
+- Registro y autenticación de usuarios
+- Gestión de libros (crear, consultar, actualizar y eliminar)
+- Seguimiento del estado de lectura (pendiente, en progreso, leído)
+- Calificación y valoración de libros
+- Administración de lista de deseos
+
+## Actores del sistema
+- Usuario: Persona que interactúa con la aplicación para gestionar su información de lectura personal.
+
+## Procesos clave
+- Registro e inicio de sesión de usuarios
+- Gestión del catálogo personal de libros
+- Actualización del estado de lectura
+- Organización de libros en listas (leídos y por leer)
+- Consulta de información registrada
+
+
 ## Estructura del proyecto
 ```
     Book-Journal/
