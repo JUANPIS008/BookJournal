@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/deseos")
+@CrossOrigin(origins = "*")
 public class DeseoController {
 
     private final DeseoService service;
