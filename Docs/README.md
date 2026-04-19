@@ -559,7 +559,7 @@ El sistema está diseñado bajo una arquitectura por capas:
 * **Base de datos:** Almacenamiento en PostgreSQL
 
  Archivo incluido:
-`diagrama_arquitectura_book_journal (1).html`
+`diagrama_arquitectura_book_journal.html`
 
 ---
 
