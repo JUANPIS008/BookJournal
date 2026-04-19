@@ -544,11 +544,11 @@ Captura errores de red o del servidor.
 
 
 
-# 📚 Base de datos
+#  Base de datos
 
 ---
 
-## 🏗️ Arquitectura del sistema
+##  Arquitectura del sistema
 
 El sistema está diseñado bajo una arquitectura por capas:
 
@@ -558,16 +558,16 @@ El sistema está diseñado bajo una arquitectura por capas:
 * **Capa de persistencia:** Repositorios usando JPA / Hibernate
 * **Base de datos:** Almacenamiento en PostgreSQL
 
-📁 Archivo incluido:
+ Archivo incluido:
 `diagrama_arquitectura_book_journal (1).html`
 
 ---
 
-## 🗄️ Modelo de datos
+##  Modelo de datos
 
 El modelo de datos está basado en un esquema relacional en PostgreSQL.
 
-### 📊 Entidades principales
+###  Entidades principales
 
 * **usuarios**
 
@@ -609,7 +609,7 @@ El modelo de datos está basado en un esquema relacional en PostgreSQL.
 * Un **usuario** puede tener muchos **libros leídos**
 * Un **usuario** puede tener muchos **libros deseados**
 
-📁 Archivo sugerido:
+ Archivo sugerido:
 `DiagramaE.html`
 
 ---
@@ -633,11 +633,11 @@ psql -U postgres -d bookjournal_db -f database/security.sql
 
 ---
 
-## 🔐 Configuración de seguridad
+##  Configuración de seguridad
 
 Se implementan medidas básicas de seguridad en PostgreSQL para proteger el acceso a la base de datos.
 
-### 👤 Creación de usuario
+###  Creación de usuario
 
 ```sql
 CREATE USER bookjournal_app WITH PASSWORD 'CHANGE_ME';
@@ -645,7 +645,7 @@ CREATE USER bookjournal_app WITH PASSWORD 'CHANGE_ME';
 
 ---
 
-### 🔒 Restricción de accesos
+###  Restricción de accesos
 
 ```sql
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
@@ -654,7 +654,7 @@ REVOKE ALL ON ALL TABLES IN SCHEMA public FROM PUBLIC;
 
 ---
 
-### ✅ Permisos controlados
+###  Permisos controlados
 
 ```sql
 GRANT CONNECT ON DATABASE bookjournal_db TO bookjournal_app;
@@ -667,7 +667,7 @@ TO bookjournal_app;
 
 ---
 
-### 🔄 Autenticación
+###  Autenticación
 
 Editar el archivo `pg_hba.conf`:
 
@@ -679,7 +679,7 @@ Luego reiniciar el servicio de PostgreSQL.
 
 ---
 
-## 🌱 Datos de prueba
+##  Datos de prueba
 
 El proyecto incluye datos iniciales para pruebas:
 
@@ -687,12 +687,12 @@ El proyecto incluye datos iniciales para pruebas:
 * Libros leídos con calificaciones
 * Libros deseados con prioridades
 
-📁 Archivo:
+ Archivo:
 `database/database.sql`
 
 ---
 
-## 🚀 Ejecución completa
+##  Ejecución completa
 
 1. Crear base de datos
 2. Ejecutar `database.sql`
@@ -702,7 +702,7 @@ El proyecto incluye datos iniciales para pruebas:
 
 ---
 
-## 🛡️ Buenas prácticas implementadas
+##  Buenas prácticas implementadas
 
 * Uso de usuario de aplicación (no `postgres`)
 * Restricción de permisos por defecto
