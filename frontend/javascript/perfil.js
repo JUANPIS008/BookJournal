@@ -1,4 +1,8 @@
-
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? 'http://localhost:8080/api'
+    : 'https://backend-book-648962643591.southamerica-east1.run.app/api';
+const API_URL = `${API_BASE}/usuarios`;
+const STORAGE_KEY = 'usuarioLogueado';
 
 function irlectura_actual() { window.location.href = "lectura_actual.html"; }
 function irlibros_leidos() { window.location.href = "libros_leidos.html"; }

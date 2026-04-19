@@ -1,3 +1,7 @@
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? 'http://localhost:8080/api'
+    : 'https://backend-book-648962643591.southamerica-east1.run.app/api';
+const API_URL = `${API_BASE}/usuarios`;
 
 function irlogin() { 
     window.location.href = "login.html"; 
