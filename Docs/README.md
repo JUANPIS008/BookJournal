@@ -60,7 +60,8 @@ También se creó un archivo JavaScript por cada módulo, encargado de:
 - El envío y recepción de datos con la API
 - El manejo de errores (conexión, validaciones y eliminación de datos)
 
-## Frontend Laura Lopez
+# Frontend
+
 ## Índice frontend
 - [Descripción](#descripcion)
 - [Módulos](#módulos)
@@ -520,7 +521,7 @@ Redirige al usuario.
 ```
 Captura errores de red o del servidor.
 
-## Stack Tecnológico
+# Stack Tecnológico
 1. Frontend: Maneja la lógica de interacción y estilos interfaz con el cliente.
     - Lenguaje base: HTML5 para la estructura de cada pagina (login.html, registro.html, perfil.html, edit_perfil.html, lista_deseos.html, lectura_actual.html y libros_leidos.html) y css3 para el diseño visual (login.css, registro.css, perfil.css, edit_perfil.css, lista_deseos.css, lectura_actual.css y libros_leidos.css).
     - Tipografía: Integración con Google Font (Dancing Script y Patrick Hand)
@@ -559,7 +560,7 @@ El sistema está diseñado bajo una arquitectura por capas:
 * **Base de datos:** Almacenamiento en PostgreSQL
 
  Archivo incluido:
-`diagrama_arquitectura_book_journal.html`
+[Ver diagrama de arquitectura](diagrama_arquitectura_book_journal.html)
 
 ---
 
@@ -604,17 +605,17 @@ El modelo de datos está basado en un esquema relacional en PostgreSQL.
   * prioridad (1–3)
   * notas
 
-### 🔗 Relaciones
+### Relaciones
 
 * Un **usuario** puede tener muchos **libros leídos**
 * Un **usuario** puede tener muchos **libros deseados**
 
  Archivo sugerido:
-`DiagramaE.html`
+[Ver diagrama de arquitectura](database/DiagramaE.html)
 
 ---
 
-## ⚙️ Configuración de la base de datos
+## Configuración de la base de datos
 
 ### 1. Crear base de datos
 
@@ -688,7 +689,7 @@ El proyecto incluye datos iniciales para pruebas:
 * Libros deseados con prioridades
 
  Archivo:
-`database/database.sql`
+[Ver diagrama de arquitectura](database/database.sql)
 
 ---
 
