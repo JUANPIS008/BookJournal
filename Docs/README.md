@@ -541,3 +541,171 @@ Captura errores de red o del servidor.
     - Lenguaje de consulta: SQL, creación de tablas, agregar registros nuevos (formularios de ingreso i edición de datos) y consultarlos (búsqueda en libros leídos).
     - Conexión red: La comunicación con el servidor se realiza mediante un túnel de datos dirigido al puerto 5432, garantizando un flujo de información constante y seguro.
     - Creación de instancia: Se configuró una instancia dedicada del motor de base de datos, proporcionando un entorno de ejecución aislado, estable y optimizado para el proyecto.
+
+
+
+# 📚 Base de datos
+
+---
+
+## 🏗️ Arquitectura del sistema
+
+El sistema está diseñado bajo una arquitectura por capas:
+
+* **Capa de presentación:** Interfaces como Login, Registro, Inicio, Libros, Deseos y Perfil
+* **Capa de negocio:** Controladores y servicios que gestionan la lógica del sistema
+* **Seguridad:** Implementación basada en autenticación (JWT)
+* **Capa de persistencia:** Repositorios usando JPA / Hibernate
+* **Base de datos:** Almacenamiento en PostgreSQL
+
+📁 Archivo incluido:
+`diagrama_arquitectura_book_journal (1).html`
+
+---
+
+## 🗄️ Modelo de datos
+
+El modelo de datos está basado en un esquema relacional en PostgreSQL.
+
+### 📊 Entidades principales
+
+* **usuarios**
+
+  * id (PK)
+  * nombre
+  * apellido
+  * email (único)
+  * contrasena
+  * fecha_registro
+  * fecha_nacimiento
+  * genero_favorito
+  * promedio_lectura
+
+* **libros_leidos**
+
+  * id (PK)
+  * usuario_id (FK)
+  * titulo
+  * autor
+  * genero
+  * fecha_lectura
+  * calificacion (1–5)
+  * resena
+  * inicio
+  * fin
+
+* **libros_deseados**
+
+  * id (PK)
+  * usuario_id (FK)
+  * titulo
+  * autor
+  * genero
+  * prioridad (1–3)
+  * notas
+
+### 🔗 Relaciones
+
+* Un **usuario** puede tener muchos **libros leídos**
+* Un **usuario** puede tener muchos **libros deseados**
+
+📁 Archivo sugerido:
+`DiagramaE.html`
+
+---
+
+## ⚙️ Configuración de la base de datos
+
+### 1. Crear base de datos
+
+```sql
+CREATE DATABASE bookjournal_db;
+```
+
+---
+
+### 2. Ejecutar scripts
+
+```bash
+psql -U postgres -d bookjournal_db -f database/database.sql
+psql -U postgres -d bookjournal_db -f database/security.sql
+```
+
+---
+
+## 🔐 Configuración de seguridad
+
+Se implementan medidas básicas de seguridad en PostgreSQL para proteger el acceso a la base de datos.
+
+### 👤 Creación de usuario
+
+```sql
+CREATE USER bookjournal_app WITH PASSWORD 'CHANGE_ME';
+```
+
+---
+
+### 🔒 Restricción de accesos
+
+```sql
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON ALL TABLES IN SCHEMA public FROM PUBLIC;
+```
+
+---
+
+### ✅ Permisos controlados
+
+```sql
+GRANT CONNECT ON DATABASE bookjournal_db TO bookjournal_app;
+GRANT USAGE ON SCHEMA public TO bookjournal_app;
+
+GRANT SELECT, INSERT, UPDATE, DELETE
+ON ALL TABLES IN SCHEMA public
+TO bookjournal_app;
+```
+
+---
+
+### 🔄 Autenticación
+
+Editar el archivo `pg_hba.conf`:
+
+```
+host all all 127.0.0.1/32 md5
+```
+
+Luego reiniciar el servicio de PostgreSQL.
+
+---
+
+## 🌱 Datos de prueba
+
+El proyecto incluye datos iniciales para pruebas:
+
+* Usuarios registrados
+* Libros leídos con calificaciones
+* Libros deseados con prioridades
+
+📁 Archivo:
+`database/database.sql`
+
+---
+
+## 🚀 Ejecución completa
+
+1. Crear base de datos
+2. Ejecutar `database.sql`
+3. Ejecutar `security.sql`
+4. Configurar seguridad
+5. Reiniciar PostgreSQL
+
+---
+
+## 🛡️ Buenas prácticas implementadas
+
+* Uso de usuario de aplicación (no `postgres`)
+* Restricción de permisos por defecto
+* Control de acceso a tablas
+* Uso de contraseñas hasheadas
+* Separación de capas en la arquitectura
