@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/libros")
+@CrossOrigin(origins = "*")
 public class LibroController {
 
     private final LibroService service;
