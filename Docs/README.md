@@ -342,7 +342,7 @@ button:hover {
 
 ### Inputs y áreas de texto
 
-![Captura de pantalla input en formularios](Imagenesdoc/Formularios.png)
+![Captura de pantalla input en formularios](imagenesdoc/Formularios.png)
 
 ```css
 input, textarea {
