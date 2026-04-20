@@ -1,4 +1,38 @@
 # BookJournal
+## Índice
+- [Identificación, delimitación del problema dominio elegido](#identificación-delimitación-del-problema-dominio-elegido)
+- [Propósito de la aplicación](#propósito-de-la-aplicación)
+- [Alcance del sistema](#alcance-del-sistema)
+- [Funcionalidades principales](#funcionalidades-principales)
+- [Actores del sistema](#actores-del-sistema)
+- [Procesos clave](#procesos-clave)
+- [Distribución de tareas y roles del equipo](#distribución-de-tareas-y-roles-del-equipo)
+- [Roles del equipo](#roles-del-equipo)
+- [Distribución por fases](#distribución-de-tareas-y-roles-del-equipo)
+    - [Planificación](#1-planificación)
+    - [Configuración de base de datos](#2-configuración-de-la-base-de-datos)
+    - [Desarrollo del backend](#3-desarrollo-del-backend)
+    - [Desarrollo del frontend](#4-desarrollo-del-frontend)
+    - [Despliegue en la nube](#5-despliegue-en-la-nube)
+    - [Documentación](#6-documentación)
+- [Estructura del proyecto](#estructura-del-proyecto)
+- [Frontend](#frontend)
+    - [Descripción](#descripción)
+    - [Módulos](#módulos)
+    - [Componentes Compartidos](#componentes-compartidos)
+    - [Estilos CSS](#estilos-css)
+    - [Lógica JavaScript](#lógica-javascript)
+    - [Stack Tecnológico](#stack-tecnológico)
+- [Base de datos](#base-de-datos)
+    - [Arquitectura del sistema](#arquitectura-del-sistema)
+    - [Modelo de datosBase de datos](#modelo-de-datos)
+    - [Configuración de la base de datos](#configuración-de-la-base-de-datos)
+    - [Configuración de seguridad](#configuración-de-seguridad)
+    - [Datos de prueba](#datos-de-prueba)
+    - [Ejecución completa](#ejecución-completa)
+    - [Buenas prácticas implementadas](#buenas-prácticas-implementadas)
+
+
 ## Identificación, delimitación del problema dominio elegido
 En la actualidad, muchas personas que tienen el hábito de la lectura no cuentan con una herramienta centralizada que les permita organizar, hacer seguimiento y evaluar su progreso lector de manera estructurada. Esto genera dificultades para recordar libros leídos, gestionar listas de lectura futuras y mantener un control sobre el avance personal.
 
@@ -37,6 +71,77 @@ El sistema está orientado a fines educativos y de aprendizaje, permitiendo impl
 - Organización de libros en listas (leídos y por leer)
 - Consulta de información registrada
 
+## Distribución de tareas y roles del equipo
+Para el desarrollo del proyecto Book Journal, se definió una distribución de responsabilidades basada en roles específicos, permitiendo una ejecución organizada y eficiente en cada fase del desarrollo.
+
+### Roles del equipo
+- Líder de proyecto / Backend / Despliegue backend (Cloud Run)<br>
+**Juan José Narváez Ortiz**<br>
+Responsable de la planificación general, coordinación del equipo, desarrollo del backend y despliegue del servicio en la nube mediante Cloud Run.
+
+- Frontend Developer<br>
+**Laura Daniela López Santos**<br>
+Encargada del desarrollo de la interfaz de usuario, consumo de la API y manejo de la interacción del sistema.
+
+- Gestión de Base de Datos (Cloud SQL)<br>
+**María Paula Riveros**<br>
+Responsable de la creación, configuración y despliegue de la base de datos en Google Cloud SQL, así como la gestión de accesos y estructura de datos.
+
+- Despliegue de Frontend (Cloud Storage)<br>
+**Dayana Michelle Pulido**<br>
+Encargada del despliegue del frontend utilizando servicios de almacenamiento en la nube, garantizando su disponibilidad y acceso.
+
+## Distribución por fases
+### 1. Planificación
+Responsable: Juan José Narváez Ortiz
+- Definir dominio de la aplicación
+- Asignar responsabilidades
+
+Responsable: María Paula Riveros
+- Diseñar modelo de datos
+- Crear diagrama entidad-relación
+
+### 2. Configuración de base de datos
+Responsable: María Paula Riveros
+- Crear instancia PostgreSQL en Cloud SQL
+- Configurar acceso y seguridad
+- Crear base de datos y tablas
+- Poblar con datos de prueba
+
+### 3. Desarrollo del backend
+Responsable: Juan José Narváez Ortiz
+- Configurar proyecto Spring Boot
+- Implementar modelos de datos
+- Crear endpoints REST
+- Configurar CORS
+- Probar endpoints
+
+### 4. Desarrollo del frontend
+Responsable: Laura Daniela López Santos
+- Crear estructura del proyecto
+- Desarrollar formularios y vistas
+- Manejar estados de carga y errores
+- Realizar pruebas de integración
+
+Responsable: Juan José Narváez Ortiz
+- Implementar consumo de API
+
+Tareas:
+- Desplegar servicios
+- Configurar variables de entorno
+- Verificar conectividad
+
+### 5. Despliegue en la nube
+- Base de datos (Cloud SQL): María Paula Riveros
+- Backend (Cloud Run): Juan José Narváez Ortiz
+- Frontend (Cloud Storage): Dayana Michelle Pulido
+
+### 6. Documentación
+Responsables: Todos los integrantes
+- Crear README completo
+- Documentar API
+- Incluir capturas
+- Registrar video demostrativo
 
 ## Estructura del proyecto
 ```
@@ -100,15 +205,6 @@ También se creó un archivo JavaScript por cada módulo, encargado de:
 - El manejo de errores (conexión, validaciones y eliminación de datos)
 
 # Frontend
-
-## Índice frontend
-- [Descripción](#descripcion)
-- [Módulos](#módulos)
-- [Componentes Compartidos](#componentes-compartidos)
-- [Estilos CSS](#estilos-css)
-- [Lógica JavaScript](#lógica-javascript)
-- [Stack Tecnológico](#stack-tecnológico)
-
 ## Descripción
 
 El frontend de BOOK JOURNAL está estructurado en módulos independientes pero interconectados. Cada módulo contiene su propio archivo HTML, CSS y JavaScript, esto permite facilitar el mantenimiento del código y mejorar la escalabilidad de la pagina.
