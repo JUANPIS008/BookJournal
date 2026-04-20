@@ -1,5 +1,6 @@
 # BookJournal
 ## Índice
+- [Stack Tecnológico](#stack-tecnológico)
 - [Identificación, delimitación del problema dominio elegido](#identificación-delimitación-del-problema-dominio-elegido)
 - [Propósito de la aplicación](#propósito-de-la-aplicación)
 - [Alcance del sistema](#alcance-del-sistema)
@@ -32,6 +33,27 @@
     - [Ejecución completa](#ejecución-completa)
     - [Buenas prácticas implementadas](#buenas-prácticas-implementadas)
 
+## Stack Tecnológico
+1. Frontend: Maneja la lógica de interacción y estilos interfaz con el cliente.
+    - Lenguaje base: HTML5 para la estructura de cada pagina (login.html, registro.html, perfil.html, edit_perfil.html, lista_deseos.html, lectura_actual.html y libros_leidos.html) y css3 para el diseño visual (login.css, registro.css, perfil.css, edit_perfil.css, lista_deseos.css, lectura_actual.css y libros_leidos.css).
+    - Tipografía: Integración con Google Font (Dancing Script y Patrick Hand)
+    - Lógica de interfaz: JavaScript, se encara de capturar los datos y actualizarlos por medio de clicks y envíos de formularios con datos  (login.js, registro.js, perfil.js, edit_perfil.js, lista_deseos.js, lectura_actual.js y libros_leidos.js)
+    - Comunicación: Fetch api, actúa como el mensajero, es quien envía los datos desde los formularios hasta el backend. 
+
+2. Backend: se encarga de procesar la lógica de negocio, gestionar la comunicación con la base de datos y garantizar la seguridad y autenticación de los datos del usuario.
+    - Lenguaje: Java 
+    - Framework principal: Spring Boot
+    - Gestión de dependencias: Maven archivo pom.xml
+    - Acceso a datos: Spring data JPA/ Hibernate, permite mapear las clases de java
+    - Seguridad: Spring Security para manejo de sesiones.
+    - Servidor embebido: Tomcat viene con Spring Boot para correr la aplicación.
+    - Control para problemas de versiones: Se creo un Docker el cual permite que cualquier persona pueda ejecutar la aplicación sin problemas de versionamiento.
+
+3. Base de datos: la información capturada por los formularios deja de estar solo en la aplicación y se guarda de forma permanente.
+    - Motor de base de datos: PostgreSQL, para gestionar la base de datos relacionadas.
+    - Lenguaje de consulta: SQL, creación de tablas, agregar registros nuevos (formularios de ingreso i edición de datos) y consultarlos (búsqueda en libros leídos).
+    - Conexión red: La comunicación con el servidor se realiza mediante un túnel de datos dirigido al puerto 5432, garantizando un flujo de información constante y seguro.
+    - Creación de instancia: Se configuró una instancia dedicada del motor de base de datos, proporcionando un entorno de ejecución aislado, estable y optimizado para el proyecto.
 
 ## Identificación, delimitación del problema dominio elegido
 En la actualidad, muchas personas que tienen el hábito de la lectura no cuentan con una herramienta centralizada que les permita organizar, hacer seguimiento y evaluar su progreso lector de manera estructurada. Esto genera dificultades para recordar libros leídos, gestionar listas de lectura futuras y mantener un control sobre el avance personal.
@@ -655,30 +677,6 @@ Redirige al usuario.
 }
 ```
 Captura errores de red o del servidor.
-
-# Stack Tecnológico
-1. Frontend: Maneja la lógica de interacción y estilos interfaz con el cliente.
-    - Lenguaje base: HTML5 para la estructura de cada pagina (login.html, registro.html, perfil.html, edit_perfil.html, lista_deseos.html, lectura_actual.html y libros_leidos.html) y css3 para el diseño visual (login.css, registro.css, perfil.css, edit_perfil.css, lista_deseos.css, lectura_actual.css y libros_leidos.css).
-    - Tipografía: Integración con Google Font (Dancing Script y Patrick Hand)
-    - Lógica de interfaz: JavaScript, se encara de capturar los datos y actualizarlos por medio de clicks y envíos de formularios con datos  (login.js, registro.js, perfil.js, edit_perfil.js, lista_deseos.js, lectura_actual.js y libros_leidos.js)
-    - Comunicación: Fetch api, actúa como el mensajero, es quien envía los datos desde los formularios hasta el backend. 
-
-2. Backend: se encarga de procesar la lógica de negocio, gestionar la comunicación con la base de datos y garantizar la seguridad y autenticación de los datos del usuario.
-    - Lenguaje: Java 
-    - Framework principal: Spring Boot
-    - Gestión de dependencias: Maven archivo pom.xml
-    - Acceso a datos: Spring data JPA/ Hibernate, permite mapear las clases de java
-    - Seguridad: Spring Security para manejo de sesiones.
-    - Servidor embebido: Tomcat viene con Spring Boot para correr la aplicación.
-    - Control para problemas de versiones: Se creo un Docker el cual permite que cualquier persona pueda ejecutar la aplicación sin problemas de versionamiento.
-
-3. Base de datos: la información capturada por los formularios deja de estar solo en la aplicación y se guarda de forma permanente.
-    - Motor de base de datos: PostgreSQL, para gestionar la base de datos relacionadas.
-    - Lenguaje de consulta: SQL, creación de tablas, agregar registros nuevos (formularios de ingreso i edición de datos) y consultarlos (búsqueda en libros leídos).
-    - Conexión red: La comunicación con el servidor se realiza mediante un túnel de datos dirigido al puerto 5432, garantizando un flujo de información constante y seguro.
-    - Creación de instancia: Se configuró una instancia dedicada del motor de base de datos, proporcionando un entorno de ejecución aislado, estable y optimizado para el proyecto.
-
-
 
 #  Base de datos
 
