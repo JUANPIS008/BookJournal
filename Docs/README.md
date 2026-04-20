@@ -23,7 +23,6 @@
     - [Componentes Compartidos](#componentes-compartidos)
     - [Estilos CSS](#estilos-css)
     - [Lógica JavaScript](#lógica-javascript)
-    - [Stack Tecnológico](#stack-tecnológico)
 - [Base de datos](#base-de-datos)
     - [Arquitectura del sistema](#arquitectura-del-sistema)
     - [Modelo de datosBase de datos](#modelo-de-datos)
