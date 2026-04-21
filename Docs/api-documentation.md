@@ -33,6 +33,7 @@
 - [Notas importantes](#10-notas-importantes)
 
 ## 1. Visión general
+
 El propósito del backend y las convenciones principales. Explica por qué se eligió Spring Boot y PostgreSQL: escalabilidad, facilidad de configuración y compatibilidad con contenedores Docker.
 
 Proyecto: `back-end` (Java Spring Boot + PostgreSQL)
@@ -46,6 +47,7 @@ Proyecto: `back-end` (Java Spring Boot + PostgreSQL)
 ![Captura de pantalla](imagenesdoc/EstruturaSpringBoot-Postgresql.png)
 
 ### 1.1 Descripción del proyecto y dominio elegido
+
 El contexto funcional es una aplicación para seguimiento de lectura personal. El dominio (libros, usuarios, lista de deseos) se eligió por su simplicidad educativa y cobertura de patrones CRUD.
 
 Book Journal es una API para gestionar usuarios, libros leídos y listas de deseos en un sistema personal de seguimiento de lectura. El dominio es "lectura personal" / "gestión de biblioteca personal" y la aplicación cubre:
