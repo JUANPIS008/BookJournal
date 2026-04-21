@@ -26,7 +26,7 @@ jobs:
 
       - name: Compilar y ejecutar pruebas
         run: mvn clean verify
-        working-directory: ./backend
+        working-directory: ./BookJournal/backend
 
       - name: Auth GCP
         uses: google-github-actions/auth@v2
