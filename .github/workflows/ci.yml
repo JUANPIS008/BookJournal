@@ -38,7 +38,7 @@ jobs:
 
       - name: Build imagen backend
         run: |
-          gcloud builds submit \
+          gcloud builds submit ./backend \
           --tag us-central1-docker.pkg.dev/bookjournal-493603/backend-repo/backend-book
 
       - name: Deploy backend
