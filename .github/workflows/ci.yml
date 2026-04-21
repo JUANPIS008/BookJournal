@@ -17,16 +17,19 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-
+          
       - name: Cache de Maven
         uses: actions/cache@v4
         with:
           path: ~/.m2
           key: maven-${{ hashFiles('**/pom.xml') }}
 
+      - name: Ver estructura real
+        run: ls -R
+        
       - name: Compilar y ejecutar pruebas
         run: mvn clean verify
-        working-directory: ./BookJournal/backend
+        working-directory: ./backend
 
       - name: Auth GCP
         uses: google-github-actions/auth@v2
