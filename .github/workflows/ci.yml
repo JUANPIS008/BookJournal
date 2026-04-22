@@ -1,0 +1,67 @@
+name: CI/CD BookJournal
+
+on:
+  push:
+    branches: ["main"]
+
+env:
+  PROJECT_ID: bookjournal-493603
+  REGION: southamerica-east1
+  REPOSITORY: backend-repo
+  IMAGE: backend-book
+  SERVICE: backend-book
+  CLOUD_SQL_INSTANCE: bookjournal-493603:southamerica-east1:bookjournal2
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Cache de Maven
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: maven-${{ hashFiles('**/pom.xml') }}
+
+      - name: Compilar proyecto
+        run: ./mvnw clean package -DskipTests
+        working-directory: ./backend
+
+      - name: Auth GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - name: Configurar gcloud
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Build imagen backend
+        run: |
+          gcloud builds submit ./backend \
+          --tag us-central1-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE
+
+      - name: Deploy backend
+        run: |
+          gcloud run deploy $SERVICE \
+            --image us-central1-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE \
+            --region $REGION \
+            --platform managed \
+            --allow-unauthenticated \
+            --add-cloudsql-instances $CLOUD_SQL_INSTANCE \
+            --set-env-vars SPRING_DATASOURCE_URL="jdbc:postgresql://localhost/bookjournal?socketFactory=com.google.cloud.sql.postgres.SocketFactory&cloudSqlInstance=$CLOUD_SQL_INSTANCE",SPRING_DATASOURCE_USERNAME=bookjournal2 \
+            --set-secrets SPRING_DATASOURCE_PASSWORD=db-password:latest
+
+      - name: Deploy frontend
+        run: |
+          gsutil -m rsync -r ./frontend gs://frontendapi
