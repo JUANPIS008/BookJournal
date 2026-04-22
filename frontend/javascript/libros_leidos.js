@@ -4,6 +4,7 @@ const API_BASE = (window.location.hostname === 'localhost' || window.location.ho
 const API_URL = `${API_BASE}/libros/leidos`;
 
 //se agrego la funcion obtenerPortada para obtener la imagen de portada de cada libro 
+async function obtenerPortada(titulo) {
     try {
         const res = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(titulo)}`);
         const data = await res.json();
@@ -20,6 +21,19 @@ const API_URL = `${API_BASE}/libros/leidos`;
         console.error("Error obteniendo portada:", error);
         return 'https://via.placeholder.com/120x180?text=Error';
     }
+}
+
+document.getElementById('titulo').addEventListener('input', () => {
+    const titulo = document.getElementById('titulo').value;
+    const img = document.getElementById('previewPortada');
+
+    if (titulo.trim() === "") {
+        img.src = "";
+        return;
+    }
+
+    img.src = obtenerPortada(titulo);
+});
 
 
 function irlectura_actual() { window.location.href = "lectura_actual.html"; }
