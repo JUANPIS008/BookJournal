@@ -23,19 +23,6 @@ async function obtenerPortada(titulo) {
     }
 }
 
-document.getElementById('titulo').addEventListener('input', () => {
-    const titulo = document.getElementById('titulo').value;
-    const img = document.getElementById('previewPortada');
-
-    if (titulo.trim() === "") {
-        img.src = "";
-        return;
-    }
-
-    img.src = obtenerPortada(titulo);
-});
-
-
 function irlectura_actual() { window.location.href = "lectura_actual.html"; }
 function irlibros_leidos() { window.location.href = "libros_leidos.html"; }
 function irlista_deseos() { window.location.href = "lista_deseos.html"; }
@@ -155,3 +142,16 @@ async function eliminarLibro(id) {
         console.error("Error eliminando:", error);
     }
 }
+
+//cambio de posicion
+document.getElementById('titulo').addEventListener('input', () => {
+    const titulo = document.getElementById('titulo').value;
+    const img = document.getElementById('previewPortada');
+
+    if (titulo.trim() === "") {
+        img.src = "";
+        return;
+    }
+
+    img.src = obtenerPortada(titulo);
+});

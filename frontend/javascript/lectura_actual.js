@@ -25,18 +25,6 @@ async function obtenerPortada(titulo) {
     }
 }
 
-document.getElementById('titulo').addEventListener('input', () => {
-    const titulo = document.getElementById('titulo').value;
-    const img = document.getElementById('previewPortada');
-
-    if (titulo.trim() === "") {
-        img.src = "";
-        return;
-    }
-
-    img.src = obtenerPortada(titulo);
-});
-
 function initRatingStars() {
     const stars = document.querySelectorAll('#star-rating .star');
     const calificacionInput = document.getElementById('calificacion');
@@ -106,3 +94,15 @@ async function Guardar_libro() {
     }
 }
 
+//cambio de posicion
+document.getElementById('titulo').addEventListener('input', () => {
+    const titulo = document.getElementById('titulo').value;
+    const img = document.getElementById('previewPortada');
+
+    if (titulo.trim() === "") {
+        img.src = "";
+        return;
+    }
+
+    img.src = obtenerPortada(titulo);
+});
