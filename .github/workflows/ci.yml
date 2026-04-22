@@ -17,16 +17,19 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-
+          
       - name: Cache de Maven
         uses: actions/cache@v4
         with:
           path: ~/.m2
           key: maven-${{ hashFiles('**/pom.xml') }}
 
+      - name: Ver estructura real
+        run: ls -R
+        
       - name: Compilar y ejecutar pruebas
         run: mvn clean verify
-        working-directory: ./BookJournal/backend
+        working-directory: ./backend
 
       - name: Auth GCP
         uses: google-github-actions/auth@v2
@@ -38,7 +41,7 @@ jobs:
 
       - name: Build imagen backend
         run: |
-          gcloud builds submit ./backend \
+          gcloud builds submit \
           --tag us-central1-docker.pkg.dev/bookjournal-493603/backend-repo/backend-book
 
       - name: Deploy backend
@@ -49,9 +52,9 @@ jobs:
           --platform managed \
           --allow-unauthenticated \
           --add-cloudsql-instances bookjournal-493603:southamerica-east1:bookjournal2 \
-          --set-env-vars SPRING_DATASOURCE_URL="jdbc:postgresql:///bookjournal?socketFactory=com.google.cloud.sql.postgres.SocketFactory&cloudSqlInstance=bookjournal-493603:southamerica-east1:bookjournal2",SPRING_DATASOURCE_USERNAME=bookjournal2 \
-          --set-secrets SPRING_DATASOURCE_PASSWORD=db-password:Bookjournal2026#
-
+          --set-env-vars SPRING_DATASOURCE_URL="jdbc:postgresql://localhost/bookjournal?socketFactory=com.google.cloud.sql.postgres.SocketFactory&cloudSqlInstance=bookjournal-493603:southamerica-east1:bookjournal2",SPRING_DATASOURCE_USERNAME=bookjournal2 \
+          --set-secrets SPRING_DATASOURCE_PASSWORD=db-password:latest
+            
       - name: Deploy frontend
         run: |
           gsutil rsync -R ./frontend gs://frontendapi
