@@ -5,6 +5,26 @@ const API_URL = `${API_BASE}/libros`;
 
 let calificacionSeleccionada = 0;
 
+//se añadio la funcion obtenerPortada para obtener la imagen de portada de cada libro
+async function obtenerPortada(titulo) {
+    try {
+        const res = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(titulo)}`);
+        const data = await res.json();
+
+        const libro = data.docs?.[0];
+
+        if (!libro || !libro.cover_i) {
+            return 'https://via.placeholder.com/120x180?text=Sin+portada';
+        }
+
+        return `https://covers.openlibrary.org/b/id/${libro.cover_i}-M.jpg`;
+
+    } catch (error) {
+        console.error("Error obteniendo portada:", error);
+        return 'https://via.placeholder.com/120x180?text=Error';
+    }
+}
+
 function initRatingStars() {
     const stars = document.querySelectorAll('#star-rating .star');
     const calificacionInput = document.getElementById('calificacion');
