@@ -20,7 +20,7 @@ const API_URL = `${API_BASE}/libros/leidos`;
         console.error("Error obteniendo portada:", error);
         return 'https://via.placeholder.com/120x180?text=Error';
     }
-}
+
 
 function irlectura_actual() { window.location.href = "lectura_actual.html"; }
 function irlibros_leidos() { window.location.href = "libros_leidos.html"; }
