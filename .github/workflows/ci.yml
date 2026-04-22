@@ -32,6 +32,10 @@ jobs:
           path: ~/.m2
           key: maven-${{ hashFiles('**/pom.xml') }}
 
+      - name: Dar permisos a mvnw
+        run: chmod +x mvnw
+        working-directory: ./backend
+
       - name: Compilar proyecto
         run: ./mvnw clean package -DskipTests
         working-directory: ./backend
