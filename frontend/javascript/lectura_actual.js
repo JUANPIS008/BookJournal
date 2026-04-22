@@ -54,6 +54,19 @@ function updateStarDisplay(value) {
 window.addEventListener('DOMContentLoaded', () => {
     initRatingStars();
     document.getElementById('calificacion').value = 0;
+
+    document.getElementById('titulo').addEventListener('input', async () => {
+        const titulo = document.getElementById('titulo').value;
+        const img = document.getElementById('previewPortada');
+
+        if (titulo.trim() === "") {
+            img.src = "";
+            return;
+        }
+
+        const urlPortada = await obtenerPortada(titulo); 
+        img.src = urlPortada;
+    });
 });
 
 async function Guardar_libro() {
@@ -94,15 +107,3 @@ async function Guardar_libro() {
     }
 }
 
-//cambio de posicion
-document.getElementById('titulo').addEventListener('input', () => {
-    const titulo = document.getElementById('titulo').value;
-    const img = document.getElementById('previewPortada');
-
-    if (titulo.trim() === "") {
-        img.src = "";
-        return;
-    }
-
-    img.src = obtenerPortada(titulo);
-});
