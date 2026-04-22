@@ -53,9 +53,9 @@ jobs:
           --platform managed \
           --allow-unauthenticated \
           --add-cloudsql-instances bookjournal-493603:southamerica-east1:bookjournal2 \
-          --clear-env-vars \
-          --set-env-vars SPRING_DATASOURCE_URL="jdbc:postgresql://localhost/bookjournal?socketFactory=com.google.cloud.sql.postgres.SocketFactory&cloudSqlInstance=bookjournal-493603:southamerica-east1:bookjournal2",SPRING_DATASOURCE_USERNAME=bookjournal2,SPRING_DATASOURCE_PASSWORD="Bookjournal2026#"
-        
+          --set-env-vars SPRING_DATASOURCE_URL="jdbc:postgresql://localhost/bookjournal?socketFactory=com.google.cloud.sql.postgres.SocketFactory&cloudSqlInstance=bookjournal-493603:southamerica-east1:bookjournal2",SPRING_DATASOURCE_USERNAME=bookjournal2 \
+          --set-secrets SPRING_DATASOURCE_PASSWORD=db-password:latest
+            
       - name: Deploy frontend
         run: |
           gsutil rsync -R ./frontend gs://frontendapi
