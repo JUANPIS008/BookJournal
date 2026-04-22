@@ -1,14 +1,14 @@
-C:\Users\juanj\Desktop\BookJournal_V2\BookJournal\backend\src\main\java\com\example\back_end\BackEndApplication.java
-C:\Users\juanj\Desktop\BookJournal_V2\BookJournal\backend\src\main\java\com\example\back_end\config\SecurityConfig.java
-C:\Users\juanj\Desktop\BookJournal_V2\BookJournal\backend\src\main\java\com\example\back_end\controller\DeseoController.java
-C:\Users\juanj\Desktop\BookJournal_V2\BookJournal\backend\src\main\java\com\example\back_end\controller\LibroController.java
-C:\Users\juanj\Desktop\BookJournal_V2\BookJournal\backend\src\main\java\com\example\back_end\controller\UsuarioController.java
-C:\Users\juanj\Desktop\BookJournal_V2\BookJournal\backend\src\main\java\com\example\back_end\model\Deseo.java
-C:\Users\juanj\Desktop\BookJournal_V2\BookJournal\backend\src\main\java\com\example\back_end\model\Libro.java
-C:\Users\juanj\Desktop\BookJournal_V2\BookJournal\backend\src\main\java\com\example\back_end\model\Usuario.java
-C:\Users\juanj\Desktop\BookJournal_V2\BookJournal\backend\src\main\java\com\example\back_end\repository\repository\DeseoRepository.java
-C:\Users\juanj\Desktop\BookJournal_V2\BookJournal\backend\src\main\java\com\example\back_end\repository\repository\LibroRepository.java
-C:\Users\juanj\Desktop\BookJournal_V2\BookJournal\backend\src\main\java\com\example\back_end\repository\repository\UsuarioRepository.java
-C:\Users\juanj\Desktop\BookJournal_V2\BookJournal\backend\src\main\java\com\example\back_end\service\service\DeseoService.java
-C:\Users\juanj\Desktop\BookJournal_V2\BookJournal\backend\src\main\java\com\example\back_end\service\service\LibroService.java
-C:\Users\juanj\Desktop\BookJournal_V2\BookJournal\backend\src\main\java\com\example\back_end\service\service\UsuarioService.java
+C:\Users\lopez\OneDrive\Escritorio\Full\Octavo semestre\Desarrollo en la nube\BookJournal\backend\src\main\java\com\example\back_end\BackEndApplication.java
+C:\Users\lopez\OneDrive\Escritorio\Full\Octavo semestre\Desarrollo en la nube\BookJournal\backend\src\main\java\com\example\back_end\config\SecurityConfig.java
+C:\Users\lopez\OneDrive\Escritorio\Full\Octavo semestre\Desarrollo en la nube\BookJournal\backend\src\main\java\com\example\back_end\controller\DeseoController.java
+C:\Users\lopez\OneDrive\Escritorio\Full\Octavo semestre\Desarrollo en la nube\BookJournal\backend\src\main\java\com\example\back_end\controller\LibroController.java
+C:\Users\lopez\OneDrive\Escritorio\Full\Octavo semestre\Desarrollo en la nube\BookJournal\backend\src\main\java\com\example\back_end\controller\UsuarioController.java
+C:\Users\lopez\OneDrive\Escritorio\Full\Octavo semestre\Desarrollo en la nube\BookJournal\backend\src\main\java\com\example\back_end\model\Deseo.java
+C:\Users\lopez\OneDrive\Escritorio\Full\Octavo semestre\Desarrollo en la nube\BookJournal\backend\src\main\java\com\example\back_end\model\Libro.java
+C:\Users\lopez\OneDrive\Escritorio\Full\Octavo semestre\Desarrollo en la nube\BookJournal\backend\src\main\java\com\example\back_end\model\Usuario.java
+C:\Users\lopez\OneDrive\Escritorio\Full\Octavo semestre\Desarrollo en la nube\BookJournal\backend\src\main\java\com\example\back_end\repository\DeseoRepository.java
+C:\Users\lopez\OneDrive\Escritorio\Full\Octavo semestre\Desarrollo en la nube\BookJournal\backend\src\main\java\com\example\back_end\repository\LibroRepository.java
+C:\Users\lopez\OneDrive\Escritorio\Full\Octavo semestre\Desarrollo en la nube\BookJournal\backend\src\main\java\com\example\back_end\repository\UsuarioRepository.java
+C:\Users\lopez\OneDrive\Escritorio\Full\Octavo semestre\Desarrollo en la nube\BookJournal\backend\src\main\java\com\example\back_end\service\DeseoService.java
+C:\Users\lopez\OneDrive\Escritorio\Full\Octavo semestre\Desarrollo en la nube\BookJournal\backend\src\main\java\com\example\back_end\service\LibroService.java
+C:\Users\lopez\OneDrive\Escritorio\Full\Octavo semestre\Desarrollo en la nube\BookJournal\backend\src\main\java\com\example\back_end\service\UsuarioService.java
