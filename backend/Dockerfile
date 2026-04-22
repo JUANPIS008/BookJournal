@@ -2,7 +2,7 @@ FROM eclipse-temurin:21-jdk-jammy
 
 WORKDIR /app
 
-COPY target/*.jar app.jar
+COPY target/back-end-*.jar app.jar
 
 EXPOSE 8080
 
