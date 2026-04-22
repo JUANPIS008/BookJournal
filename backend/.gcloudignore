@@ -1,0 +1,2 @@
+# Override default gcloudignore to include target/
+# Empty to include everything
