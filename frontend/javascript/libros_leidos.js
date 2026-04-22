@@ -111,7 +111,7 @@ function renderizarTarjeta(libro) {
 //se agreso la imagen de portada a cada libro renderizado
     tarjeta.innerHTML = `
         <h2>${libro.titulo}</h2>
-        <img id="previewPortada" style="margin-top:10px; width:150px; height:220px; object-fit:cover; border-radius:10px;">
+        <img id="previewPortada" src="" style="margin-top:10px; width:150px; height:220px; object-fit:cover; border-radius:10px;">
         <p><strong>Autor:</strong> ${libro.autor || 'Desconocido'}</p>
         <p><strong>Género:</strong> ${libro.genero || 'N/A'}</p>
         <p><strong>Fechas:</strong> ${libro.inicio} - ${libro.fin}</p>
