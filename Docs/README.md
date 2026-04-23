@@ -31,7 +31,7 @@
     - [Datos de prueba](#datos-de-prueba)
     - [Ejecución completa](#ejecución-completa)
     - [Buenas prácticas implementadas](#buenas-prácticas-implementadas)
-- [Despliegue Frontend en Hosting Estático](#desplieguefrontendenhostingestático)
+- [Despliegue Frontend en Hosting Estático](#despliegue-frontend-en-hosting-estático)
     - [Configuración variables de entorno](#configuración-varialbes-de-entorno)
     - [Conectividad Frontend](#conectividad-frontend)
     - [Conectividad Backend y Base de Datos](#conectvidad-backend-y-base-de-datos)
@@ -849,7 +849,7 @@ El proyecto incluye datos iniciales para pruebas:
 
 
 
-## 🚀 Despliegue frontend en hosting estático
+### 🚀 Despliegue frontend en hosting estático
 Para el desarrollo del despliegue del frontend previamente creado, se escogió como hosting estático GCP (Google Cloud Platform), haciendo uso del servicio de Cloud Storage (Buckets).
 **Guía de despliegue**
 
