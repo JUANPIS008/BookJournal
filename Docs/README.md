@@ -889,7 +889,7 @@ Con la configuración de login.html como página principal, se accede a la URL p
       
       <img width="1916" alt="Frontend desplegado en producción" src="https://github.com/user-attachments/assets/09b14a7f-9d7c-4e14-aeba-84d1088c4307" />
 
-## ⚙️ Configuración de Variables de Entorno
+## ⚙️ Configuración de variables de entorno
 
 Se realizó la configuración de las variables de entorno necesarias para garantizar la correcta conexión entre el servicio backend desplegado en Cloud Run y la base de datos PostgreSQL alojada en Cloud SQL.
 Configuración en application.properties
@@ -933,7 +933,7 @@ Con esta configuración se aseguró la conectividad entre:
 - ✅ Base de datos → Cloud SQL (PostgreSQL)
 - ✅ Entorno de despliegue → Producción en GCP
 
-## 🖥️Conectividad Frontend
+## 🖥️Conectividad frontend
 Se realizó un video de demostración para evidenciar la conectividad entre los componentes que conforman el frontend del proyecto. Se muestran los siguientes flujos:
 
 Registro de usuario
@@ -947,7 +947,7 @@ Edición de perfil
 
 🎬 [Ver video de demostración – Conectividad Frontend](https://fundacionlibertadores-my.sharepoint.com/:v:/g/personal/dmpulidom01_libertadores_edu_co/IQB5j6D9DAlZSrtQy-X3pBihAWW840B8AMuP0HwIRQjJhbo?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=dk7bMd)
 
-## 🔗Conectividad Backend y Base de Datos
+## 🔗 Conectividad backend y base de datos
 Se realizó un video donde se muestra:
 
 Las variables de entorno establecidas para el backend y declaradas en GCP
@@ -958,7 +958,7 @@ La imagen de Docker en la que fue montado el servicio
 Todo esto con el fin de demostrar la funcionalidad entre los componentes del backend.
 🎬 [Ver video de demostración – Conectividad Backend y BD](https://fundacionlibertadores-my.sharepoint.com/:v:/g/personal/dmpulidom01_libertadores_edu_co/IQBQTER911pATpmkj9c-vy4iAdqB6mtQWqKX_vGL81n3PD4?e=rhNcxO&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
 
-## 🗄️ Consultas de Verificación 
+## 🗄️ Consultas de verificación 
 Para la demostración práctica de la base de datos, se ejecutaron diversas consultas que evidencian el correcto funcionamiento del sistema y la persistencia en tiempo real de los usuarios registrados desde el frontend.
 **Mostrar todos los usuarios**
 `SELECT * FROM usuario;`
