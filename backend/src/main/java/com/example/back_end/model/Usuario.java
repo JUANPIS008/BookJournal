@@ -3,6 +3,7 @@ package com.example.back_end.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "usuario")
 public class Usuario {
 
     @Id
