@@ -5,6 +5,26 @@ const API_URL = `${API_BASE}/libros`;
 
 let calificacionSeleccionada = 0;
 
+//se añadio la funcion obtenerPortada para obtener la imagen de portada de cada libro
+async function obtenerPortada(titulo) {
+    try {
+        const res = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(titulo)}`);
+        const data = await res.json();
+
+        const libro = data.docs?.[0];
+
+        if (!libro || !libro.cover_i) {
+            return 'https://via.placeholder.com/120x180?text=Sin+portada';
+        }
+
+        return `https://covers.openlibrary.org/b/id/${libro.cover_i}-M.jpg`;
+
+    } catch (error) {
+        console.error("Error obteniendo portada:", error);
+        return 'https://via.placeholder.com/120x180?text=Error';
+    }
+}
+
 function initRatingStars() {
     const stars = document.querySelectorAll('#star-rating .star');
     const calificacionInput = document.getElementById('calificacion');
@@ -33,8 +53,30 @@ function updateStarDisplay(value) {
 
 window.addEventListener('DOMContentLoaded', () => {
     initRatingStars();
-    document.getElementById('calificacion').value = 0;
+    const califInput = document.getElementById('calificacion');
+    if(califInput) califInput.value = 0;
+
+    const inputTitulo = document.getElementById('titulo');
+    if (inputTitulo) {
+        inputTitulo.addEventListener('input', async () => {
+            const titulo = inputTitulo.value;
+            const img = document.getElementById('previewPortada');
+
+            if (titulo.trim() === "") {
+                if(img) img.src = "";
+                return;
+            }
+
+            try {
+                const url = await obtenerPortada(titulo);
+                if(img) img.src = url;
+            } catch (err) {
+                console.error("Error en la carga:", err);
+            }
+        });
+    }
 });
+
 
 async function Guardar_libro() {
 
@@ -73,3 +115,4 @@ async function Guardar_libro() {
         console.error("Error conectando con la API:", error);
     }
 }
+
