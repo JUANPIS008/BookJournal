@@ -70,4 +70,4 @@ jobs:
 
       - name: Deploy frontend
         run: |
-          gsutil -m rsync -r ./frontend gs://front--end
+          gsutil -m rsync -r ./frontend gs://frontendapi2
