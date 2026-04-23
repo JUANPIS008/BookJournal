@@ -31,11 +31,11 @@
     - [Datos de prueba](#datos-de-prueba)
     - [Ejecución completa](#ejecución-completa)
     - [Buenas prácticas implementadas](#buenas-prácticas-implementadas)
-- [Despliegue Frontend en Hosting Estático](#despliegue-frontend-en-hosting-estático)
-    - [Configuración variables de entorno](#configuración-varialbes-de-entorno)
-    - [Conectividad Frontend](#conectividad-frontend)
-    - [Conectividad Backend y Base de Datos](#conectvidad-backend-y-base-de-datos)
-    - [Consultas de Verificación – Base de Datos](#consultas-de-verificación)
+- [Despliegue Frontend en Hosting Estático](#-despliegue-frontend-en-hosting-estático)
+    - [Configuración variables de entorno](#-configuración-varialbes-de-entorno)
+    - [Conectividad Frontend](#-conectividad-frontend)
+    - [Conectividad Backend y Base de Datos](#-conectvidad-backend-y-base-de-datos)
+    - [Consultas de Verificación – Base de Datos](#-consultas-de-verificación)
 ## Stack Tecnológico
 1. Frontend: Maneja la lógica de interacción y estilos interfaz con el cliente.
     - Lenguaje base: HTML5 para la estructura de cada pagina (login.html, registro.html, perfil.html, edit_perfil.html, lista_deseos.html, lectura_actual.html y libros_leidos.html) y css3 para el diseño visual (login.css, registro.css, perfil.css, edit_perfil.css, lista_deseos.css, lectura_actual.css y libros_leidos.css).
