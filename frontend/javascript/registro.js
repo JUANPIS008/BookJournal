@@ -55,7 +55,6 @@ async function registrar() {
         }
 
         const usuario = await respuesta.json();
-
         localStorage.setItem("usuarioLogueado", JSON.stringify(usuario));
 
         alert("Registro exitoso 🎉");
