@@ -23,6 +23,7 @@
     - [Componentes Compartidos](#componentes-compartidos)
     - [Estilos CSS](#estilos-css)
     - [Lógica JavaScript](#lógica-javascript)
+    - [Pruebas de integracion](#Pruebas-de-integracion)
 - [Base de datos](#base-de-datos)
     - [Arquitectura del sistema](#arquitectura-del-sistema)
     - [Modelo de datosBase de datos](#modelo-de-datos)
@@ -31,6 +32,8 @@
     - [Datos de prueba](#datos-de-prueba)
     - [Ejecución completa](#ejecución-completa)
     - [Buenas prácticas implementadas](#buenas-prácticas-implementadas)
+  - [Histotrias de usuario](#Historias-de-usuario)
+    - [Historia de usuario spring 2](Historia-de-usuario-spring-2)
 
 ## Stack Tecnológico
 1. Frontend: Maneja la lógica de interacción y estilos interfaz con el cliente.
@@ -677,6 +680,76 @@ Redirige al usuario.
 ```
 Captura errores de red o del servidor.
 
+## Integracion de API para encontrar las portadas de los libros
+Se añadió una mejora donde se implemento un API de libros lo que permite que la poner el titulo de un libro leído este mostrará su portada correspondiente desde esta API es externa y pertenece a Open Library, es un proyecto del Internet Archive, una biblioteca digital enorme que guarda información de millones de libros, como el titulo autor y la portada del libro
+
+![Captura de pantalla visualizacion porta de libros mediante una API externa](imagenesdoc/Portada_libro_API.png)
+
+```javascript
+async function obtenerPortada(titulo) {
+    try {
+        const res = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(titulo)}`);
+        const data = await res.json();
+
+        const libro = data.docs?.[0];
+
+        if (!libro || !libro.cover_i) {
+            return 'https://via.placeholder.com/120x180?text=Sin+portada';
+        }
+
+        return `https://covers.openlibrary.org/b/id/${libro.cover_i}-M.jpg`;
+
+    } catch (error) {
+        console.error("Error obteniendo portada:", error);
+        return 'https://via.placeholder.com/120x180?text=Error';
+    }
+}
+```
+
+## Pruebas de integracion
+En esta sección se describen las pruebas de integración realizadas para validar la interacción entre los componentes de la interfaz de usuario y la lógica de negocio en el entorno de desarrollo. Estas pruebas aseguran que los elementos del DOM respondan correctamente a los datos y acciones esperadas.
+### Configuracion del entorno para las pruebas
+Para estas pruebas se utilizó Jest como motor de ejecución, integrando el entorno de simulación jsdom. Esta configuración permite emular un navegador web dentro de Node.js, facilitando la manipulación de elementos HTML sin necesidad de abrir un navegador real. La declaración utilizada al inicio de los archivos de prueba es:
+```javascript
+/** 
+ * @jest-environment jsdom
+ */
+describe('Pruebas de Integración - Book Journal', () => {
+    test('Debe verificar que el campo de título recibe texto correctamente', () => {
+
+        //campo de texto falso en la memoria
+        document.body.innerHTML = '<input type="text" id="titulo" value="Cien años de soledad">';
+        
+        // se busca el campo usando el codigo
+        const inputTitulo = document.getElementById('titulo');
+        
+        // verificar valor
+        expect(inputTitulo.value).toBe('Cien años de soledad');
+    });
+});
+```
+### Detalle de las Pruebas Realizadas
+Las pruebas se agrupan bajo el bloque Pruebas de Integración - Book Journal, enfocándose inicialmente en la validación de formularios y la captura de datos de entrada.
+
+### Validación de Entrada de Datos:
+Se verificó que el flujo de captura de información en los formularios de la aplicación funcione de manera íntegra. El proceso seguido en las pruebas ejecutadas es el siguiente:
+
+- Simulación del DOM: Se inyecta código HTML directamente en el cuerpo del documento simulado (document.body.innerHTML) para representar un campo de entrada de texto con un identificador específico.
+
+- Selección de Elementos: Se utiliza el método de selección por ID para localizar el componente dentro de la memoria del entorno de prueba, simulando la forma en que el código de producción interactúa con la página.
+
+- Verificación de Estado: Se establece una expectativa (assertion) para comprobar que el valor contenido en el campo de texto coincida exactamente con la información ingresada, asegurando que no existan distorsiones en la manipulación de los datos.
+
+### Procedimiento para la Ejecución de Pruebas
+Para ejecutar este conjunto de pruebas y verificar la estabilidad de la interfaz, se deben seguir estos pasos detallados:
+
+- Instalación de Dependencias: Es necesario contar con Jest instalado en el proyecto. En caso de no tenerlo, se puede añadir mediante el comando npm install --save-dev jest jest-environment-jsdom.
+- Preparación del Script: Se debe asegurar que el archivo package.json contenga la configuración de prueba apuntando a Jest para facilitar su lanzamiento desde la terminal.
+- Lanzamiento de los Tests: Se ejecuta el comando npm test en la consola. El sistema buscará automáticamente los archivos con extensión .test.js o .spec.js, procesará la directiva de @jest-environment jsdom y entregará un reporte detallado sobre el éxito de la validación del campo de título y otros componentes evaluados.
+
+### Resultado de las pruebas 
+![Captura de pantalla implementacion de las pruebas de integracion](imagenesdoc/Prueba_integridad_frontend.png)
+
 #  Base de datos
 
 ---
@@ -842,3 +915,53 @@ El proyecto incluye datos iniciales para pruebas:
 * Control de acceso a tablas
 * Uso de contraseñas hasheadas
 * Separación de capas en la arquitectura
+
+# Histotrias de usuario
+## Historia de usuario spring 2
+### 1. Registro y Visualización de Libros en el book journal
+Como usuario lector, quiero mediante un formulario agregar el libro que estoy leyendo en el momento a mi biblioteca personal para así poder visualizar mi progreso de lectura de una forma bien organizada, y quiero poder ver la portada del libro. 
+
+#### Criterios de Aceptación
+El sistema debe permitirnos la entrada de texto para buscar títulos a traves de una API externa. Cuando seleccionemos "Finalizar lectura", los datos deberan ser enviados mediante una petición POST al backend. Inmediatamente despues, la vista principal se actualizara sin necesidad de recargar la pagina completa, y permitira agregar un nuevo libro. 
+
+#### Historia de usuario 1: Procedimiento de Desarrollo Paso a Paso
+1. Diseño del Componente de Búsqueda:
+Se diseño un formulario donde se penso en un input de texto y un botón para enviar. Se implementó una validacion para no se puedan guardar campos vacios.
+2. Consumo de la API:
+Se creó una función que consulta la API para buscar los libros y traer la información. También se manejó el estado de carga y los posibles errores para avisarle al usuari
+3. Renderizado Dinámico de Datos:
+Con la información recibida por parte del primer formulario de lectura actual, se usó JavaScript para recorrer los datos y crear tarjetas en la pagina de libros leidos mas adelante. 
+4. Finalizar ingreso 
+Al presionar "Finalizar lectura", una peticion POST se envió a la base de datos PostgreSQL. Si todo salio bien, se sumó el libro al estado local, actualizando la vista al instante.
+### Historia de usuario 2: Gestión de Reseñas y Calificación por Estrellas
+Como lector, quiero calificar y reseñar los libros que he terminado mediante un formulario interactivo para mantener un registro crítico de mis lecturas.
+
+#### Criterios de Aceptación:
+En la interfaz de lectura actual se presenta una herramienta para la calificacion de 1 a 5 estrellas, ademas hay un espacio donde como usuario lector va a poder dejar una reseña para el libro que acaba de leer. La visualizacion final va a incluir la calificacion con las estrellas dinamicas y el texto previamente guardado en el campo de reseña.
+
+#### Procedimiento de Desarrollo Paso a Paso:
+1. Construcción del Formulario de Feedback: 
+Se crea una sección dentro del formulario del libro que contenga el control de estrellas de una forma dinamica y un campo para agregar informacion. 
+2. Vinculación con el Backend: 
+Se establece una conexión con el controlador de Spring Boot encargado de las reseñas. El formulario debe recopilar el ID del usuario, el ID del libro, el valor numérico de la calificación y el string de la reseña.
+3. Envío de Datos y Manejo de Respuestas: 
+Se realiza una petición de tipo PUT o POST (dependiendo de si se está creando o editando) hacia la API. El sistema devuelva el objeto actualizado para confirmar que la información se procesó correctamente en el servidor.
+4. Refresco de la Visualización: 
+Tras la confirmación, la interfaz debe transformar el formulario en un bloque de texto estático que muestre la reseña guardada en la pagina libros leidos y las estrellas bloqueadas en la posición seleccionada, mejorando la experiencia de visualización de datos del usuario.
+
+### Historia de usuario 3
+Depuración de la Biblioteca mediante la Eliminación de Registros
+Como usuario de la aplicación, deseé tener la posibilidad de remover títulos de mi lista de libros leídos para mantener mi colección actualizada y corregir inclusiones accidentales.
+
+#### Criterios de Aceptación:
+La interfaz presenta un icono de papelera que es facil de identificar en cada tarjeta de libros leidos. El sistema lanza un mensaje de confirmación antes de ejecutar el borrado definitivo para prevenir la pérdida accidental de información, al confirmar la acción, el libro se elimina de la base de datos PostgreSQL y la tarjeta desaparece de la vista actual de forma dinámica.
+
+#### Procedimiento de Desarrollo Paso a Paso Realizado:
+1. Implementación del Control de Borrado: 
+Se añadió un elemento interactivo botón con icono de papelera en el componente de visualización de cada libro. Se programó un escuchador de eventos para capturar el identificador único del registro correspondiente al libro seleccionado.
+2. Gestión de la Interacción de Seguridad:
+Se desarrolló un cuadro de diálogo o modal de confirmación. Este paso aseguró que la acción fuera intencional, mejorando la usabilidad de la interfaz al prevenir errores de manipulación por parte del usuario.
+3. Ejecución de la Petición a la API: 
+Una vez confirmada la acción, se disparó una función asíncrona que realizó una petición HTTP bajo el método DELETE hacia el endpoint específico del backend en Spring Boot. La URL de la petición incluyó el ID del recurso para asegurar que solo se afectara al libro deseado.
+4. Sincronización de la Vista y el Estado:
+ Tras recibir una respuesta exitosa del servidor (código 200 o 204), se procedió a filtrar el arreglo de libros en el estado del frontend. Esta manipulación del DOM permitió que la tarjeta del libro se desvaneciera o fuera removida de la cuadrícula de forma inmediata, garantizando una visualización de datos coherente con el estado actual del servidor.
