@@ -31,7 +31,7 @@
     - [Datos de prueba](#datos-de-prueba)
     - [Ejecución completa](#ejecución-completa)
     - [Buenas prácticas implementadas](#buenas-prácticas-implementadas)
-- [Despliegue Frontend en Hosting Estático](#despliegue-frontend-en-hosting-estático)
+- [Despliegue Frontend en Hosting Estático](#desplieguefrontendenhostingestático)
     - [Configuración variables de entorno](#configuración-varialbes-de-entorno)
     - [Conectividad Frontend](#conectividad-frontend)
     - [Conectividad Backend y Base de Datos](#conectvidad-backend-y-base-de-datos)
