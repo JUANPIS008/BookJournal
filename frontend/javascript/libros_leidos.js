@@ -3,6 +3,26 @@ const API_BASE = (window.location.hostname === 'localhost' || window.location.ho
     : 'https://backend-book-648962643591.southamerica-east1.run.app/api';
 const API_URL = `${API_BASE}/libros/leidos`;
 
+//se agrego la funcion obtenerPortada para obtener la imagen de portada de cada libro 
+async function obtenerPortada(titulo) {
+    try {
+        const res = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(titulo)}`);
+        const data = await res.json();
+
+        const libro = data.docs?.[0];
+
+        if (!libro || !libro.cover_i) {
+            return 'https://via.placeholder.com/120x180?text=Sin+portada';
+        }
+
+        return `https://covers.openlibrary.org/b/id/${libro.cover_i}-M.jpg`;
+
+    } catch (error) {
+        console.error("Error obteniendo portada:", error);
+        return 'https://via.placeholder.com/120x180?text=Error';
+    }
+}
+
 function irlectura_actual() { window.location.href = "lectura_actual.html"; }
 function irlibros_leidos() { window.location.href = "libros_leidos.html"; }
 function irlista_deseos() { window.location.href = "lista_deseos.html"; }
@@ -88,9 +108,10 @@ function renderizarTarjeta(libro) {
                 ★
             </span>`;
     }
-
+//se agreso la imagen de portada a cada libro renderizado
     tarjeta.innerHTML = `
         <h2>${libro.titulo}</h2>
+        <img id="previewPortada" src="" style="margin-top:10px; width:150px; height:220px; object-fit:cover; border-radius:10px;">
         <p><strong>Autor:</strong> ${libro.autor || 'Desconocido'}</p>
         <p><strong>Género:</strong> ${libro.genero || 'N/A'}</p>
         <p><strong>Fechas:</strong> ${libro.inicio} - ${libro.fin}</p>
@@ -121,3 +142,16 @@ async function eliminarLibro(id) {
         console.error("Error eliminando:", error);
     }
 }
+
+//cambio de posicion
+document.getElementById('titulo').addEventListener('input', () => {
+    const titulo = document.getElementById('titulo').value;
+    const img = document.getElementById('previewPortada');
+
+    if (titulo.trim() === "") {
+        img.src = "";
+        return;
+    }
+
+    img.src = obtenerPortada(titulo);
+});
