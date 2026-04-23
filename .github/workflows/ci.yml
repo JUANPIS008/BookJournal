@@ -65,7 +65,7 @@ jobs:
             --port 8080 \
             --timeout 300 \
             --add-cloudsql-instances $CLOUD_SQL_INSTANCE \
-            --set-env-vars SPRING_DATASOURCE_URL="jdbc:postgresql:///bookjournal?socketFactory=com.google.cloud.sql.postgres.SocketFactory&cloudSqlInstance=$CLOUD_SQL_INSTANCE",SPRING_DATASOURCE_USERNAME=bookjournal2 \
+            --set-env-vars SPRING_DATASOURCE_URL="jdbc:postgresql:///bookjournal?socketFactory=com.google.cloud.sql.postgres.SocketFactory&cloudSqlInstance=$CLOUD_SQL_INSTANCE",SPRING_DATASOURCE_USERNAME=postgres \
             --set-secrets SPRING_DATASOURCE_PASSWORD=db-password:latest
 
       - name: Deploy frontend
