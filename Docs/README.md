@@ -32,10 +32,10 @@
     - [Ejecución completa](#ejecución-completa)
     - [Buenas prácticas implementadas](#buenas-prácticas-implementadas)
 - [Despliegue Frontend en Hosting Estático](#-despliegue-frontend-en-hosting-estático)
-    - [Configuración variables de entorno](#-configuración-varialbes-de-entorno)
-    - [Conectividad Frontend](#-conectividad-frontend)
-    - [Conectividad Backend y Base de Datos](#-conectvidad-backend-y-base-de-datos)
-    - [Consultas de Verificación – Base de Datos](#-consultas-de-verificación)
+    - [Configuración de variables de entorno](#️-configuración-de-variables-de-entorno)
+    - [Conectividad frontend](#️-conectividad-frontend)
+    - [Conectividad backend y base de datos](#-conectividad-backend-y-base-de-datos)
+    - [Consultas de verificación](#️-consultas-de-verificación)
 ## Stack Tecnológico
 1. Frontend: Maneja la lógica de interacción y estilos interfaz con el cliente.
     - Lenguaje base: HTML5 para la estructura de cada pagina (login.html, registro.html, perfil.html, edit_perfil.html, lista_deseos.html, lectura_actual.html y libros_leidos.html) y css3 para el diseño visual (login.css, registro.css, perfil.css, edit_perfil.css, lista_deseos.css, lectura_actual.css y libros_leidos.css).
@@ -933,7 +933,7 @@ Con esta configuración se aseguró la conectividad entre:
 - ✅ Base de datos → Cloud SQL (PostgreSQL)
 - ✅ Entorno de despliegue → Producción en GCP
 
-## 🖥️Conectividad frontend
+## 🖥️ Conectividad frontend
 Se realizó un video de demostración para evidenciar la conectividad entre los componentes que conforman el frontend del proyecto. Se muestran los siguientes flujos:
 
 Registro de usuario
