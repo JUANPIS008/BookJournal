@@ -57,16 +57,11 @@ jobs:
 
       - name: Deploy backend
         run: |
-          gcloud run deploy $SERVICE \
-            --image us-central1-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE \
-            --region $REGION \
-            --platform managed \
-            --allow-unauthenticated \
-            --port 8080 \
-            --timeout 300 \
-            --add-cloudsql-instances $CLOUD_SQL_INSTANCE \
-            --set-env-vars SPRING_DATASOURCE_URL="jdbc:postgresql:///bookjournal?socketFactory=com.google.cloud.sql.postgres.SocketFactory&cloudSqlInstance=$CLOUD_SQL_INSTANCE",SPRING_DATASOURCE_USERNAME=bookjournal2 \
-            --set-secrets SPRING_DATASOURCE_PASSWORD=db-password:latest
+          gcloud run deploy backend-book \
+          --image us-central1-docker.pkg.dev/bookjournal-493603/backend-repo/backend-book \
+          --region southamerica-east1 \
+          --platform managed \
+          --allow-unauthenticated
 
       - name: Deploy frontend
         run: |
