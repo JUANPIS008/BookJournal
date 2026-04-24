@@ -34,14 +34,15 @@
     - [Buenas prácticas implementadas](#buenas-prácticas-implementadas)
 - [Despliegue en hósting estático (GCP)](#-despliegue-en-hosting-estático-gcp)
     - [Configuración de variables de entorno ](#️-configuración-de-variables-de-entorno)
-    - [Conectividad frontend](#️-conectividad-frontend)
-    - [Conectividad Backend y Base de datos](#-conectividad-backend-y-base-de-datos)
-    - [Consultas de verificación](#️-consultas-de-verificación)
-    - [Buenas prácticas implementadas](#-buenas-prácticas-implementadas)
+    - [Conectividad frontend](#️conectividad-frontend)
+    - [Conectividad Backend y Base de datos](#conectividad-backend-y-base-de-datos)
+    - [Consultas de verificación](#️consultas-de-verificación)
+    - [Buenas prácticas implementadas](#buenas-prácticas-implementadas)
+- [Lecciones aprendidas](#lecciones-apredidas)
 - [Histotrias de usuario](#historia-de-usuarios)
-    - [Historia de usuario interaccion con frontend](#-historia-de-usuario-interaccion-con-frontend)
-    - [Historia de usuarios-Spring-3](#-historia-de-usuarios--spring--3)
-- [Métricas del Proyecto – Sprint 3 (Despliegue en la nube)](#-métricas-del-proyecto--sprint-3-despliegue-en-la-nube)
+    - [Historia de usuario interaccion con frontend](#historia-de-usuario-interaccion-con-frontend)
+    - [Historia de usuarios-Spring-3](#historia-de-usuarios--spring--3)
+- [Métricas del Proyecto – Sprint 3 (Despliegue en la nube)](#métricas-del-proyecto--sprint-3-despliegue-en-la-nube)
 
 ## Stack Tecnológico
 1. Frontend: Maneja la lógica de interacción y estilos interfaz con el cliente.
@@ -1112,6 +1113,11 @@ entre la interfaz y la capa de datos de forma temprana. Todo el proceso fue
 documentado mediante **videos de demostración**, lo cual constituye una buena práctica 
 de evidencia y trazabilidad del trabajo realizado, facilitando auditorías y revisiones 
 posteriores del proyecto.
+# Lecciones aprendidas
+
+El desarrollo del proyecto Book Journal representó un avance significativo en mi formación técnica, permitiéndome consolidar conocimientos críticos en el desarrollo frontend y la integración de servicios. Uno de los mayores logros fue la implementación exitosa de APIs externas, lo cual facilitó la visualización dinámica de portadas de libros y mejoro la pagina en cuanto al entorno visual. Este proceso se complementó con el perfeccionamiento en la creación de funciones de navegación y lógica avanzada en JavaScript, destacando la implementación de escuchadores de eventos como DOMContentLoaded para garantizar la inicialización segura de componentes. Un ejemplo clave de este aprendizaje fue el desarrollo de lógica asíncrona para la previsualización de portadas en tiempo real y la gestión del sistema de calificaciones mediante funciones personalizadas que interactúan directamente con el DOM.
+
+En cuanto al diseño de la interfaz, el uso de CSS avanzado permitió elevar la experiencia de usuario mediante la creación de componentes dinámicos y responsivos. Se logró la implementación de un sistema de calificación por estrellas totalmente interactivo, además de la personalización de elementos de navegación que permiten al usuario editar su perfil de manera intuitiva tras el registro. Asimismo, se aplicaron técnicas de pseudo-clases en CSS para mejorar la retroalimentación visual, como el ajuste de tonalidades en los botones al interactuar con el cursor, logrando una interfaz más profesional y entretenida. Finalmente, la integración de Node.js para las pruebas de implementación resultó ser la experiencia más enriquecedora del proyecto, ya que el uso de este entorno de ejecución y la metodología de trabajo adoptada proporcionaron una aproximación genuina a los flujos de desarrollo en entornos laborales reales, fortaleciendo mi capacidad para gestionar proyectos de software complejos.
 
 # Historia de usuarios
 ### Historia de usuario interaccion con frontend
