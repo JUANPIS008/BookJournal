@@ -39,7 +39,7 @@
     - [Consultas de verificación](#️-consultas-de-verificación)
     - [Buenas prácticas implementadas](#-buenas-prácticas-implementadas)
 - [Histotrias de usuario](#historia-de-usuarios)
-- [Historia de usuario spring 2](Historia-de-usuario-spring-2)
+- [Historia de usuario interaccion con frontend](#-Historia-de-usuario-interaccion-con-frontend)
 - [Métricas del Proyecto – Sprint 3 (Despliegue en la nube)](#-métricas-del-proyecto--sprint-3-despliegue-en-la-nube)
 
 ## Stack Tecnológico
