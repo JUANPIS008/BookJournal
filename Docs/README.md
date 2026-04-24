@@ -1,48 +1,158 @@
 # BookJournal
 ## Índice
-## 1. [Stack Tecnológico](#stack-tecnológico)
-## 2. [Identificación, delimitación del problema dominio elegido](#identificación-delimitación-del-problema-dominio-elegido)
-## 3. [Propósito de la aplicación](#propósito-de-la-aplicación)
-## 4. [Alcance del sistema](#alcance-del-sistema)
-## 5. [Funcionalidades principales](#funcionalidades-principales)
-## 6. [Actores del sistema](#actores-del-sistema)
-## 7. [Procesos clave](#procesos-clave)
-## 8. [Distribución de tareas y roles del equipo](#distribución-de-tareas-y-roles-del-equipo)
-## 9. [Roles del equipo](#roles-del-equipo)
-## 10. [Distribución por fases](#distribución-de-tareas-y-roles-del-equipo)
-## 10.1 [Planificación](#1-planificación)
-## 10.2 [Configuración de base de datos](#2-configuración-de-la-base-de-datos)
-## 10.3 [Desarrollo del backend](#3-desarrollo-del-backend)
-## 10.4 [Desarrollo del frontend](#4-desarrollo-del-frontend)
-## 10.5 [Despliegue en la nube](#5-despliegue-en-la-nube)
-## 10.6 [Documentación](#6-documentación)
-## 11. [Estructura del proyecto](#estructura-del-proyecto)
-- [Frontend](#frontend)
-    - [Descripción](#descripción)
-    - [Módulos](#módulos)
-    - [Componentes Compartidos](#componentes-compartidos)
-    - [Estilos CSS](#estilos-css)
-    - [Lógica JavaScript](#lógica-javascript)
-    - [Pruebas de integracion](#Pruebas-de-integracion)
-- [Base de datos](#base-de-datos)
-    - [Arquitectura del sistema](#arquitectura-del-sistema)
-    - [Modelo de datosBase de datos](#modelo-de-datos)
-    - [Configuración de la base de datos](#configuración-de-la-base-de-datos)
-    - [Configuración de seguridad](#configuración-de-seguridad)
-    - [Datos de prueba](#datos-de-prueba)
-    - [Ejecución completa](#ejecución-completa)
-    - [Buenas prácticas implementadas](#buenas-prácticas-implementadas)
-- [Despliegue en hósting estático (GCP)](#-despliegue-en-hosting-estático-gcp)
-    - [Configuración de variables de entorno ](#️-configuración-de-variables-de-entorno)
-    - [Conectividad frontend](#️conectividad-frontend)
-    - [Conectividad Backend y Base de datos](#conectividad-backend-y-base-de-datos)
-    - [Consultas de verificación](#️consultas-de-verificación)
-    - [Buenas prácticas implementadas](#buenas-prácticas-implementadas)
-- [Lecciones aprendidas](#lecciones-apredidas)
-- [Histotrias de usuario](#historia-de-usuarios)
-    - [Historia de usuario interaccion con frontend](#historia-de-usuario-interaccion-con-frontend)
-    - [Historia de usuarios-Spring-3](#historia-de-usuarios--spring--3)
-- [Métricas del Proyecto – Sprint 3 (Despliegue en la nube)](#métricas-del-proyecto--sprint-3-despliegue-en-la-nube)
+---
+
+- 1. [Stack Tecnológico](#stack-tecnológico)
+
+---
+
+- 2. [Identificación, delimitación del problema dominio elegido](#identificación-delimitación-del-problema-dominio-elegido)
+
+---
+
+- 3. [Propósito de la aplicación](#propósito-de-la-aplicación)
+
+---
+
+- 4. [Alcance del sistema](#alcance-del-sistema)
+
+---
+
+- 5. [Funcionalidades principales](#funcionalidades-principales)
+
+---
+
+- 6. [Actores del sistema](#actores-del-sistema)
+
+---
+
+- 7. [Procesos clave](#procesos-clave)
+
+---
+
+- 8. [Distribución de tareas y roles del equipo](#distribución-de-tareas-y-roles-del-equipo)
+
+---
+
+- 9. [Roles del equipo](#roles-del-equipo)
+
+---
+
+- 10. [Distribución por fases](#distribución-de-tareas-y-roles-del-equipo)
+    - 10.1. [Planificación](#1-planificación)
+    - 10.2. [Configuración de base de datos](#2-configuración-de-la-base-de-datos)
+    - 10.3. [Desarrollo del backend](#3-desarrollo-del-backend)
+    - 10.4. [Desarrollo del frontend](#4-desarrollo-del-frontend)
+    - 10.5. [Despliegue en la nube](#5-despliegue-en-la-nube)
+    - 10.6 [Documentación](#6-documentación)
+
+---
+
+- 11. [Estructura del proyecto](#estructura-del-proyecto)
+
+---
+
+- 12. [Frontend](#frontend)
+    - 12.1. [Descripción](#descripción)
+    - 12.2. [Módulos](#módulos)
+    - 12.3. [Componentes Compartidos](#componentes-compartidos)
+    - 12.4. [Estilos CSS](#estilos-css)
+    - 12.5. [Lógica JavaScript](#lógica-javascript)
+    - 12.6. [Integracion de API para encontrar las portadas de los libros](#integracion-de-api-para-encontrar-las-portadas-de-los-libros)
+        - 12.6.1. [Pruebas de integracion](#pruebas-de-integracion)
+            - 12.6.1.1 [Configuracion del entorno para las pruebas](#configuracion-del-entorno-para-las-pruebas)
+            - 12.6.1.2 [Detalle de las pruebas realizadas](#detalle-de-las-pruebas-realizadas)
+            - 12.6.1.3 [Validación de entrada de datos](#validación-de-entrada-de-datos)
+            - 12.6.1.4 [Procedimiento para la Ejecución de Pruebas](#procedimiento-para-la-ejecución-de-pruebas)
+
+---
+
+- 13. [Base de datos](#base-de-datos)
+    - 13.1. [Arquitectura del sistema](#arquitectura-del-sistema)
+    - 13.2. [Modelo de datos](#modelo-de-datos)
+    - 13.3. [Configuración de la base de datos](#configuración-de-la-base-de-datos)
+    - 13.4. [Configuración de seguridad](#configuración-de-seguridad)
+    - 13.5. [Datos de prueba](#datos-de-prueba)
+    - 13.6. [Ejecución completa](#ejecución-completa)
+    - 13.7. [Buenas prácticas implementadas](#buenas-prácticas-implementadas)
+
+---
+
+- 14. [Despliegue frontend en Google Cloud](#despliegue-frontend-en-google-cloud)
+    - 14.1. [Despliegue en hósting estático (GCP)](#-despliegue-en-hosting-estático-gcp)
+    - 14.2. [Configuración de variables de entorno ](#️-configuración-de-variables-de-entorno)
+    - 14.3. [Conectividad frontend](#️conectividad-frontend)
+    - 14.4. [Conectividad Backend y Base de datos](#conectividad-backend-y-base-de-datos)
+    - 14.5. [Consultas de verificación](#️consultas-de-verificación)
+    - 14.6. [Buenas prácticas implementadas](#buenas-prácticas-implementadas)
+
+---
+
+- 15. [Despliegue local y en Google Cloud - Book Journal Back-endd](#despliegue-frontend-en-google-cloud)
+    - 15.1. [Requisitos](#1-requisitos)
+    - 15.2. [Estructura clave del proyecto](#2-estructura-clave-del-proyecto)
+        - 15.2.1. [URLs de acceso después de desplegar](#21-urls-de-acceso-después-de-desplegar)
+    - 15.3. [Configuración del datasource (variables de entorno)](#confihuracion-del-datasource-variables-de-entorno)
+    - 15.4. [Dockerfile explicado](#4-dockerfile-explicado)
+    - 15.5. [docker-compose.yml explicado](#5-docker-composeyml-explicado)
+    - 15.6. [Pasos para desplegar en un nuevo equipo (modo Docker Compose)](#6-pasos-para-desplegar-en-un-nuevo-equipo-modo-docker-compose)
+    - 15.7. [Variantes de despliegue](#7-variantes-de-despliegue)
+        - 15.7.1. [Sin docker-compose (solo contenedor backend)](#71-sin-docker-compose-solo-contenedor-backend)
+        - 15.7.2. [Importante en equipo nuevo](#72-importante-en-equipo-nuevo)
+    - 15.8. [Verificación de integración con frontend](#8-verificación-de-integración-con-frontend)
+    - 15.9. [Puntos de mejora para producción](#9-puntos-de-mejora-para-producción)
+    - 15.10. [Comandos útiles](#10-comandos-útiles)
+
+---
+
+- 16. [Despliegue de Backend en Google Cloud Run](#despliegue-de-backend-en-google-cloud-run)
+    - 16.1. [Flujo general](#flujo-general)
+    - 16.2. [Paso a paso con explicación](#paso-a-paso-con-explicación)   
+    - 16.3. [Tener en cuenta el ID del proyecto ya que sobre este se trabajara.](#tener-en-cuenta-el-id-del-proyecto-ya-que-sobre-este-se-trabajara)  
+    - 16.4. [Resultado](#resultado) 
+    - 16.5. [Flujo de actualización](#flujo-de-actualización)
+    - 16.6. [¿Por qué usar Cloud Run?](#por-qué-usar-cloud-run)
+    - 16.7. [Errores comunes](#errores-comunes)
+
+---
+
+- 17. [CI/CD BookJournal – Despliegue e Integración Continua](#cicd-bookjournal--despliegue-e-integración-continua)
+    - 17.1. [Paso a Paso del Workflow](#paso-a-paso-del-workflow)
+    - 17.2. [Seguridad Implementada](#seguridad-implementada)
+    - 17.3. [Flujo Completo CI/CD](#flujo-completo-cicd)
+    - 17.4. [Beneficios de la Implementación](#beneficios-de-la-implementación)
+
+---
+
+- 18. [Lecciones aprendidas](#lecciones-aprendidas)
+    - 18.1. [Lecciones Aprendidas, Métricas y Reporte Final – BookJournal](#lecciones-aprendidas-métricas-y-reporte-final--bookjournal)
+        - 18.1.1 [Experiencia y crecimiento técnico](#experiencia-y-crecimiento-técnico)
+        - 18.1.2 [Buenas Prácticas Implementadas](#buenas-prácticas-implementadas)
+        - 18.1.3 [Errores Cometidos](#errores-cometidos)
+        - 18.1.4 [Oportunidades de Mejoras](#oportunidades-de-mejora)
+    - 18.2. [Métricas del Proyecto](#métricas-del-proyecto)
+    - 18.3. [Reporte Final del Proyecto](#reporte-final-del-proyecto)
+
+---
+
+- 19. [Historia de usuario](#historia-de-usuario)
+    - 19.1. [Sprint 1 - Backend y Base de datos](#sprint-1---backend-y-base-de-datos)
+        - 19.1.1. [Historia de usuario 1 - Gestión de usuarios en backend](#historia-de-usuario-1---gestión-de-usuarios-en-backend)
+        - 19.1.2. [Historia de usuario 2 - Configuración de base de datos e integración](#historia-de-usuario-2---configuración-de-base-de-datos-e-integración)
+    - 19.2. [Sprint 2 - Frontend](#sprint-2---frontend)
+        - 19.2.1. [Historia de usuario 1 - Interaccion con frontend](#historia-de-usuario-1---interaccion-con-frontend)
+        - 19.2.2. [Historia de usuario 2 - Eliminación de libros de la biblioteca](#historia-de-usuario-1---interaccion-con-frontend)
+    - 19.3. [Sprint 3 - Despliegue Frontend](#sprint-3---despliegue-frontend)
+        - 19.3.1 [Historia de usuario 1 - Despliegue de frontend en la nube](#historia-de-usuario-1---despliegue-de-frontend-en-la-nube)
+        - 19.3.2 [Historia de usuario 2 - Despliegue del frontend en hosting estático](#historia-de-usuario-2---despliegue-del-frontend-en-hosting-estático)
+
+---
+
+- 20. [Métricas del Proyecto – Sprint 3 (Despliegue en la nube)](#métricas-del-proyecto--sprint-3-despliegue-en-la-nube)
+
+---
+
+- 21. [Reportes Visuales — GitHub Insights](#reportes-visuales--github-insights)
 
 ---
 ## Stack Tecnológico
@@ -1064,7 +1174,7 @@ Se guardan los cambios y el frontend queda accesible al público sin necesidad d
 ### 5. **Verificación de Despliegue**
 Con la configuración de login.html como página principal, se accede a la URL pública generada por el bucket y se verifica que la página carga correctamente con todos sus estilos, sin necesidad de permisos.
       
-**🔗Url de frontend**
+**Url de frontend**
 [https://storage.googleapis.com/frontendapi/frontend/html/login.html](Frontend)
       
 <img width="1916" alt="Frontend desplegado en producción" src="https://github.com/user-attachments/assets/09b14a7f-9d7c-4e14-aeba-84d1088c4307" />
@@ -1733,7 +1843,7 @@ Se conecta fácilmente con Cloud SQL, IAM, etc.
 - Nombre incorrecto de la imagen
 
 ---
-# CI/CD BookJournal – Documentación de Despliegue e Integración Continua
+# CI/CD BookJournal – Despliegue e Integración Continua
 
 ## Descripción General
 
@@ -1826,7 +1936,7 @@ Configura **Java 21 (Temurin)** necesario para compilar el backend con Spring Bo
 
 Guarda dependencias de Maven para acelerar builds futuros.
 
-📌 Mejora el rendimiento evitando descargar dependencias en cada ejecución.
+Mejora el rendimiento evitando descargar dependencias en cada ejecución.
 
 ---
 
@@ -1999,7 +2109,7 @@ Finalmente, la integración de Node.js para pruebas de implementación fue una d
 
 ---
 
-### Buenas Prácticas Identificadas
+### Buenas Prácticas Implementadas
 
 Durante el desarrollo del proyecto, se implementaron prácticas que contribuyeron significativamente al éxito del sistema:
 
@@ -2059,7 +2169,7 @@ Para futuros desarrollos, se proponen las siguientes mejoras:
 
 ## Métricas del Proyecto
 
-### 🚀 Métricas de Despliegue
+### Métricas de Despliegue
 
 * **Frecuencia de despliegue:** Automática por cada push a `main`
 * **Tiempo promedio de build:** ~8–10 segundos
@@ -2102,7 +2212,7 @@ El proyecto **BookJournal** logró implementar un sistema funcional que permite:
 
 # Historia de usuario
 
-## Spring 1 - Backend y Base de datos
+## Sprint 1 - Backend y Base de datos
 
 ### Historia de usuario 1 - Gestión de usuarios en backend
 ### 1. Registro y autenticación de usuarios
@@ -2130,6 +2240,7 @@ Como equipo de desarrollo, quiero implementar el registro y autenticación de us
 Para desarrollar esta funcionalidad, inicialmente se definió la entidad Usuario en el backend utilizando Spring Boot y JPA, asegurando la correcta estructura de los atributos como correo, contraseña y datos básicos. Posteriormente, se creó el repositorio correspondiente utilizando JpaRepository para facilitar las operaciones CRUD sobre la base de datos PostgreSQL.
 
 En la siguiente etapa, se implementaron los endpoints REST en el controlador para el registro y autenticación de usuarios. Se integró un servicio que gestiona la lógica de negocio, incluyendo la validación de datos y la encriptación de contraseñas antes de almacenarlas.
+
 ---
 
 ### Historia de usuario 2 - Configuración de base de datos e integración
@@ -2160,7 +2271,7 @@ Posteriormente, se definieron las entidades del sistema (Usuario, Libro, Deseo) 
 
 ---
 
-## Sring 2 - Frontend
+## Sprint 2 - Frontend
 
 ### Historia de usuario 1 - Interaccion con frontend 
 ### 1. Registro y Visualización de Libros
@@ -2189,8 +2300,8 @@ En la siguiente etapa, se realizó el renderizado dinámico de los datos obtenid
 
 ---
 
-### Historia de usuario 3 - Eliminación de libros de la biblioteca
-### 3. Depuración de la Biblioteca (Eliminación de Registros)
+### Historia de usuario 2 - Eliminación de libros de la biblioteca
+### 2. Depuración de la Biblioteca (Eliminación de Registros)
 
 Como usuario de la aplicación, quierotener la posibilidad de remover títulos de mi lista de libros leídos, para mantener mi colección actualizada y corregir inclusiones accidentales.
 
@@ -2216,7 +2327,7 @@ Posteriormente, se configuró la ejecución de la petición a la API, disparando
 
 ---
 
-## Sring 3 - Despliegue Frontend
+## Sprint 3 - Despliegue Frontend
 
 ### Historia de usuario 1 - Despliegue de frontend en la nube
 ### 1. Despliegue del Frontend en Google Cloud Storage
@@ -2385,11 +2496,12 @@ Cantidad de tareas completadas en el periodo del sprint.
 | Lead Time promedio | 1 día |
 | Cycle Time promedio | < 1 día |
 | Throughput | 2 tareas / 1 día |
-### Reportes Visuales — GitHub Insights
+
+# Reportes Visuales — GitHub Insights
 
 Se utilizó **GitHub Insights** para el seguimiento visual de las métricas del proyecto.
 
-### Commits over time
+## Commits over time
 Actividad semanal del 11 al 18 de abril de 2026. Se observa un incremento
 significativo en la segunda semana (~45 commits vs ~20 commits).
 
@@ -2397,28 +2509,28 @@ significativo en la segunda semana (~45 commits vs ~20 commits).
 ![Commits over time](https://raw.githubusercontent.com/JUANPIS008/BookJournal/main/Docs/imagenesdoc/Commits%20over%20time.png)
 
 
-### Top Committers
+## Top Committers
 Distribución de commits por contribuidor. El committer principal concentra
 aproximadamente 65 commits, seguido por contribuidores secundarios.
 
 ![Top Committers](https://raw.githubusercontent.com/JUANPIS008/BookJournal/main/Docs/imagenesdoc/Top%20Committers.png)
 
 
-###  Total Views (últimos 14 días)
+##  Total Views (últimos 14 días)
 1017 vistas totales. Tendencia creciente con pico el 16 de abril (~180 vistas).
 
 ![Total views](https://raw.githubusercontent.com/JUANPIS008/BookJournal/main/Docs/imagenesdoc/Total%20views%20in%20last%2014%20days.png)
 
 ---
 
-### Unique Cloners (últimos 14 días)
+## Unique Cloners (últimos 14 días)
 504 clonadores únicos. Crecimiento sostenido con tendencia al alza desde el 22 de abril.
 
 ![Unique cloners](https://raw.githubusercontent.com/JUANPIS008/BookJournal/main/Docs/imagenesdoc/Unique%20cloners%20in%20last%2014%20days.png)
 
 ---
 
-###  Clones (últimos 14 días)
+## Clones (últimos 14 días)
 1387 clones totales. Incremento exponencial hacia el 22 de abril (~550 clones).
 
 ![Clones](https://raw.githubusercontent.com/JUANPIS008/BookJournal/main/Docs/imagenesdoc/Clones%20in%20last%2014%20days.png)
