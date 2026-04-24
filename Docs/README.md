@@ -1297,7 +1297,7 @@ Se utilizó **GitHub Insights** para el seguimiento visual de las métricas del 
 Actividad semanal del 11 al 18 de abril de 2026. Se observa un incremento 
 significativo en la segunda semana (~45 commits vs ~20 commits).
 
-![Top Committers](Docs/imagenesdoc/Commitsovertime.png)
+![Commits over time](Docs/imagenesdoc/Commits%20over%20time.png)
 
 ###  Top Committers
 Distribución de commits por contribuidor. El committer principal concentra 
