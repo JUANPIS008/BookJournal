@@ -81,7 +81,6 @@ Se indica la ruta de base porque los consumidores API (frontend o QA) deben sabe
 
 El diagrama muestra componentes y flujos principales: frontend que llama REST, backend con servicios y persistencia, y el despliegue en contenedores con PostgreSQL y pgAdmin.
 
-
 ```mermaid
 flowchart LR
   A[Frontend estático] -->|HTTP| B[Spring Boot Backend]
