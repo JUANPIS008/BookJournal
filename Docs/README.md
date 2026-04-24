@@ -40,7 +40,7 @@
     - [Conectividad Backend y Base de datos](#-conectividad-backend-y-base-de-datos)
     - [Consultas de verificación](#️-consultas-de-verificación)
     - [Buenas prácticas implementadas](#-buenas-prácticas-implementadas)
-- [Histotrias de usuario](#Historias-de-usuario)
+- [Histotrias de usuario](#historia-de-usuarios-3)
 - [📊 Métricas del Proyecto – Sprint 3 (Despliegue en la nube)](#-métricas-del-proyecto--sprint-3-despliegue-en-la-nube)
 
 ## Stack Tecnológico
@@ -1167,7 +1167,7 @@ documentado mediante **videos de demostración**, lo cual constituye una buena p
 de evidencia y trazabilidad del trabajo realizado, facilitando auditorías y revisiones 
 posteriores del proyecto.
 
-### Historia de usuarios
+### Historia de usuarios-3
 
 # Desplegar frontend en servicio de hosting estático
 
