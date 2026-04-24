@@ -1112,12 +1112,12 @@ documentado mediante **videos de demostración**, lo cual constituye una buena p
 de evidencia y trazabilidad del trabajo realizado, facilitando auditorías y revisiones 
 posteriores del proyecto.
 
-### Historia de usuarios
+## Historia de usuarios
 ### Historia de usuario interaccion con frontend 
-## 1. Registro y Visualización de Libros
+#### 1. Registro y Visualización de Libros
 Como usuario lector, quiero mediante un formulario agregar el libro que estoy leyendo en el momento a mi biblioteca personal, para así poder visualizar mi progreso de lectura de una forma bien organizada y ver la portada del libro.
 
-### Criterios de Aceptación:
+##### Criterios de Aceptación:
 - El sistema debe permitir la entrada de texto para buscar títulos a través de una API externa.
 - Al seleccionar "Finalizar lectura", los datos deben ser enviados mediante una petición POST al backend.
 - La vista principal debe actualizarse dinámicamente sin necesidad de recargar la página completa.
@@ -1126,15 +1126,15 @@ Como usuario lector, quiero mediante un formulario agregar el libro que estoy le
 **Sprint:** 1  
 **Responsable:** @laurad30lopezs10
 
-#### Procedimiento de Desarrollo Paso a Paso:
+###### Procedimiento de Desarrollo Paso a Paso:
 Para el desarrollo de esta funcionalidad, primero se llevó a cabo el diseño del componente de búsqueda, creando un formulario en el frontend con un input de texto y un botón de envío, asegurando mediante validaciones de JavaScript que no se procesen campos vacíos. Posteriormente, se implementó el consumo de la API externa mediante una función asíncrona que recupera la información de los libros, gestionando adecuadamente los estados de carga y los posibles errores para informar al usuario de manera oportuna.
 
 En la siguiente etapa, se realizó el renderizado dinámico de los datos obtenidos, utilizando JavaScript para iterar sobre los resultados y generar tarjetas visuales en la sección de lectura actual. Finalmente, se programó el proceso de finalización de ingreso, donde al presionar el botón correspondiente, se dispara una petición HTTP POST hacia el backend desarrollado en Spring Boot para persistir la información en la base de datos PostgreSQL, actualizando el estado local del frontend para que el libro aparezca en la biblioteca al instante.
 
-## 2. Gestión de Reseñas y Calificación por Estrellas
+#### 2. Gestión de Reseñas y Calificación por Estrellas
 Como lector, quiero calificar y reseñar los libros que he terminado mediante un formulario interactivo, para mantener un registro crítico de mis lecturas.
 
-### Criterios de Aceptación:
+##### Criterios de Aceptación:
 - La interfaz debe presentar una herramienta de calificación de 1 a 5 estrellas y un área de texto para la reseña.
 - La visualización final debe incluir la calificación con estrellas dinámicas y el texto guardado.
 - El sistema debe transformar el formulario en un bloque de texto estático tras confirmar el guardado.
@@ -1143,15 +1143,15 @@ Como lector, quiero calificar y reseñar los libros que he terminado mediante un
 **Sprint:** 2  
 **Responsable:** @laurad30lopezs10
 
-#### Procedimiento de Desarrollo Paso a Paso:
+###### Procedimiento de Desarrollo Paso a Paso:
 El proceso inició con la construcción del formulario de feedback, donde se integró un control de estrellas dinámico y un campo para agregar información dentro del componente del libro. Luego, se procedió con la vinculación al backend, estableciendo la comunicación necesaria con los controladores de Spring Boot encargados de las reseñas para recopilar el ID del usuario, el ID del libro, el valor numérico de la calificación y el string de la reseña.
 
 Una vez establecida la lógica de conexión, se realizó una petición de tipo PUT o POST hacia la API, manejando el objeto actualizado devuelto por el servidor para confirmar que la información se procesó correctamente. Tras la confirmación, se implementó el refresco de la visualización, transformando el formulario en un bloque de texto estático que muestra la reseña guardada y bloquea las estrellas en la posición seleccionada, mejorando la experiencia de usuario en la página de libros leídos.
 
-## 3. Depuración de la Biblioteca (Eliminación de Registros)
+#### 3. Depuración de la Biblioteca (Eliminación de Registros)
 Como usuario de la aplicación, quierotener la posibilidad de remover títulos de mi lista de libros leídos, para mantener mi colección actualizada y corregir inclusiones accidentales.
 
-### Criterios de Aceptación:
+##### Criterios de Aceptación:
 - La interfaz debe presentar un icono de papelera identificable en cada tarjeta de libros leídos.
 - El sistema debe lanzar un mensaje de confirmación antes de ejecutar el borrado definitivo.
 - Al confirmar, el libro debe eliminarse de la base de datos PostgreSQL y la tarjeta debe desaparecer de la vista dinámicamente.
@@ -1160,10 +1160,52 @@ Como usuario de la aplicación, quierotener la posibilidad de remover títulos d
 **Sprint:** 2  
 **Responsable:** @laurad30lopezs10
 
-#### Procedimiento de Desarrollo Paso a Paso:
+###### Procedimiento de Desarrollo Paso a Paso:
 La implementación comenzó con la creación del control de borrado, añadiendo un botón con icono de papelera en el componente de visualización y programando un escuchador de eventos para capturar el identificador único del registro. Seguidamente, se desarrolló la gestión de la interacción de seguridad mediante un cuadro de diálogo o modal de confirmación, asegurando que la acción fuera intencional y mejorando la usabilidad de la interfaz al prevenir errores accidentales.
 
 Posteriormente, se configuró la ejecución de la petición a la API, disparando una función asíncrona que realiza una petición HTTP DELETE hacia el endpoint específico en Spring Boot, incluyendo el ID del recurso para asegurar que solo se afecte al libro deseado. Finalmente, se realizó la sincronización de la vista y el estado del frontend; tras recibir una respuesta exitosa del servidor, se procedió a filtrar el arreglo de libros, permitiendo que la tarjeta desaparezca de la cuadrícula de forma inmediata sin recargar la página.
+
+### Métricas del Proyecto – Sprint 3 (Despliegue en la nube)
+
+# Desplegar frontend en servicio de hosting estático
+
+## Como equipo de desarrollo
+Quiero desplegar la aplicación frontend en un servicio de hosting
+Para garantizar su accesibilidad desde cualquier navegador
+
+## Criterios de Aceptación:
+- El bucket está creado y configurado correctamente en Cloud Storage
+- Los archivos HTML, CSS y JS del frontend están cargados en el bucket
+- login.html está configurada como página principal y existe una página de error
+- El permiso allUsers con rol *Visualizador de objetos Storage* está habilitado
+- La URL pública carga el frontend con todos sus estilos sin necesidad de permisos
+
+## Estimación: 1
+## Sprint: Sprint 3 – Despliegue en la nube
+## Responsable: @Bygyacqq
+## Prioridad: P2
+## Tamaño: S
+## Label: enhancement
+
+## Verificar conectividad entre componentes
+
+## Como equipo de QA y desarrollo
+Quiero validar que frontend, backend y base de datos se comuniquen correctamente
+Para confirmar que el entorno desplegado funciona de extremo a extremo
+
+## Criterios de Aceptación:
+- El frontend carga correctamente desde la URL pública del bucket
+- El registro de usuario persiste en la base de datos en tiempo real
+- El inicio de sesión autentica correctamente contra el backend
+- Las funcionalidades de género favorito, libros leídos, puntuación, libros deseados y edición de perfil operan sin errores
+- Las consultas SQL sobre usuario, libros y deseo retornan datos consistentes
+
+## Estimación: 1
+## Sprint: Sprint 3 – Despliegue en la nube
+## Responsable: @Bygyacqq
+## Prioridad: P2
+## Tamaño: XS
+## Label: enhancement
 
 ### Referencias Bibliográficas (Normas APA 7ma Edición)
 
