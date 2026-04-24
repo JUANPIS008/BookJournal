@@ -2223,15 +2223,15 @@ Como equipo de desarrollo, quiero implementar el registro y autenticación de us
 
 ### Criterios de Aceptación:
 
-* El backend expone un endpoint para registrar usuarios.
-* La información del usuario se almacena correctamente en la base de datos PostgreSQL.
-* Existe un endpoint para autenticación (login) que valida credenciales.
-* Las contraseñas se almacenan de forma segura (encriptadas).
-* El sistema retorna respuestas adecuadas (éxito/error) según el caso.
+-  El backend expone un endpoint para registrar usuarios.
+-  La información del usuario se almacena correctamente en la base de datos PostgreSQL.
+-  Existe un endpoint para autenticación (login) que valida credenciales.
+-  Las contraseñas se almacenan de forma segura (encriptadas).
+-  El sistema retorna respuestas adecuadas (éxito/error) según el caso.
 
-**Estimación:** 5 puntos
-**Sprint:** Sprint 1 – Backend y Base de Datos
-**Responsable:** @usuario
+**Estimación:** 5 puntos  
+**Sprint:** Sprint 1 – Backend y Base de Datos  
+**Responsable:** Maria Paula
 
 --- 
 
@@ -2259,9 +2259,11 @@ Como equipo de desarrollo, quiero configurar la base de datos PostgreSQL e integ
 * Se pueden realizar operaciones CRUD desde el backend.
 * No existen errores de conexión en tiempo de ejecución.
 
-**Estimación:** 5 puntos
-**Sprint:** Sprint 1 – Backend y Base de Datos
+**Estimación:** 5 puntos  
+**Sprint:** Sprint 1 – Backend y Base de Datos  
 **Responsable:** Maria Paula
+
+---
 
 ### Procedimiento de Desarrollo Paso a Paso:
 
@@ -2287,7 +2289,7 @@ Como usuario lector, quiero mediante un formulario agregar el libro que estoy le
 - La vista principal debe actualizarse dinámicamente sin necesidad de recargar la página completa.
 
 **Estimación:** 5 puntos  
-**Sprint:** 1  
+**Sprint:** Sprint 2 - Frontend  
 **Responsable:** Laura Daniela
 
 --- 
@@ -2314,8 +2316,8 @@ Como usuario de la aplicación, quierotener la posibilidad de remover títulos d
 - Al confirmar, el libro debe eliminarse de la base de datos PostgreSQL y la tarjeta debe desaparecer de la vista dinámicamente.
 
 **Estimación:** 2 puntos  
-**Sprint:** 2  
-**Responsable:** @laurad30lopezs10
+**Sprint:** Sprint 2 - Frontend  
+**Responsable:** Laura Daniela
 
 --- 
 
@@ -2346,7 +2348,7 @@ Como equipo de desarrollo, quiero desplegar el frontend de Book Journal en un bu
 * La conectividad entre componentes (registro, login, perfil, libros, deseos) funciona correctamente.
 
 **Estimación:** 5 puntos
-**Sprint:** Sprint 3
+**Sprint:** Sprint 3 - Despliegue Frontend
 **Responsable:** Dayana Pulido
 
 ---
