@@ -66,9 +66,10 @@ jobs:
             --timeout 300 \
             --revision-suffix=$(date +%s) \
             --add-cloudsql-instances $CLOUD_SQL_INSTANCE \
-            --set-env-vars SPRING_DATASOURCE_URL=jdbc:postgresql:///bookjournal?socketFactory=com.google.cloud.sql.postgres.SocketFactory\&cloudSqlInstance=$CLOUD_SQL_INSTANCE,\ SPRING_DATASOURCE_USERNAME=bookjournal2 \
+            --set-env-vars SPRING_DATASOURCE_URL=jdbc:postgresql:///bookjournal?socketFactory=com.google.cloud.sql.postgres.SocketFactory\&cloudSqlInstance=$CLOUD_SQL_INSTANCE,SPRING_DATASOURCE_USERNAME=bookjournal2
             --set-secrets SPRING_DATASOURCE_PASSWORD=db-password:latest
 
       - name: Deploy frontend
         run: |
-          gsutil -m rsync -r ./frontend gs://frontendapi2
+          gsutil -m rsync -r -d ./frontend gs://frontendapi2
+          gsutil -m setmeta -h "Cache-Control:no-cache, max-age=0" gs://frontendapi2/**
