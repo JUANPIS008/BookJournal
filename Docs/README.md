@@ -39,8 +39,8 @@
     - [Consultas de verificación](#️-consultas-de-verificación)
     - [Buenas prácticas implementadas](#-buenas-prácticas-implementadas)
 - [Histotrias de usuario](#historia-de-usuarios)
-- [Historia de usuario interaccion con frontend](#-historia-de-usuario-interaccion-con-frontend)
-- [Métricas del Proyecto – Sprint 3 (Despliegue en la nube)](#-métricas-del-proyecto--sprint-3-despliegue-en-la-nube)
+    - [Historia de usuario interaccion con frontend](#-historia-de-usuario-interaccion-con-frontend)
+    - [Métricas del Proyecto – Sprint 3 (Despliegue en la nube)](#-métricas-del-proyecto--sprint-3-despliegue-en-la-nube)
 
 ## Stack Tecnológico
 1. Frontend: Maneja la lógica de interacción y estilos interfaz con el cliente.
