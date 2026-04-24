@@ -32,16 +32,15 @@
     - [Datos de prueba](#datos-de-prueba)
     - [Ejecución completa](#ejecución-completa)
     - [Buenas prácticas implementadas](#buenas-prácticas-implementadas)
-  - [Histotrias de usuario](#Historias-de-usuario)
-    - [Historia de usuario spring 2](Historia-de-usuario-spring-2)
-- [🚀 Despliegue en hósting estático (GCP)](#-despliegue-en-hosting-estático-gcp)
+- [Despliegue en hósting estático (GCP)](#-despliegue-en-hosting-estático-gcp)
     - [Configuración de variables de entorno ](#️-configuración-de-variables-de-entorno)
     - [Conectividad frontend](#️-conectividad-frontend)
     - [Conectividad Backend y Base de datos](#-conectividad-backend-y-base-de-datos)
     - [Consultas de verificación](#️-consultas-de-verificación)
     - [Buenas prácticas implementadas](#-buenas-prácticas-implementadas)
-- [Histotrias de usuario](#historia-de-usuarios-3)
-- [📊 Métricas del Proyecto – Sprint 3 (Despliegue en la nube)](#-métricas-del-proyecto--sprint-3-despliegue-en-la-nube)
+- [Histotrias de usuario](#historia-de-usuarios)
+- [Historia de usuario spring 2](Historia-de-usuario-spring-2)
+- [Métricas del Proyecto – Sprint 3 (Despliegue en la nube)](#-métricas-del-proyecto--sprint-3-despliegue-en-la-nube)
 
 ## Stack Tecnológico
 1. Frontend: Maneja la lógica de interacción y estilos interfaz con el cliente.
@@ -924,57 +923,7 @@ El proyecto incluye datos iniciales para pruebas:
 * Uso de contraseñas hasheadas
 * Separación de capas en la arquitectura
 
-# Histotrias de usuario
-## Historia de usuario spring 2
-### 1. Registro y Visualización de Libros en el book journal
-Como usuario lector, quiero mediante un formulario agregar el libro que estoy leyendo en el momento a mi biblioteca personal para así poder visualizar mi progreso de lectura de una forma bien organizada, y quiero poder ver la portada del libro. 
-
-#### Criterios de Aceptación
-El sistema debe permitirnos la entrada de texto para buscar títulos a traves de una API externa. Cuando seleccionemos "Finalizar lectura", los datos deberan ser enviados mediante una petición POST al backend. Inmediatamente despues, la vista principal se actualizara sin necesidad de recargar la pagina completa, y permitira agregar un nuevo libro. 
-
-#### Historia de usuario 1: Procedimiento de Desarrollo Paso a Paso
-1. Diseño del Componente de Búsqueda:
-Se diseño un formulario donde se penso en un input de texto y un botón para enviar. Se implementó una validacion para no se puedan guardar campos vacios.
-2. Consumo de la API:
-Se creó una función que consulta la API para buscar los libros y traer la información. También se manejó el estado de carga y los posibles errores para avisarle al usuari
-3. Renderizado Dinámico de Datos:
-Con la información recibida por parte del primer formulario de lectura actual, se usó JavaScript para recorrer los datos y crear tarjetas en la pagina de libros leidos mas adelante. 
-4. Finalizar ingreso 
-Al presionar "Finalizar lectura", una peticion POST se envió a la base de datos PostgreSQL. Si todo salio bien, se sumó el libro al estado local, actualizando la vista al instante.
-### Historia de usuario 2: Gestión de Reseñas y Calificación por Estrellas
-Como lector, quiero calificar y reseñar los libros que he terminado mediante un formulario interactivo para mantener un registro crítico de mis lecturas.
-
-#### Criterios de Aceptación:
-En la interfaz de lectura actual se presenta una herramienta para la calificacion de 1 a 5 estrellas, ademas hay un espacio donde como usuario lector va a poder dejar una reseña para el libro que acaba de leer. La visualizacion final va a incluir la calificacion con las estrellas dinamicas y el texto previamente guardado en el campo de reseña.
-
-#### Procedimiento de Desarrollo Paso a Paso:
-1. Construcción del Formulario de Feedback: 
-Se crea una sección dentro del formulario del libro que contenga el control de estrellas de una forma dinamica y un campo para agregar informacion. 
-2. Vinculación con el Backend: 
-Se establece una conexión con el controlador de Spring Boot encargado de las reseñas. El formulario debe recopilar el ID del usuario, el ID del libro, el valor numérico de la calificación y el string de la reseña.
-3. Envío de Datos y Manejo de Respuestas: 
-Se realiza una petición de tipo PUT o POST (dependiendo de si se está creando o editando) hacia la API. El sistema devuelva el objeto actualizado para confirmar que la información se procesó correctamente en el servidor.
-4. Refresco de la Visualización: 
-Tras la confirmación, la interfaz debe transformar el formulario en un bloque de texto estático que muestre la reseña guardada en la pagina libros leidos y las estrellas bloqueadas en la posición seleccionada, mejorando la experiencia de visualización de datos del usuario.
-
-### Historia de usuario 3
-Depuración de la Biblioteca mediante la Eliminación de Registros
-Como usuario de la aplicación, deseé tener la posibilidad de remover títulos de mi lista de libros leídos para mantener mi colección actualizada y corregir inclusiones accidentales.
-
-#### Criterios de Aceptación:
-La interfaz presenta un icono de papelera que es facil de identificar en cada tarjeta de libros leidos. El sistema lanza un mensaje de confirmación antes de ejecutar el borrado definitivo para prevenir la pérdida accidental de información, al confirmar la acción, el libro se elimina de la base de datos PostgreSQL y la tarjeta desaparece de la vista actual de forma dinámica.
-
-#### Procedimiento de Desarrollo Paso a Paso Realizado:
-1. Implementación del Control de Borrado: 
-Se añadió un elemento interactivo botón con icono de papelera en el componente de visualización de cada libro. Se programó un escuchador de eventos para capturar el identificador único del registro correspondiente al libro seleccionado.
-2. Gestión de la Interacción de Seguridad:
-Se desarrolló un cuadro de diálogo o modal de confirmación. Este paso aseguró que la acción fuera intencional, mejorando la usabilidad de la interfaz al prevenir errores de manipulación por parte del usuario.
-3. Ejecución de la Petición a la API: 
-Una vez confirmada la acción, se disparó una función asíncrona que realizó una petición HTTP bajo el método DELETE hacia el endpoint específico del backend en Spring Boot. La URL de la petición incluyó el ID del recurso para asegurar que solo se afectara al libro deseado.
-4. Sincronización de la Vista y el Estado:
- Tras recibir una respuesta exitosa del servidor (código 200 o 204), se procedió a filtrar el arreglo de libros en el estado del frontend. Esta manipulación del DOM permitió que la tarjeta del libro se desvaneciera o fuera removida de la cuadrícula de forma inmediata, garantizando una visualización de datos coherente con el estado actual del servidor.
-
-### 🚀 Despliegue en hosting estático (GCP)
+###  Despliegue en hosting estático (GCP)
 Para el desarrollo del despliegue del frontend previamente creado, se escogió como hosting estático GCP (Google Cloud Platform), haciendo uso del servicio de Cloud Storage (Buckets).
 **Guía de despliegue**
 
@@ -1014,7 +963,7 @@ Con la configuración de login.html como página principal, se accede a la URL p
       
       <img width="1916" alt="Frontend desplegado en producción" src="https://github.com/user-attachments/assets/09b14a7f-9d7c-4e14-aeba-84d1088c4307" />
 
-### ⚙️ Configuración de Variables de Entorno
+###  Configuración de Variables de Entorno
 
 Se realizó la configuración de las variables de entorno necesarias para garantizar la correcta conexión entre el servicio backend desplegado en Cloud Run y la base de datos PostgreSQL alojada en Cloud SQL.
 Configuración en application.properties
@@ -1054,11 +1003,11 @@ SPRING_DATASOURCE_PASSWORD=********
 
 **Resultado**
 Con esta configuración se aseguró la conectividad entre:
-- ✅ Backend → Cloud Run
-- ✅ Base de datos → Cloud SQL (PostgreSQL)
-- ✅ Entorno de despliegue → Producción en GCP
+-  Backend → Cloud Run
+-  Base de datos → Cloud SQL (PostgreSQL)
+-  Entorno de despliegue → Producción en GCP
 
-### 🖥️ Conectividad Frontend
+###  Conectividad Frontend
 Se realizó un video de demostración para evidenciar la conectividad entre los componentes que conforman el frontend del proyecto. Se muestran los siguientes flujos:
 
 Registro de usuario
@@ -1070,9 +1019,9 @@ Puntuación de libros leídos
 Libros deseados
 Edición de perfil
 
-🎬 [Ver video de demostración – Conectividad Frontend](https://fundacionlibertadores-my.sharepoint.com/:v:/g/personal/dmpulidom01_libertadores_edu_co/IQB5j6D9DAlZSrtQy-X3pBihAWW840B8AMuP0HwIRQjJhbo?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=dk7bMd)
+ [Ver video de demostración – Conectividad Frontend](https://fundacionlibertadores-my.sharepoint.com/:v:/g/personal/dmpulidom01_libertadores_edu_co/IQB5j6D9DAlZSrtQy-X3pBihAWW840B8AMuP0HwIRQjJhbo?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=dk7bMd)
 
-### 🔗 Conectividad Backend y Base de Datos
+###  Conectividad Backend y Base de Datos
 Se realizó un video donde se muestra:
 
 Las variables de entorno establecidas para el backend y declaradas en GCP
@@ -1081,9 +1030,9 @@ La URL del backend
 La imagen de Docker en la que fue montado el servicio
 
 Todo esto con el fin de demostrar la funcionalidad entre los componentes del backend.
-🎬 [Ver video de demostración – Conectividad Backend y BD](https://fundacionlibertadores-my.sharepoint.com/:v:/g/personal/dmpulidom01_libertadores_edu_co/IQBQTER911pATpmkj9c-vy4iAdqB6mtQWqKX_vGL81n3PD4?e=rhNcxO&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
+[Ver video de demostración – Conectividad Backend y BD](https://fundacionlibertadores-my.sharepoint.com/:v:/g/personal/dmpulidom01_libertadores_edu_co/IQBQTER911pATpmkj9c-vy4iAdqB6mtQWqKX_vGL81n3PD4?e=rhNcxO&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
 
-### 🗄️ Consultas de Verificación
+### Consultas de Verificación
 Para la demostración práctica de la base de datos, se ejecutaron diversas consultas que evidencian el correcto funcionamiento del sistema y la persistencia en tiempo real de los usuarios registrados desde el frontend.
 **Mostrar todos los usuarios**
 `SELECT * FROM usuario;`
@@ -1109,7 +1058,7 @@ LIMIT 5;`
 FROM information_schema.columns
 WHERE table_name = 'usuario';`
 
-### ✅ Buenas Prácticas Implementadas
+### Buenas Prácticas Implementadas
 
 # Desplegar frontend en servicio de hosting estático (#31)
 
@@ -1129,8 +1078,6 @@ se verificó el correcto despliegue accediendo a la URL pública generada, confi
 que los estilos, componentes y navegación funcionan correctamente en el entorno de 
 producción.
 
----
-
 # Configuración de variables de entorno (#32)
 
 En la configuración del entorno de producción se siguieron prácticas fundamentales de 
@@ -1147,8 +1094,6 @@ automáticamente por las variables definidas en **Cloud Run**. Adicionalmente, l
 conexión a **Cloud SQL** se realizó a través de `SocketFactory`, garantizando una 
 comunicación segura y autenticada entre el backend y la base de datos, sin exponer 
 puertos directamente a internet.
-
----
 
 # Verificar conectividad entre componentes (#33)
 
@@ -1167,8 +1112,65 @@ documentado mediante **videos de demostración**, lo cual constituye una buena p
 de evidencia y trazabilidad del trabajo realizado, facilitando auditorías y revisiones 
 posteriores del proyecto.
 
-### Historia de usuarios-3
+### Historia de usuarios
+# Historia de usuario interaccion con frontend 
+## 1. Registro y Visualización de Libros
+Como usuario lector, quiero mediante un formulario agregar el libro que estoy leyendo en el momento a mi biblioteca personal, para así poder visualizar mi progreso de lectura de una forma bien organizada y ver la portada del libro.
 
+### Criterios de Aceptación:
+- El sistema debe permitir la entrada de texto para buscar títulos a través de una API externa.
+- Al seleccionar "Finalizar lectura", los datos deben ser enviados mediante una petición POST al backend.
+- La vista principal debe actualizarse dinámicamente sin necesidad de recargar la página completa.
+
+**Estimación:** 5 puntos  
+**Sprint:** 1  
+**Responsable:** @laurad30lopezs10
+
+#### Procedimiento de Desarrollo Paso a Paso:
+Para el desarrollo de esta funcionalidad, primero se llevó a cabo el diseño del componente de búsqueda, creando un formulario en el frontend con un input de texto y un botón de envío, asegurando mediante validaciones de JavaScript que no se procesen campos vacíos. Posteriormente, se implementó el consumo de la API externa mediante una función asíncrona que recupera la información de los libros, gestionando adecuadamente los estados de carga y los posibles errores para informar al usuario de manera oportuna.
+
+En la siguiente etapa, se realizó el renderizado dinámico de los datos obtenidos, utilizando JavaScript para iterar sobre los resultados y generar tarjetas visuales en la sección de lectura actual. Finalmente, se programó el proceso de finalización de ingreso, donde al presionar el botón correspondiente, se dispara una petición HTTP POST hacia el backend desarrollado en Spring Boot para persistir la información en la base de datos PostgreSQL, actualizando el estado local del frontend para que el libro aparezca en la biblioteca al instante.
+
+## 2. Gestión de Reseñas y Calificación por Estrellas
+Como lector, quiero calificar y reseñar los libros que he terminado mediante un formulario interactivo, para mantener un registro crítico de mis lecturas.
+
+### Criterios de Aceptación:
+- La interfaz debe presentar una herramienta de calificación de 1 a 5 estrellas y un área de texto para la reseña.
+- La visualización final debe incluir la calificación con estrellas dinámicas y el texto guardado.
+- El sistema debe transformar el formulario en un bloque de texto estático tras confirmar el guardado.
+
+**Estimación:** 3 puntos  
+**Sprint:** 2  
+**Responsable:** @laurad30lopezs10
+
+#### Procedimiento de Desarrollo Paso a Paso:
+El proceso inició con la construcción del formulario de feedback, donde se integró un control de estrellas dinámico y un campo para agregar información dentro del componente del libro. Luego, se procedió con la vinculación al backend, estableciendo la comunicación necesaria con los controladores de Spring Boot encargados de las reseñas para recopilar el ID del usuario, el ID del libro, el valor numérico de la calificación y el string de la reseña.
+
+Una vez establecida la lógica de conexión, se realizó una petición de tipo PUT o POST hacia la API, manejando el objeto actualizado devuelto por el servidor para confirmar que la información se procesó correctamente. Tras la confirmación, se implementó el refresco de la visualización, transformando el formulario en un bloque de texto estático que muestra la reseña guardada y bloquea las estrellas en la posición seleccionada, mejorando la experiencia de usuario en la página de libros leídos.
+
+## 3. Depuración de la Biblioteca (Eliminación de Registros)
+Como usuario de la aplicación, quierotener la posibilidad de remover títulos de mi lista de libros leídos, para mantener mi colección actualizada y corregir inclusiones accidentales.
+
+### Criterios de Aceptación:
+- La interfaz debe presentar un icono de papelera identificable en cada tarjeta de libros leídos.
+- El sistema debe lanzar un mensaje de confirmación antes de ejecutar el borrado definitivo.
+- Al confirmar, el libro debe eliminarse de la base de datos PostgreSQL y la tarjeta debe desaparecer de la vista dinámicamente.
+
+**Estimación:** 2 puntos  
+**Sprint:** 2  
+**Responsable:** @laurad30lopezs10
+
+#### Procedimiento de Desarrollo Paso a Paso:
+La implementación comenzó con la creación del control de borrado, añadiendo un botón con icono de papelera en el componente de visualización y programando un escuchador de eventos para capturar el identificador único del registro. Seguidamente, se desarrolló la gestión de la interacción de seguridad mediante un cuadro de diálogo o modal de confirmación, asegurando que la acción fuera intencional y mejorando la usabilidad de la interfaz al prevenir errores accidentales.
+
+Posteriormente, se configuró la ejecución de la petición a la API, disparando una función asíncrona que realiza una petición HTTP DELETE hacia el endpoint específico en Spring Boot, incluyendo el ID del recurso para asegurar que solo se afecte al libro deseado. Finalmente, se realizó la sincronización de la vista y el estado del frontend; tras recibir una respuesta exitosa del servidor, se procedió a filtrar el arreglo de libros, permitiendo que la tarjeta desaparezca de la cuadrícula de forma inmediata sin recargar la página.
+
+### Referencias Bibliográficas (Normas APA 7ma Edición)
+
+* Beck, K. (2000). *Extreme Programming Explained: Embrace Change*. Addison-Wesley Professional.
+* Pressman, R. S., & Maxim, B. R. (2020). *Software Engineering: A Practitioner's Approach* (9th ed.). McGraw-Hill Education.
+* Sommerville, I. (2016). *Software Engineering* (10th ed.). Pearson.
+* Walls, C. (2022). *Spring Start Here*. Manning Publications.
 # Desplegar frontend en servicio de hosting estático
 
 ## Como equipo de desarrollo
@@ -1176,11 +1178,11 @@ Quiero desplegar la aplicación frontend en un servicio de hosting
 Para garantizar su accesibilidad desde cualquier navegador
 
 ## Criterios de Aceptación:
-- [x] El bucket está creado y configurado correctamente en Cloud Storage
-- [x] Los archivos HTML, CSS y JS del frontend están cargados en el bucket
-- [x] `login.html` está configurada como página principal y existe una página de error
-- [x] El permiso `allUsers` con rol **Visualizador de objetos Storage** está habilitado
-- [x] La URL pública carga el frontend con todos sus estilos sin necesidad de permisos
+- El bucket está creado y configurado correctamente en Cloud Storage
+- Los archivos HTML, CSS y JS del frontend están cargados en el bucket
+- `login.html` está configurada como página principal y existe una página de error
+- El permiso `allUsers` con rol **Visualizador de objetos Storage** está habilitado
+- La URL pública carga el frontend con todos sus estilos sin necesidad de permisos
 
 ## Estimación: 1
 ## Sprint: Sprint 3 – Despliegue en la nube
@@ -1196,11 +1198,11 @@ Quiero validar que frontend, backend y base de datos se comuniquen correctamente
 Para confirmar que el entorno desplegado funciona de extremo a extremo
 
 ## Criterios de Aceptación:
-- [x] El frontend carga correctamente desde la URL pública del bucket
-- [x] El registro de usuario persiste en la base de datos en tiempo real
-- [x] El inicio de sesión autentica correctamente contra el backend
-- [x] Las funcionalidades de género favorito, libros leídos, puntuación, libros deseados y edición de perfil operan sin errores
-- [x] Las consultas SQL sobre `usuario`, `libros` y `deseo` retornan datos consistentes
+- El frontend carga correctamente desde la URL pública del bucket
+- El registro de usuario persiste en la base de datos en tiempo real
+- El inicio de sesión autentica correctamente contra el backend
+- Las funcionalidades de género favorito, libros leídos, puntuación, libros deseados y edición de perfil operan sin errores
+- Las consultas SQL sobre `usuario`, `libros` y `deseo` retornan datos consistentes
 
 ## Estimación: 1
 ## Sprint: Sprint 3 – Despliegue en la nube
@@ -1209,7 +1211,7 @@ Para confirmar que el entorno desplegado funciona de extremo a extremo
 ## Tamaño: XS
 ## Label: enhancement
 
-# 📊 Métricas del Proyecto – Sprint 3 (Despliegue en la nube)
+# Métricas del Proyecto – Sprint 3 (Despliegue en la nube)
 
 ## Velocity (Velocidad del equipo)
 Mide los puntos de historia completados en el sprint.
