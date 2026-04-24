@@ -1307,12 +1307,6 @@ aproximadamente 65 commits, seguido por contribuidores secundarios.
 
 ![Top Committers](https://raw.githubusercontent.com/JUANPIS008/BookJournal/main/Docs/imagenesdoc/Top%20Committers.png)
 
-### Unique Visitors (últimos 14 días)
-8 visitantes únicos. Pico máximo el 15 de abril con ~8 visitantes.
-
-![Unique visitors](https://raw.githubusercontent.com/JUANPIS008/BookJournal/main/Docs/imagenesdoc/Unique%20visitors%20in%20last%2014%20days.png)
-
----
 
 ###  Total Views (últimos 14 días)
 1017 vistas totales. Tendencia creciente con pico el 16 de abril (~180 vistas).
