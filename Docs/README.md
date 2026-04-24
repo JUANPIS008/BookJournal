@@ -34,6 +34,14 @@
     - [Buenas prácticas implementadas](#buenas-prácticas-implementadas)
   - [Histotrias de usuario](#Historias-de-usuario)
     - [Historia de usuario spring 2](Historia-de-usuario-spring-2)
+- [🚀 Despliegue en hósting estático (GCP)](#-despliegue-en-hosting-estático-gcp)
+    - [Configuración de variables de entorno ](#️-configuración-de-variables-de-entorno)
+    - [Conectividad frontend](#️-conectividad-frontend)
+    - [Conectividad Backend y Base de datos](#-conectividad-backend-y-base-de-datos)
+    - [Consultas de verificación](#️-consultas-de-verificación)
+    - [Buenas prácticas implementadas](#-buenas-prácticas-implementadas)
+- [Histotrias de usuario](#historia-de-usuarios-3)
+- [📊 Métricas del Proyecto – Sprint 3 (Despliegue en la nube)](#-métricas-del-proyecto--sprint-3-despliegue-en-la-nube)
 
 ## Stack Tecnológico
 1. Frontend: Maneja la lógica de interacción y estilos interfaz con el cliente.
@@ -966,6 +974,321 @@ Una vez confirmada la acción, se disparó una función asíncrona que realizó 
 4. Sincronización de la Vista y el Estado:
  Tras recibir una respuesta exitosa del servidor (código 200 o 204), se procedió a filtrar el arreglo de libros en el estado del frontend. Esta manipulación del DOM permitió que la tarjeta del libro se desvaneciera o fuera removida de la cuadrícula de forma inmediata, garantizando una visualización de datos coherente con el estado actual del servidor.
 
+### 🚀 Despliegue en hosting estático (GCP)
+Para el desarrollo del despliegue del frontend previamente creado, se escogió como hosting estático GCP (Google Cloud Platform), haciendo uso del servicio de Cloud Storage (Buckets).
+**Guía de despliegue**
+
+1. **Creación del Bucket**
+      En el apartado de Cloud Storage se realiza la creación del bucket.
+      <img width="370" alt="Creación bucket paso 1" src="https://github.com/user-attachments/assets/0b977e66-9287-4a77-abb0-628834bae23a" />
+      <img width="365" alt="Creación bucket paso 2" src="https://github.com/user-attachments/assets/716ed2c6-6d75-40ea-87b1-6befd0ad8d90" />
+      <img width="1915" alt="Creación bucket paso 3" src="https://github.com/user-attachments/assets/48d680bd-4f75-4897-8607-1a1aa8e91747" />
+
+2. **Carga de Archivos**
+      Se llenan los datos necesarios para la creación del bucket y luego se anexan los archivos correspondientes que componen todo el frontend.
+      <img width="1918" alt="Carga de archivos frontend" src="https://github.com/user-attachments/assets/70113459-5d52-41a9-b6ca-984fb01da322" />
+
+3. **Configuración de página principal y página de error**
+
+       Se configura login.html como página principal del frontend y se establece la página de error correspondiente.
+      <img width="708" alt="Configuración página principal y error" src="https://github.com/user-attachments/assets/e72a4fe9-6db8-4c62-be8b-15ce4dca8ff1" />
+
+4. **Configuración de servicios Públicos**
+      Un paso importante es otorgar los permisos necesarios para que usuarios externos puedan ver los estilos y la conectividad entre los componentes. Se selecciona el bucket y se dirige al apartado de Permisos.
+      <img width="1917" alt="Apartado de permisos del bucket" src="https://github.com/user-attachments/assets/7c2dd7b7-2014-40f3-8698-7314ff2721ee" />
+      <img width="710" alt="Configuración de permisos" src="https://github.com/user-attachments/assets/1ab4d0f0-da69-49d2-be82-90718547a67c" />
+      En el menú de ➕ Agregar principal:
+      
+      Nueva entidad: allUsers
+      Rol: Visualizador de objetos Storage
+
+      Se guardan los cambios y el frontend queda accesible al público sin necesidad de permisos adicionales.
+      <img width="1062" alt="Asignación rol allUsers paso 1" src="https://github.com/user-attachments/assets/af38f34f-5d56-4060-87b3-0a9c597fdc95" />
+      <img width="1052" alt="Asignación rol allUsers paso 2" src="https://github.com/user-attachments/assets/4d66a0c5-3ea5-47be-88ea-54179ad26b9c" />
+
+5. **Verificación de Despliegue**
+Con la configuración de login.html como página principal, se accede a la URL pública generada por el bucket y se verifica que la página carga correctamente con todos sus estilos, sin necesidad de permisos.
+      
+      **🔗Url de frontend**
+      [https://storage.googleapis.com/frontendapi/frontend/html/login.html](Frontend)
+      
+      <img width="1916" alt="Frontend desplegado en producción" src="https://github.com/user-attachments/assets/09b14a7f-9d7c-4e14-aeba-84d1088c4307" />
+
+### ⚙️ Configuración de Variables de Entorno
+
+Se realizó la configuración de las variables de entorno necesarias para garantizar la correcta conexión entre el servicio backend desplegado en Cloud Run y la base de datos PostgreSQL alojada en Cloud SQL.
+Configuración en application.properties
+El archivo de configuración del backend se parametrizó para que los valores sean leídos dinámicamente desde variables de entorno, manteniendo valores por defecto para el entorno local:
+
+```
+spring.datasource.url=${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/book_journal}
+spring.datasource.username=${SPRING_DATASOURCE_USERNAME:postgres}
+spring.datasource.password=${SPRING_DATASOURCE_PASSWORD:postgres}
+
+spring.jpa.hibernate.ddl-auto=${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
+spring.jpa.properties.hibernate.dialect=${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
+spring.jpa.show-sql=${SPRING_JPA_SHOW_SQL:true}
+```
+
+Esto permite que la aplicación utilice una configuración distinta según el entorno de ejecución (desarrollo local o producción en la 
+nube), sin necesidad de modificar el código fuente.
+
+**Variables de definidad en CloudRun**
+
+Durante el despliegue en Google Cloud Run, se definieron las siguientes variables de entorno:
+
+```
+SPRING_DATASOURCE_URL=jdbc:postgresql://localhost/bookjournal?socketFactory=com.google.cloud.sql.postgres.SocketFactory&cloudSqlInstance=bookjournal-493603:southamerica-east1:bookjournal2
+
+SPRING_DATASOURCE_USERNAME=bookjournal2
+
+SPRING_DATASOURCE_PASSWORD=********
+
+```
+**Descripción de variables**
+| Variable | Descripción |
+|----------|-------------|
+| `SPRING_DATASOURCE_URL` | Ruta de conexión JDBC hacia PostgreSQL usando `SocketFactory` para comunicación segura con Cloud SQL |
+| `SPRING_DATASOURCE_USERNAME` | Usuario utilizado por el backend para autenticarse en la base de datos |
+| `SPRING_DATASOURCE_PASSWORD` | Contraseña asociada al usuario de la base de datos |
+
+**Resultado**
+Con esta configuración se aseguró la conectividad entre:
+- ✅ Backend → Cloud Run
+- ✅ Base de datos → Cloud SQL (PostgreSQL)
+- ✅ Entorno de despliegue → Producción en GCP
+
+### 🖥️ Conectividad Frontend
+Se realizó un video de demostración para evidenciar la conectividad entre los componentes que conforman el frontend del proyecto. Se muestran los siguientes flujos:
+
+Registro de usuario
+Inicio de sesión
+Registro de género favorito
+Horas diarias de lectura
+Libros leídos
+Puntuación de libros leídos
+Libros deseados
+Edición de perfil
+
+🎬 [Ver video de demostración – Conectividad Frontend](https://fundacionlibertadores-my.sharepoint.com/:v:/g/personal/dmpulidom01_libertadores_edu_co/IQB5j6D9DAlZSrtQy-X3pBihAWW840B8AMuP0HwIRQjJhbo?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=dk7bMd)
+
+### 🔗 Conectividad Backend y Base de Datos
+Se realizó un video donde se muestra:
+
+Las variables de entorno establecidas para el backend y declaradas en GCP
+La instancia de la base de datos con sus respectivos puertos y credenciales de ingreso
+La URL del backend
+La imagen de Docker en la que fue montado el servicio
+
+Todo esto con el fin de demostrar la funcionalidad entre los componentes del backend.
+🎬 [Ver video de demostración – Conectividad Backend y BD](https://fundacionlibertadores-my.sharepoint.com/:v:/g/personal/dmpulidom01_libertadores_edu_co/IQBQTER911pATpmkj9c-vy4iAdqB6mtQWqKX_vGL81n3PD4?e=rhNcxO&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
+
+### 🗄️ Consultas de Verificación
+Para la demostración práctica de la base de datos, se ejecutaron diversas consultas que evidencian el correcto funcionamiento del sistema y la persistencia en tiempo real de los usuarios registrados desde el frontend.
+**Mostrar todos los usuarios**
+`SELECT * FROM usuario;`
+**Mostrar solo los campos importantes de los usuarios**
+`SELECT id, nombre, correo
+FROM usuario;`
+**Contar cuántos usuarios hay**
+`SELECT COUNT(*) AS total_usuarios
+FROM usuario;`
+**Mostrar todos los libros**
+`SELECT * FROM libros;`
+**Contar libros**
+`SELECT * FROM libros;`
+**Mostrar deseos**
+`SELECT * FROM deseo;`
+**Mostrar últimos registros**
+`SELECT *
+FROM usuario
+ORDER BY id DESC
+LIMIT 5;`
+**Mostrar estructura de una tabla**
+`SELECT column_name, data_type
+FROM information_schema.columns
+WHERE table_name = 'usuario';`
+
+### ✅ Buenas Prácticas Implementadas
+
+# Desplegar frontend en servicio de hosting estático (#31)
+
+Para el despliegue del frontend se implementaron diversas buenas prácticas que 
+garantizan la disponibilidad, seguridad y accesibilidad de la aplicación. En primer 
+lugar, se optó por un **hosting estático en Google Cloud Storage**, lo cual es una 
+práctica recomendada para aplicaciones frontend que no requieren procesamiento en el 
+servidor, reduciendo costos y mejorando el rendimiento. 
+
+Se configuró una **página principal y una página de error personalizada**, asegurando 
+que el usuario siempre tenga una respuesta visual adecuada independientemente de la 
+ruta a la que intente acceder. En cuanto a los permisos, se aplicó el principio de 
+**mínimo privilegio necesario**, otorgando únicamente el rol de *Visualizador de 
+objetos Storage* al principal `allUsers`, lo que permite el acceso público de solo 
+lectura sin exponer capacidades de escritura o administración del bucket. Finalmente, 
+se verificó el correcto despliegue accediendo a la URL pública generada, confirmando 
+que los estilos, componentes y navegación funcionan correctamente en el entorno de 
+producción.
+
+---
+
+# Configuración de variables de entorno (#32)
+
+En la configuración del entorno de producción se siguieron prácticas fundamentales de 
+seguridad y portabilidad. La más destacada fue la **externalización de credenciales 
+mediante variables de entorno**, evitando que datos sensibles como la URL de conexión, 
+el usuario y la contraseña de la base de datos quedaran expuestos en el código fuente 
+o en el repositorio. Esto sigue el principio de la metodología **12-Factor App**, que 
+establece que la configuración debe estar separada del código.
+
+Se implementaron **valores por defecto en `application.properties`**, permitiendo que 
+el equipo pueda ejecutar la aplicación en entorno local sin necesidad de configurar 
+variables adicionales, mientras que en producción los valores son sobreescritos 
+automáticamente por las variables definidas en **Cloud Run**. Adicionalmente, la 
+conexión a **Cloud SQL** se realizó a través de `SocketFactory`, garantizando una 
+comunicación segura y autenticada entre el backend y la base de datos, sin exponer 
+puertos directamente a internet.
+
+---
+
+# Verificar conectividad entre componentes (#33)
+
+Para la verificación del sistema en producción se adoptaron prácticas de **validación 
+end-to-end**, comprobando que cada capa de la arquitectura (frontend, backend y base 
+de datos) se comunica correctamente entre sí. Se realizaron pruebas funcionales 
+cubriendo los flujos críticos del sistema: registro de usuario, inicio de sesión, 
+gestión de géneros favoritos, registro de libros leídos, puntuación, lista de deseos 
+y edición de perfil.
+
+Complementariamente, se ejecutaron **consultas SQL de verificación directamente sobre 
+la base de datos en producción**, confirmando que los registros creados desde el 
+frontend se persistían en tiempo real. Esta práctica permite detectar inconsistencias 
+entre la interfaz y la capa de datos de forma temprana. Todo el proceso fue 
+documentado mediante **videos de demostración**, lo cual constituye una buena práctica 
+de evidencia y trazabilidad del trabajo realizado, facilitando auditorías y revisiones 
+posteriores del proyecto.
+
+### Historia de usuarios-3
+
+# Desplegar frontend en servicio de hosting estático
+
+## Como equipo de desarrollo
+Quiero desplegar la aplicación frontend en un servicio de hosting
+Para garantizar su accesibilidad desde cualquier navegador
+
+## Criterios de Aceptación:
+- [x] El bucket está creado y configurado correctamente en Cloud Storage
+- [x] Los archivos HTML, CSS y JS del frontend están cargados en el bucket
+- [x] `login.html` está configurada como página principal y existe una página de error
+- [x] El permiso `allUsers` con rol **Visualizador de objetos Storage** está habilitado
+- [x] La URL pública carga el frontend con todos sus estilos sin necesidad de permisos
+
+## Estimación: 1
+## Sprint: Sprint 3 – Despliegue en la nube
+## Responsable: @Bygyacqq
+## Prioridad: P2
+## Tamaño: S
+## Label: enhancement
+
+## Verificar conectividad entre componentes
+
+## Como equipo de QA y desarrollo
+Quiero validar que frontend, backend y base de datos se comuniquen correctamente
+Para confirmar que el entorno desplegado funciona de extremo a extremo
+
+## Criterios de Aceptación:
+- [x] El frontend carga correctamente desde la URL pública del bucket
+- [x] El registro de usuario persiste en la base de datos en tiempo real
+- [x] El inicio de sesión autentica correctamente contra el backend
+- [x] Las funcionalidades de género favorito, libros leídos, puntuación, libros deseados y edición de perfil operan sin errores
+- [x] Las consultas SQL sobre `usuario`, `libros` y `deseo` retornan datos consistentes
+
+## Estimación: 1
+## Sprint: Sprint 3 – Despliegue en la nube
+## Responsable: @Bygyacqq
+## Prioridad: P2
+## Tamaño: XS
+## Label: enhancement
+
+# 📊 Métricas del Proyecto – Sprint 3 (Despliegue en la nube)
+
+## Velocity (Velocidad del equipo)
+Mide los puntos de historia completados en el sprint.
+
+| Historia de Usuario | Estimación | Completado |
+|---|---|---|
+| #31 – Desplegar frontend en hosting estático | 1 | 1 |
+| #33 – Verificar conectividad entre componentes | 1 | 1 |
+| **TOTAL** | **2** | **2** |
+
+**Velocity del sprint: 2 puntos → El equipo completó el 100% del trabajo comprometido.**
+
+---
+
+## Burndown
+Trabajo restante vs. tiempo durante el sprint.
+
+| Día | Trabajo Ideal Restante (pts) | Trabajo Real Restante (pts) |
+|---|---|---|
+| Abril 21 (inicio) | 2 | 2 |
+| Abril 21 (cierre) | 0 | 0 |
+
+Ambos issues fueron iniciados y cerrados el mismo día (21 de abril de 2026), completando el sprint en su totalidad en una jornada de trabajo.
+
+---
+
+## Lead Time (Tiempo de entrega)
+Tiempo desde que la tarea fue creada hasta que fue marcada como Done.
+
+> **Fórmula:** Lead Time = Fecha de cierre − Fecha de creación
+
+| Issue | Creación | Cierre | Lead Time |
+|---|---|---|---|
+| #31 – Desplegar frontend | Abril 21 | Abril 21 | 1 día |
+| #33 – Verificar conectividad | Abril 21 | Abril 21 | 1 día |
+
+**Lead Time promedio: 1 día**
+
+---
+
+## Cycle Time (Tiempo de ciclo)
+Tiempo desde que el equipo inició activamente la tarea (In Progress) hasta que fue completada (Done).
+
+> **Fórmula:** Cycle Time = Fecha Done − Fecha In Progress
+
+| Issue | In Progress | Done | Cycle Time |
+|---|---|---|---|
+| #31 – Desplegar frontend | Abril 21 | Abril 21 | < 1 día |
+| #33 – Verificar conectividad | Abril 21 | Abril 21 | < 1 día |
+
+**Cycle Time promedio: menos de 1 día**
+
+> Lead Time y Cycle Time son iguales, lo que indica que las tareas fueron tomadas y ejecutadas el mismo día sin tiempo de espera en cola.
+
+---
+
+## Throughput (Rendimiento)
+Cantidad de tareas completadas en el periodo del sprint.
+
+> **Fórmula:** Throughput = Tareas completadas / Días del sprint
+
+| Indicador | Valor |
+|---|---|
+| Tareas completadas | 2 issues |
+| Duración del sprint | 1 día (Abril 21) |
+| Throughput diario | 2 tareas/día |
+| Puntos entregados | 2 puntos |
+
+---
+
+## Resumen general
+
+| Métrica | Valor obtenido |
+|---|---|
+| Velocity | 2 puntos (100% completado) |
+| Burndown | Sprint cerrado en 0 puntos restantes el mismo día |
+| Lead Time promedio | 1 día |
+| Cycle Time promedio | < 1 día |
+| Throughput | 2 tareas / 1 día |
 ### Reportes Visuales — GitHub Insights
 
 Se utilizó **GitHub Insights** para el seguimiento visual de las métricas del proyecto.
