@@ -1307,30 +1307,29 @@ aproximadamente 65 commits, seguido por contribuidores secundarios.
 
 ![Top Committers](https://raw.githubusercontent.com/JUANPIS008/BookJournal/main/Docs/imagenesdoc/Top%20Committers.png)
 
-<###  Unique Visitors (últimos 14 días)
+### Unique Visitors (últimos 14 días)
 8 visitantes únicos. Pico máximo el 15 de abril con ~8 visitantes.
 
-![Unique visitors](https://raw.githubusercontent.com/JUANPIS008/BookJournal/main/Docs/imagenesdoc/Unique_visitors_in_last_14_days.png)
+![Unique visitors](https://raw.githubusercontent.com/JUANPIS008/BookJournal/main/Docs/imagenesdoc/Unique%20visitors%20in%20last%2014%20days.png)
 
 ---
 
 ###  Total Views (últimos 14 días)
 1017 vistas totales. Tendencia creciente con pico el 16 de abril (~180 vistas).
 
-![Total views](https://raw.githubusercontent.com/JUANPIS008/BookJournal/main/Docs/imagenesdoc/Total_views_in_last_14_days.png)
+![Total views](https://raw.githubusercontent.com/JUANPIS008/BookJournal/main/Docs/imagenesdoc/Total%20views%20in%20last%2014%20days.png)
 
 ---
 
-###  Unique Cloners (últimos 14 días)
+### Unique Cloners (últimos 14 días)
 504 clonadores únicos. Crecimiento sostenido con tendencia al alza desde el 22 de abril.
 
-![Unique cloners](https://raw.githubusercontent.com/JUANPIS008/BookJournal/main/Docs/imagenesdoc/Unique_cloners_in_last_14_days.png)
+![Unique cloners](https://raw.githubusercontent.com/JUANPIS008/BookJournal/main/Docs/imagenesdoc/Unique%20cloners%20in%20last%2014%20days.png)
 
 ---
 
-### Clones (últimos 14 días)
+###  Clones (últimos 14 días)
 1387 clones totales. Incremento exponencial hacia el 22 de abril (~550 clones).
 
-![Clones](https://raw.githubusercontent.com/JUANPIS008/BookJournal/main/Docs/imagenesdoc/Clones_in_last_14_days.png)
-
+![Clones](https://raw.githubusercontent.com/JUANPIS008/BookJournal/main/Docs/imagenesdoc/Clones%20in%20last%2014%20days.png)
 
