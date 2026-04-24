@@ -34,18 +34,13 @@
     - [Buenas prácticas implementadas](#buenas-prácticas-implementadas)
   - [Histotrias de usuario](#Historias-de-usuario)
     - [Historia de usuario spring 2](Historia-de-usuario-spring-2)
-- [🚀 Despliegue en hósting estático (GCP)](#-despliege-en-hósting-estático-(GCP)-)
-    - [Configuración de variables de entorno ](#-configuración-variables-de-entorno)
-    - [Conectividad frontend](#-conectividad-frontend)
+- [🚀 Despliegue en hósting estático (GCP)](#-despliegue-en-hosting-estático-gcp)
+    - [Configuración de variables de entorno ](#️-configuración-de-variables-de-entorno)
+    - [Conectividad frontend](#️-conectividad-frontend)
     - [Conectividad Backend y Base de datos](#-conectividad-backend-y-base-de-datos)
-    - [Consultas de verificación](#-consultas-de-verificación)
+    - [Consultas de verificación](#️-consultas-de-verificación)
     - [Buenas prácticas implementadas](#-buenas-prácticas-implementadas)
-        - [Desplegar frontend en servicio de hósting estático (#31)](#-desplegar-frontend-en-servicio-de-hósting-estático-(#31))
-        - [Configuración de variables de entorno (#32)](#-configuración-de-variables-de-entorno-(#32))
-        - [ Verificar conectividad entre componentes (#33) ](#-verificar-conectividad-entre-componentes-(#33))
 - [Histotrias de usuario](#Historias-de-usuario)
-    -[Desplegar frontend en servicio de hosting estático](#-desplegar-frontend-en-servicio-de-hósting-estático)
-    -[Verificar conectividad entre componentes](#-verificar-conectividad-entre-componentes)
 - [📊 Métricas del Proyecto – Sprint 3 (Despliegue en la nube)](#-métricas-del-proyecto--sprint-3-despliegue-en-la-nube)
 
 ## Stack Tecnológico
@@ -1114,9 +1109,9 @@ LIMIT 5;`
 FROM information_schema.columns
 WHERE table_name = 'usuario';`
 
-## ✅ Buenas Prácticas Implementadas
+### ✅ Buenas Prácticas Implementadas
 
-### Desplegar frontend en servicio de hosting estático (#31)
+# Desplegar frontend en servicio de hosting estático (#31)
 
 Para el despliegue del frontend se implementaron diversas buenas prácticas que 
 garantizan la disponibilidad, seguridad y accesibilidad de la aplicación. En primer 
@@ -1136,7 +1131,7 @@ producción.
 
 ---
 
-### Configuración de variables de entorno (#32)
+# Configuración de variables de entorno (#32)
 
 En la configuración del entorno de producción se siguieron prácticas fundamentales de 
 seguridad y portabilidad. La más destacada fue la **externalización de credenciales 
@@ -1155,7 +1150,7 @@ puertos directamente a internet.
 
 ---
 
-### Verificar conectividad entre componentes (#33)
+# Verificar conectividad entre componentes (#33)
 
 Para la verificación del sistema en producción se adoptaron prácticas de **validación 
 end-to-end**, comprobando que cada capa de la arquitectura (frontend, backend y base 
@@ -1172,9 +1167,9 @@ documentado mediante **videos de demostración**, lo cual constituye una buena p
 de evidencia y trazabilidad del trabajo realizado, facilitando auditorías y revisiones 
 posteriores del proyecto.
 
-## Historia de usuarios
+### Historia de usuarios
 
-### Desplegar frontend en servicio de hosting estático
+# Desplegar frontend en servicio de hosting estático
 
 ## Como equipo de desarrollo
 Quiero desplegar la aplicación frontend en un servicio de hosting
@@ -1194,7 +1189,7 @@ Para garantizar su accesibilidad desde cualquier navegador
 ## Tamaño: S
 ## Label: enhancement
 
-### Verificar conectividad entre componentes
+## Verificar conectividad entre componentes
 
 ## Como equipo de QA y desarrollo
 Quiero validar que frontend, backend y base de datos se comuniquen correctamente
