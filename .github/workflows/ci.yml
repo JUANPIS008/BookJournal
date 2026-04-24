@@ -67,7 +67,6 @@ jobs:
             --revision-suffix=$(date +%s) \
             --add-cloudsql-instances $CLOUD_SQL_INSTANCE \
             --set-env-vars SPRING_DATASOURCE_URL=jdbc:postgresql:///bookjournal?socketFactory=com.google.cloud.sql.postgres.SocketFactory\&cloudSqlInstance=$CLOUD_SQL_INSTANCE,SPRING_DATASOURCE_USERNAME=bookjournal2 \
-            --remove-secrets SPRING_DATASOURCE_PASSWORD \
             --set-env-vars SPRING_DATASOURCE_PASSWORD=Bookjournal2026!
 
       - name: Deploy frontend
