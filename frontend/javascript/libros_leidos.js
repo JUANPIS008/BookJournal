@@ -3,6 +3,8 @@ const API_BASE = (window.location.hostname === 'localhost' || window.location.ho
     : 'https://backend-book-648962643591.southamerica-east1.run.app/api';
 const API_URL = `${API_BASE}/libros/leidos`;
 
+const inputTitulo = document.getElementById('titulo');
+
 //se agrego la funcion obtenerPortada para obtener la imagen de portada de cada libro 
 async function obtenerPortada(titulo) {
     try {
@@ -143,15 +145,17 @@ async function eliminarLibro(id) {
     }
 }
 
-//cambio de posicion
-document.getElementById('titulo').addEventListener('input', () => {
-    const titulo = document.getElementById('titulo').value;
-    const img = document.getElementById('previewPortada');
+if (inputTitulo) {
+    inputTitulo.addEventListener('input', async () => {
+        const titulo = inputTitulo.value;
+        const img = document.getElementById('previewPortada');
 
-    if (titulo.trim() === "") {
-        img.src = "";
-        return;
-    }
+        if (titulo.trim() === "") {
+            if (img) img.src = "";
+            return;
+        }
 
-    img.src = obtenerPortada(titulo);
-});
+        const url = await obtenerPortada(titulo);
+        if (img) img.src = url;
+    });
+}
