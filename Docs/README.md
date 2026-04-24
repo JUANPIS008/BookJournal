@@ -39,7 +39,7 @@
     - [Consultas de verificación](#️-consultas-de-verificación)
     - [Buenas prácticas implementadas](#-buenas-prácticas-implementadas)
 - [Histotrias de usuario](#historia-de-usuarios)
-- [Historia de usuario interaccion con frontend](#-Historia-de-usuario-interaccion-con-frontend)
+- [Historia de usuario interaccion con frontend](#-historia-de-usuario-interaccion-con-frontend)
 - [Métricas del Proyecto – Sprint 3 (Despliegue en la nube)](#-métricas-del-proyecto--sprint-3-despliegue-en-la-nube)
 
 ## Stack Tecnológico
@@ -1113,7 +1113,7 @@ de evidencia y trazabilidad del trabajo realizado, facilitando auditorías y rev
 posteriores del proyecto.
 
 ### Historia de usuarios
-# Historia de usuario interaccion con frontend 
+### Historia de usuario interaccion con frontend 
 ## 1. Registro y Visualización de Libros
 Como usuario lector, quiero mediante un formulario agregar el libro que estoy leyendo en el momento a mi biblioteca personal, para así poder visualizar mi progreso de lectura de una forma bien organizada y ver la portada del libro.
 
