@@ -965,3 +965,19 @@ Se desarrolló un cuadro de diálogo o modal de confirmación. Este paso asegur�
 Una vez confirmada la acción, se disparó una función asíncrona que realizó una petición HTTP bajo el método DELETE hacia el endpoint específico del backend en Spring Boot. La URL de la petición incluyó el ID del recurso para asegurar que solo se afectara al libro deseado.
 4. Sincronización de la Vista y el Estado:
  Tras recibir una respuesta exitosa del servidor (código 200 o 204), se procedió a filtrar el arreglo de libros en el estado del frontend. Esta manipulación del DOM permitió que la tarjeta del libro se desvaneciera o fuera removida de la cuadrícula de forma inmediata, garantizando una visualización de datos coherente con el estado actual del servidor.
+
+### Reportes Visuales — GitHub Insights
+
+Se utilizó **GitHub Insights** para el seguimiento visual de las métricas del proyecto.
+
+###  Commits over time
+Actividad semanal del 11 al 18 de abril de 2026. Se observa un incremento 
+significativo en la segunda semana (~45 commits vs ~20 commits).
+
+![Commits over time](Docs/imagenesdoc/Commits over time.png)
+
+###  Top Committers
+Distribución de commits por contribuidor. El committer principal concentra 
+aproximadamente 65 commits, seguido por contribuidores secundarios.
+
+![Top Committers](Docs/imagenesdoc/Top Committers.png)
