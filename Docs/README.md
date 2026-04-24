@@ -1112,8 +1112,8 @@ documentado mediante **videos de demostración**, lo cual constituye una buena p
 de evidencia y trazabilidad del trabajo realizado, facilitando auditorías y revisiones 
 posteriores del proyecto.
 
-## Historia de usuarios
-### Historia de usuario interaccion con frontend 
+# Historia de usuarios
+### 1. Historia de usuario interaccion con frontend 
 #### 1. Registro y Visualización de Libros
 Como usuario lector, quiero mediante un formulario agregar el libro que estoy leyendo en el momento a mi biblioteca personal, para así poder visualizar mi progreso de lectura de una forma bien organizada y ver la portada del libro.
 
@@ -1165,7 +1165,7 @@ La implementación comenzó con la creación del control de borrado, añadiendo 
 
 Posteriormente, se configuró la ejecución de la petición a la API, disparando una función asíncrona que realiza una petición HTTP DELETE hacia el endpoint específico en Spring Boot, incluyendo el ID del recurso para asegurar que solo se afecte al libro deseado. Finalmente, se realizó la sincronización de la vista y el estado del frontend; tras recibir una respuesta exitosa del servidor, se procedió a filtrar el arreglo de libros, permitiendo que la tarjeta desaparezca de la cuadrícula de forma inmediata sin recargar la página.
 
-### Métricas del Proyecto – Sprint 3 (Despliegue en la nube)
+### 2. Métricas del Proyecto – Sprint 3 (Despliegue en la nube)
 
 # Desplegar frontend en servicio de hosting estático
 
