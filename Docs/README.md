@@ -1289,3 +1289,20 @@ Cantidad de tareas completadas en el periodo del sprint.
 | Lead Time promedio | 1 día |
 | Cycle Time promedio | < 1 día |
 | Throughput | 2 tareas / 1 día |
+### Reportes Visuales — GitHub Insights
+
+Se utilizó **GitHub Insights** para el seguimiento visual de las métricas del proyecto.
+
+###  Commits over time
+Actividad semanal del 11 al 18 de abril de 2026. Se observa un incremento 
+significativo en la segunda semana (~45 commits vs ~20 commits).
+
+![Top Committers](Docs/imagenesdoc/Top%20Committers.png)
+
+###  Top Committers
+Distribución de commits por contribuidor. El committer principal concentra 
+aproximadamente 65 commits, seguido por contribuidores secundarios.
+
+![Commits over time](Docs/imagenesdoc/Commits%20over%20time.png)
+
+
