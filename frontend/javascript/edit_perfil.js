@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(usuarioNuevo));
 
-                alert("Perfil actualizado ✅");
+                alert("Perfil actualizado");
                 irperfil();
 
             } catch (error) {

@@ -157,3 +157,23 @@ body {
     color: #5a6650;
     margin-bottom: 15px;
 }
+
+button { 
+    width: 100%; 
+    padding: 12px; 
+    background: #79876D; 
+    color: white; 
+    border: none; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.6rem;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+}

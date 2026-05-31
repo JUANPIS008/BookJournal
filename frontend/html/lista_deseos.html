@@ -2,24 +2,25 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de deseos - BOOK Journal</title>
     <link rel="stylesheet" href="../css/lista_deseos.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <nav class="navbar">
+     <nav class="navbar">
         <div class="nav-container">
 
             <div class="dropdown">
                 <button class="dropbtn">Módulos ▼</button>
                 <div class="dropdown-content">
+
                     <a href="lectura_actual.html">Lectura actual</a>
                     <a href="libros_leidos.html">Libros leídos</a>
                     <a href="lista_deseos.html">Libros deseados</a>
 
                     <div class="divider"></div>
-
                     <a href="login.html">Cerrar sesión</a>
                 </div>
             </div>
@@ -37,13 +38,19 @@
 
         </div>
     </nav>
-
     <img src="../recursos/Imagen1.png" class="side-image right" alt="Hojas decorativas">
 
     <main class="reg-form-container">
         <div class="container">
 
             <h1 class="titulo-libros-deseados">Lista de libros deseados</h1>
+            
+            <div style="text-align: center; margin-bottom: 30px;">
+                <button onclick="window.location.href='descubrir_libros.html'" style="padding: 12px 25px; font-size: 1.4rem; background-color: #6b7760; color: white; border: none; border-radius: 10px; cursor: pointer; font-family: 'Patrick Hand', cursive;">
+                    Buscar nuevos libros y recommendaciones
+                </button>
+            </div>
+
             <div class="lista-libros-deseados" id="lista-deseados">
 
                 <div class="input-section">
