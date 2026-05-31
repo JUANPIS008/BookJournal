@@ -58,7 +58,7 @@ async function registrar() {
 
         localStorage.setItem("usuarioLogueado", JSON.stringify(usuario));
 
-        alert("Registro exitoso 🎉");
+        alert("Registro exitoso");
         irHome();
 
     } catch (error) {

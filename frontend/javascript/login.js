@@ -40,7 +40,7 @@ async function login() {
         if (usuario) {
             localStorage.setItem("usuarioLogueado", JSON.stringify(usuario));
 
-            alert("Login exitoso 🎉");
+            alert("Login exitoso");
             irHome();
         } else {
             alert("Credenciales incorrectas");
