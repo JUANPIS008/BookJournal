@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Descubrir Libros - BOOK Journal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/descubrir_libros.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 </head>
+
 <body>
-<nav class="navbar">
+
+    <nav class="navbar">
         <div class="nav-container">
 
             <div class="dropdown">
                 <button class="dropbtn">Módulos ▼</button>
-                <div class="dropdown-content">
 
+                <div class="dropdown-content">
                     <a href="lectura_actual.html">Lectura actual</a>
                     <a href="libros_leidos.html">Libros leídos</a>
                     <a href="lista_deseos.html">Libros deseados</a>
 
                     <div class="divider"></div>
+
                     <a href="login.html">Cerrar sesión</a>
                 </div>
             </div>
@@ -30,37 +33,45 @@
             </div>
 
             <div class="perfil-section">
-                <a href="perfil.html" class="profile-link">
-                    <img src="../recursos/Imagen4.jpg" alt="Perfil" class="iconoperfil">
+                <a href="perfil.html">
+                    <img src="../recursos/Imagen4.jpg"
+                         alt="Perfil"
+                         class="iconoperfil">
                 </a>
             </div>
 
         </div>
     </nav>
 
-    <img src="../recursos/Imagen1.png" class="side-image right" alt="Hojas decorativas">
+    <img src="../recursos/Imagen1.png"
+         class="side-image right"
+         alt="Decoración">
 
-    <main class="reg-form-container">
+    <main class="contenido">
         <div class="container">
-            <h1 style="font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #1a1a1a; margin: 0 0 20px 0;">Descubrir nuevos libros</h1>
-            
-            <div style="margin-bottom: 25px;">
-                <button onclick="window.location.href='lista_deseos.html'" class="btn-volver">
-                    ← Volver a mis deseos
-                </button>
-            </div>
+            <h1 class="titulo">
+            Descubre nuevos libros para ti
+        </h1>
 
-            <div class="seccion-recomendados">
-                <h2 style="font-family: 'Dancing Script', cursive; font-size: 2.4rem; color: #5a6650; margin-bottom: 5px;">Recomendados para ti</h2>
-                <p style="font-family: 'Patrick Hand', cursive; color: #666; font-size: 1.2rem; margin: 0 0 25px 0;">Analizamos los temas de tus libros guardados para recomendarte nuevas lecturas</p>
-                
-                <div id="loader-recomendaciones" class="loader">Analizando tus gustos literarios...</div>
-                
-                <div class="grid-recomendaciones" id="contenedor-recomendados"></div>
-            </div>
+        <p class="subtitulo">
+            Recomendaciones personalizadas según tus gustos, lecturas y lista de deseos.
+        </p>
+
+        <div id="loader-recomendaciones" class="loader">
+            Generando recomendaciones...
+        </div>
+
+        <div id="contenedor-recomendados"></div>
+
         </div>
     </main>
 
+    <img src="../recursos/Imagen3.png"
+         class="side-image left"
+         alt="Decoración">
+
     <script src="../javascript/descubrir_libros.js"></script>
+
 </body>
+
 </html>
