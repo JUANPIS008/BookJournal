@@ -74,118 +74,18 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-    // Cambios: Cargar las lecturas actuales en proceso e inyectar el nuevo botón
-    cargarLecturasEnProceso();
-    inyectarBotonProgreso();
 });
 
-// Inyecta el botón para guardar el avance en progreso sin salir de la página
-function inyectarBotonProgreso() {
-    const contenedorForm = document.querySelector('.form-content');
-    const botonTerminar = document.querySelector('.boton_terminar_lectura');
-    
-    if (contenedorForm && botonTerminar && !document.getElementById('btnGuardarProceso')) {
-        const botonProceso = document.createElement('button');
-        botonProceso.type = 'button';
-        botonProceso.id = 'btnGuardarProceso';
-        botonProceso.className = 'boton-guardar-proceso';
-        botonProceso.style.backgroundColor = '#6b7760';
-        botonProceso.style.marginBottom = '10px';
-        botonProceso.innerText = 'Guardar lectura en proceso';
-        
-        botonProceso.onclick = () => Guardar_libro(false); // false significa que no está terminado
-        
-        contenedorForm.insertBefore(botonProceso, botonTerminar);
-    }
-}
 
-// Carga y filtra dinámicamente los libros que no tienen fecha de fin
-async function cargarLecturasEnProceso() {
-    const contenedor = document.getElementById('lista-proceso');
-    if (!contenedor) return;
-    contenedor.innerHTML = "";
+async function Guardar_libro() {
 
-    try {
-        const respuesta = await fetch(API_URL);
-        if (!respuesta.ok) throw new Error("Error recuperando lecturas.");
-
-        const libros = await respuesta.json();
-
-        const librosEnProceso = libros.filter(libro => !libro.fin || libro.fin.trim() === "");
-
-        if (librosEnProceso.length === 0) {
-            contenedor.innerHTML = "<p style='font-family: \"Patrick Hand\", cursive; font-size: 1.3rem; color: #555;'>No tienes lecturas en proceso actualmente.</p>";
-            return;
-        }
-
-        for (const libro of librosEnProceso) {
-            const tarjeta = document.createElement('div');
-            tarjeta.className = 'libro-card';
-            tarjeta.style.marginTop = '15px';
-            
-            const portadaUrl = await obtenerPortada(libro.titulo);
-
-            let estrellasHTML = '';
-            const calif = parseInt(libro.calificacion) || 0;
-            for (let i = 1; i <= 5; i++) {
-                estrellasHTML += `<span style="color:${i <= calif ? '#ffd700' : '#ccc'};">★</span>`;
-            }
-
-            tarjeta.innerHTML = `
-                <h2 class="libro-titulo">${libro.titulo}</h2>
-                <img src="${portadaUrl}" style="margin-top:10px; width:120px; height:180px; object-fit:cover; border-radius:10px;">
-                <p class="libro-autor"><strong>Autor:</strong> ${libro.autor || 'Desconocido'}</p>
-                <p class="libro-genero"><strong>Género:</strong> ${libro.genero || 'N/A'}</p>
-                <p class="libro-fechas"><strong>Inicio:</strong> ${libro.inicio || 'No definida'}</p>
-                <div style="margin-bottom: 15px;"><strong>Calificación temporal:</strong> ${estrellasHTML}</div>
-                <button type="button" class="btn-editar-proceso" style="background-color: #a3b899; color: white;" id="edit-btn-${libro.id}">Editar / Terminar lectura</button>
-            `;
-            
-            contenedor.appendChild(tarjeta);
-
-            document.getElementById(`edit-btn-${libro.id}`).addEventListener('click', () => {
-                cargarLibroParaEditar(libro);
-            });
-        }
-    } catch (error) {
-        console.error("Error al cargar lecturas en proceso:", error);
-        contenedor.innerHTML = "<p>Error al conectar con el servidor.</p>";
-    }
-}
-
-function cargarLibroParaEditar(libro) {
-    document.getElementById('libroId').value = libro.id;
-    document.getElementById('titulo').value = libro.titulo;
-    document.getElementById('autor').value = libro.autor || '';
-    document.getElementById('genero').value = libro.genero || '';
-    document.getElementById('resena').value = libro.resena || '';
-    document.getElementById('inicio').value = libro.inicio || '';
-    document.getElementById('final').value = libro.fin || '';
-    
-    const calificacion = libro.calificacion || 0;
-    document.getElementById('calificacion').value = calificacion;
-    updateStarDisplay(calificacion);
-    calificacionSeleccionada = calificacion;
-
-    const img = document.getElementById('previewPortada');
-    if (img && libro.titulo) {
-        obtenerPortada(libro.titulo).then(url => img.src = url);
-    }
-    
-    document.querySelector('.reg-form-container').scrollIntoView({ behavior: 'smooth' });
-}
-
-async function Guardar_libro(esFinalizado = true) {
-    const idExistente = document.getElementById('libroId').value;
-    
     const nuevoLibro = {
         titulo: document.getElementById('titulo').value,
         autor: document.getElementById('autor').value,
         genero: document.getElementById('genero').value,
         resena: document.getElementById('resena').value,
         inicio: document.getElementById('inicio').value,
-        fin: esFinalizado ? document.getElementById('final').value : "", 
+        fin: document.getElementById('final').value,
         calificacion: parseInt(document.getElementById('calificacion').value) || 0
     };
 
@@ -193,18 +93,10 @@ async function Guardar_libro(esFinalizado = true) {
         alert("Por favor, ingresa al menos el título del libro.");
         return;
     }
-    
-    if (esFinalizado && nuevoLibro.fin.trim() === "") {
-        alert("Para finalizar la lectura es obligatorio registrar la fecha de fin.");
-        return;
-    }
 
     try {
-        const urlPeticion = idExistente ? `${API_BASE}/libros/${idExistente}` : API_URL;
-        const metodoHTTP = idExistente ? 'PUT' : 'POST';
-
-        const respuesta = await fetch(urlPeticion, {
-            method: metodoHTTP,
+        const respuesta = await fetch(API_URL, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -212,16 +104,10 @@ async function Guardar_libro(esFinalizado = true) {
         });
 
         if (respuesta.ok) {
-            if (esFinalizado) {
-                alert("¡Felicitaciones! Has terminado el libro y se ha guardado en leídos.");
-                window.location.href = "libros_leidos.html";
-            } else {
-                alert("Lectura guardada en proceso correctamente.");
-                limpiarFormularioLectura();
-                cargarLecturasEnProceso();
-            }
+            alert("Libro guardado correctamente en la API");
+            window.location.href = "libros_leidos.html";
         } else {
-            alert("Error al intentar procesar la solicitud en el servidor.");
+            alert("Error al guardar en la API");
         }
 
     } catch (error) {
@@ -229,17 +115,161 @@ async function Guardar_libro(esFinalizado = true) {
     }
 }
 
-function limpiarFormularioLectura() {
-    document.getElementById('libroId').value = "";
-    document.getElementById('titulo').value = "";
-    document.getElementById('autor').value = "";
-    document.getElementById('genero').value = "";
-    document.getElementById('resena').value = "";
-    document.getElementById('inicio').value = "";
-    document.getElementById('final').value = "";
-    document.getElementById('calificacion').value = 0;
-    const img = document.getElementById('previewPortada');
-    if (img) img.src = "";
-    updateStarDisplay(0);
-    calificacionSeleccionada = 0;
+let lecturaEnProceso = null;
+
+async function Guardar_progreso() {
+
+    const titulo = document.getElementById('titulo').value;
+
+    if (!titulo.trim()) {
+        alert("Debes ingresar al menos el título.");
+        return;
+    }
+
+    const portada = document.getElementById('previewPortada').src;
+
+    lecturaEnProceso = {
+        titulo,
+        autor: document.getElementById('autor').value,
+        genero: document.getElementById('genero').value,
+        resena: document.getElementById('resena').value,
+        inicio: document.getElementById('inicio').value,
+        fin: document.getElementById('final').value,
+        calificacion: document.getElementById('calificacion').value,
+        portada
+    };
+
+    mostrarTarjetaProgreso();
+
+    alert("Progreso guardado");
+}
+function mostrarTarjetaProgreso() {
+
+    const container = document.getElementById("progresoGuardadoContainer");
+
+    container.innerHTML = `
+        <div class="tarjeta-progreso">
+            <img src="${lecturaEnProceso.portada}" alt="Portada">
+
+            <div class="info-libro">
+                <h3>${lecturaEnProceso.titulo}</h3>
+                <p><strong>Autor:</strong> ${lecturaEnProceso.autor}</p>
+                <p><strong>Género:</strong> ${lecturaEnProceso.genero}</p>
+                <p><strong>Fecha inicio:</strong> ${lecturaEnProceso.inicio || 'No registrada'}</p>
+
+                <button onclick="editarLectura()">
+                    Editar
+                </button>
+            </div>
+        </div>
+    `;
+}
+function editarLectura() {
+
+    if (!lecturaEnProceso) return;
+
+    document.getElementById('titulo').value = lecturaEnProceso.titulo;
+    document.getElementById('autor').value = lecturaEnProceso.autor;
+    document.getElementById('genero').value = lecturaEnProceso.genero;
+    document.getElementById('resena').value = lecturaEnProceso.resena;
+    document.getElementById('inicio').value = lecturaEnProceso.inicio;
+    document.getElementById('final').value = lecturaEnProceso.fin;
+
+    document.getElementById('previewPortada').src =
+        lecturaEnProceso.portada;
+
+    calificacionSeleccionada =
+        parseInt(lecturaEnProceso.calificacion) || 0;
+
+    document.getElementById('calificacion').value =
+        calificacionSeleccionada;
+
+    updateStarDisplay(calificacionSeleccionada);
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+localStorage.setItem(
+    "lecturaActual",
+    JSON.stringify(lecturaEnProceso)
+);
+window.addEventListener('DOMContentLoaded', () => {
+
+    initRatingStars();
+
+    const guardado =
+        localStorage.getItem("lecturaActual");
+
+    if (guardado) {
+        lecturaEnProceso = JSON.parse(guardado);
+        mostrarTarjetaProgreso();
+    }
+
+});
+localStorage.removeItem("lecturaActual");
+function mostrarTarjetaProgreso() {
+
+    const container = document.getElementById("progresoGuardadoContainer");
+
+    let estrellas = '';
+
+    for (let i = 1; i <= 5; i++) {
+        estrellas += `
+            <span style="color:${i <= lecturaEnProceso.calificacion ? '#ffd700' : '#ccc'}">
+                ★
+            </span>
+        `;
+    }
+
+    container.innerHTML = `
+        <div class="libro-card">
+
+            <h2 class="libro-titulo">
+                ${lecturaEnProceso.titulo}
+            </h2>
+
+            <div class="libro-info">
+
+                <img
+                    src="${lecturaEnProceso.portada}"
+                    class="libro-portada"
+                    alt="Portada">
+
+                <div class="libro-detalles">
+
+                    <p><strong>Autor:</strong>
+                    ${lecturaEnProceso.autor || 'Sin registrar'}
+                    </p>
+
+                    <p><strong>Género:</strong>
+                    ${lecturaEnProceso.genero || 'Sin registrar'}
+                    </p>
+
+                    <p><strong>Inicio:</strong>
+                    ${lecturaEnProceso.inicio || 'Sin registrar'}
+                    </p>
+
+                    <p><strong>Reseña:</strong>
+                    ${lecturaEnProceso.resena || 'Sin registrar'}
+                    </p>
+
+                    <p>
+                        <strong>Calificación:</strong>
+                        ${estrellas}
+                    </p>
+
+                    <button
+                        class="btn-editar"
+                        onclick="editarLectura()">
+                        Editar lectura
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
 }
