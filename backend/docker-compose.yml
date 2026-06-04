@@ -1,5 +1,7 @@
 ﻿version: '3.8'
+
 services:
+
   postgres:
     image: postgres:15
     container_name: postgres-book
@@ -9,9 +11,10 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
   backend:
     build: .
     container_name: spring-book
@@ -27,6 +30,7 @@ services:
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
       SPRING_JPA_SHOW_SQL: true
       PORT: 8080
+
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin-book
@@ -36,14 +40,31 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin
     ports:
       - "5050:80"
-  nginx-waf:
-    image: nginx:alpine
-    container_name: nginx-waf-book
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus-book
+
     ports:
-      - "8081:80"
+      - "9090:9090"
+
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+
     depends_on:
       - backend
+
+  grafana:
+    image: grafana/grafana
+
+    container_name: grafana-book
+
+    ports:
+      - "3000:3000"
+
+    depends_on:
+      - prometheus
+
 volumes:
   postgres_data:
+
