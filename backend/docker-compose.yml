@@ -1,7 +1,5 @@
-version: '3.8'
-
+﻿version: '3.8'
 services:
-
   postgres:
     image: postgres:15
     container_name: postgres-book
@@ -11,10 +9,9 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
   backend:
     build: .
     container_name: spring-book
@@ -30,7 +27,6 @@ services:
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
       SPRING_JPA_SHOW_SQL: true
       PORT: 8080
-
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin-book
@@ -40,6 +36,14 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin
     ports:
       - "5050:80"
-
+  nginx-waf:
+    image: nginx:alpine
+    container_name: nginx-waf-book
+    ports:
+      - "8081:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
 volumes:
   postgres_data:
