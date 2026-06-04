@@ -75,6 +75,10 @@
             <artifactId>postgres-socket-factory</artifactId>
             <version>1.19.0</version>
         </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
