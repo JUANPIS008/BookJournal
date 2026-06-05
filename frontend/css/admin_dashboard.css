@@ -1,0 +1,116 @@
+/* =========================
+   DASHBOARD ADMINISTRADOR
+========================= */
+
+.admin-dashboard-container {
+    width: calc(100% - 60px);
+    max-width: none;
+    margin: 0;
+    padding: 30px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Header */
+
+.admin-dashboard-container header {
+    background: #ccdbbe;
+    border-radius: 15px;
+    padding: 20px 30px;
+    margin-bottom: 25px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.admin-dashboard-container header h1 {
+    margin: 0;
+    color: #1a1a1a;
+    font-size: 3rem;
+}
+
+.admin-dashboard-container header button.logout {
+    width: auto;
+    padding: 12px 24px;
+    background: #b85050;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.2rem;
+}
+
+.admin-dashboard-container header button.logout:hover {
+    background: #a13d3d;
+}
+
+/* =========================
+   SECCIONES
+========================= */
+
+.panel-section {
+    width: 100%;
+    background: #ccdbbe;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    box-sizing: border-box;
+}
+
+.panel-section h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+    font-size: 2rem;
+}
+
+/* =========================
+   TABLAS
+========================= */
+
+table {
+    width: 100%;
+    min-width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+thead {
+    background: #79876D;
+}
+
+thead th {
+    color: white;
+    padding: 15px;
+    font-size: 1.2rem;
+    text-align: left;
+}
+
+th,
+td {
+    padding: 14px;
+    border: 1px solid #d8e2d0;
+    text-align: left;
+    font-size: 1.1rem;
+}
+
+tbody tr:nth-child(even) {
+    background: #f4f7f1;
+}
+
+tbody tr:hover {
+    background: #e7eee0;
+}
+
+/* Permite scroll horizontal si la tabla es muy grande */
+
+.panel-section {
+    overflow-x: auto;
+}

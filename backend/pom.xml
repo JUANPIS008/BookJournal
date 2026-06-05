@@ -75,11 +75,18 @@
             <artifactId>postgres-socket-factory</artifactId>
             <version>1.19.0</version>
         </dependency>
+<<<<<<< HEAD
             <dependency>
                 <groupId>dev.samstevens.totp</groupId>
                 <artifactId>totp</artifactId>
                 <version>1.7.1</version>
             </dependency>
+=======
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+>>>>>>> 00840bc2c4b8959971cd11a11cea11dfe777c7e0
     </dependencies>
 
     <build>

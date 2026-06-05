@@ -40,6 +40,10 @@ public class LibroService {
         return repository.findByFinIsNotNull();
     }
 
+    public Libro lecturaActual() {
+        return repository.findByFinIsNull().stream().findFirst().orElse(null);
+    }
+
     public List<Libro> buscar(String texto) {
         return repository.buscar(texto);
     }

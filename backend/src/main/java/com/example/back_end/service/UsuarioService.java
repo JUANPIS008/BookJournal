@@ -4,6 +4,7 @@ import com.example.back_end.model.Usuario;
 import com.example.back_end.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +28,10 @@ public class UsuarioService {
         }
 
         return null;
+    }
+
+    public List<Usuario> listarTodos() {
+        return repository.findAll();
     }
 
     public Usuario obtenerPorId(Long id) {

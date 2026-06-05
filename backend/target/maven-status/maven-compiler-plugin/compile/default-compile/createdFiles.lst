@@ -1,3 +1,4 @@
+com\example\back_end\model\Admin.class
 com\example\back_end\model\Usuario.class
 com\example\back_end\repository\DeseoRepository.class
 com\example\back_end\repository\LibroRepository.class
@@ -8,7 +9,10 @@ com\example\back_end\service\DeseoService.class
 com\example\back_end\model\Libro.class
 com\example\back_end\repository\UsuarioRepository.class
 com\example\back_end\service\LibroService.class
+com\example\back_end\controller\AdminController.class
 com\example\back_end\BackEndApplication.class
 com\example\back_end\controller\UsuarioController.class
 com\example\back_end\config\SecurityConfig.class
+com\example\back_end\service\AdminService.class
 com\example\back_end\controller\LibroController.class
+com\example\back_end\repository\AdminRepository.class
