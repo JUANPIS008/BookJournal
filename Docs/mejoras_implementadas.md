@@ -305,7 +305,7 @@ Para conectar Grafana con Prometheus y poder visualizar las métricas:
 3. Configurar la URL:
 
 ```
-http://prometheus:9090
+http://localhost:9090
 ```
 
 4. Hacer clic en **Save & Test** para verificar la conexión.
