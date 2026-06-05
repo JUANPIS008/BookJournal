@@ -2,6 +2,8 @@ package com.example.back_end.controller;
 
 import com.example.back_end.model.Usuario;
 import com.example.back_end.service.UsuarioService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,8 +23,12 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public Usuario login(@RequestBody Usuario usuario) {
-        return service.login(usuario.getCorreo(), usuario.getPassword());
+    public ResponseEntity<Usuario> login(@RequestBody Usuario usuario) {
+        Usuario logged = service.login(usuario.getCorreo(), usuario.getPassword());
+        if (logged == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        return ResponseEntity.ok(logged);
     }
 
     @GetMapping("/{id}")

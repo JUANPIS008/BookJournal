@@ -171,6 +171,43 @@ ALTER TABLE ONLY public.usuarios ALTER COLUMN id SET DEFAULT nextval('public.usu
 
 
 --
+-- Name: administradores; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.administradores (
+    id integer NOT NULL,
+    nombre character varying(100) NOT NULL,
+    correo character varying(150) NOT NULL,
+    contrasena character varying(255) NOT NULL,
+    fecha_registro timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    rol character varying(50) NOT NULL
+);
+
+ALTER TABLE public.administradores OWNER TO postgres;
+
+CREATE SEQUENCE public.administradores_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE public.administradores_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.administradores_id_seq OWNED BY public.administradores.id;
+
+ALTER TABLE ONLY public.administradores ALTER COLUMN id SET DEFAULT nextval('public.administradores_id_seq'::regclass);
+
+--
+-- Data for Name: administradores; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.administradores (id, nombre, correo, contrasena, fecha_registro, rol) FROM stdin;
+1	Administrador	admin@bookjournal.com	admin123	2026-06-04 12:00:00	ADMIN
+\.
+
+
+--
 -- Data for Name: libros_deseados; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
