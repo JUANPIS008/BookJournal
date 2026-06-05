@@ -1,9 +1,12 @@
-const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-    ? 'http://localhost:8080/api'
-    : 'https://backend-book-648962643591.southamerica-east1.run.app/api';
+const LOCAL_API_BASE = 'http://localhost:8080/api';
+const REMOTE_API_BASE = 'https://backend-book-648962643591.southamerica-east1.run.app/api';
+const API_BASE = (window.location.protocol === 'file:' || window.location.hostname === '' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? LOCAL_API_BASE
+    : REMOTE_API_BASE;
 const API_URL = `${API_BASE}/libros`;
 
 let calificacionSeleccionada = 0;
+let lecturaEnProceso = null;
 
 async function obtenerPortada(titulo) {
     try {
@@ -11,15 +14,13 @@ async function obtenerPortada(titulo) {
         const data = await res.json();
 
         const libro = data.docs?.[0];
-
         if (!libro || !libro.cover_i) {
             return 'https://via.placeholder.com/120x180?text=Sin+portada';
         }
 
         return `https://covers.openlibrary.org/b/id/${libro.cover_i}-M.jpg`;
-
     } catch (error) {
-        console.error("Error obteniendo portada:", error);
+        console.error('Error obteniendo portada:', error);
         return 'https://via.placeholder.com/120x180?text=Error';
     }
 }
@@ -33,7 +34,7 @@ function initRatingStars() {
 
         star.addEventListener('click', () => {
             calificacionSeleccionada = value;
-            calificacionInput.value = value;
+            if (calificacionInput) calificacionInput.value = value;
             updateStarDisplay(value);
         });
 
@@ -50,10 +51,32 @@ function updateStarDisplay(value) {
     });
 }
 
+async function cargarLecturaActual() {
+    try {
+        const respuesta = await fetch(`${API_URL}/actual`);
+        if (!respuesta.ok) return;
+
+        const text = await respuesta.text();
+        if (!text.trim()) return;
+
+        const libro = JSON.parse(text);
+        if (libro && libro.id) {
+            lecturaEnProceso = libro;
+            lecturaEnProceso.portada = await obtenerPortada(libro.titulo);
+            mostrarTarjetaProgreso();
+        }
+    } catch (error) {
+        console.error('Error cargando lectura actual:', error);
+    }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     initRatingStars();
+
     const califInput = document.getElementById('calificacion');
-    if(califInput) califInput.value = 0;
+    if (califInput) califInput.value = 0;
+
+    cargarLecturaActual();
 
     const inputTitulo = document.getElementById('titulo');
     if (inputTitulo) {
@@ -61,36 +84,34 @@ window.addEventListener('DOMContentLoaded', () => {
             const titulo = inputTitulo.value;
             const img = document.getElementById('previewPortada');
 
-            if (titulo.trim() === "") {
-                if(img) img.src = "";
+            if (titulo.trim() === '') {
+                if (img) img.src = '';
                 return;
             }
 
             try {
                 const url = await obtenerPortada(titulo);
-                if(img) img.src = url;
+                if (img) img.src = url;
             } catch (err) {
-                console.error("Error en la carga:", err);
+                console.error('Error en la carga:', err);
             }
         });
     }
 });
 
-
 async function Guardar_libro() {
-
     const nuevoLibro = {
         titulo: document.getElementById('titulo').value,
         autor: document.getElementById('autor').value,
         genero: document.getElementById('genero').value,
         resena: document.getElementById('resena').value,
-        inicio: document.getElementById('inicio').value,
-        fin: document.getElementById('final').value,
+        inicio: document.getElementById('inicio').value || null,
+        fin: document.getElementById('final').value || null,
         calificacion: parseInt(document.getElementById('calificacion').value) || 0
     };
 
-    if (nuevoLibro.titulo.trim() === "") {
-        alert("Por favor, ingresa al menos el título del libro.");
+    if (nuevoLibro.titulo.trim() === '') {
+        alert('Por favor, ingresa al menos el título del libro.');
         return;
     }
 
@@ -104,172 +125,131 @@ async function Guardar_libro() {
         });
 
         if (respuesta.ok) {
-            alert("Libro guardado correctamente en la API");
-            window.location.href = "libros_leidos.html";
+            alert('Libro guardado correctamente en la API');
+            window.location.href = 'libros_leidos.html';
         } else {
-            alert("Error al guardar en la API");
+            alert('Error al guardar en la API');
         }
-
     } catch (error) {
-        console.error("Error conectando con la API:", error);
+        console.error('Error conectando con la API:', error);
+        alert('Error al guardar el libro.');
     }
 }
 
-let lecturaEnProceso = null;
+function validarFormulario() {
+    const titulo = document.getElementById('titulo').value.trim();
+    const autor = document.getElementById('autor').value.trim();
 
-async function Guardar_progreso() {
-
-    const titulo = document.getElementById('titulo').value;
-
-    if (!titulo.trim()) {
-        alert("Debes ingresar al menos el título.");
-        return;
+    if (!titulo) {
+        alert('Por favor ingresa el título del libro.');
+        return false;
     }
+    if (!autor) {
+        alert('Por favor ingresa el autor del libro.');
+        return false;
+    }
+    return true;
+}
 
-    const portada = document.getElementById('previewPortada').src;
+async function guardarLecturaEnDB() {
+    if (!validarFormulario()) return false;
 
-    lecturaEnProceso = {
-        titulo,
+    const libroPayload = {
+        titulo: document.getElementById('titulo').value,
         autor: document.getElementById('autor').value,
         genero: document.getElementById('genero').value,
         resena: document.getElementById('resena').value,
-        inicio: document.getElementById('inicio').value,
-        fin: document.getElementById('final').value,
-        calificacion: document.getElementById('calificacion').value,
-        portada
+        inicio: document.getElementById('inicio').value || null,
+        fin: document.getElementById('final').value || null,
+        calificacion: parseInt(document.getElementById('calificacion').value) || 0
     };
 
-    mostrarTarjetaProgreso();
+    try {
+        const url = lecturaEnProceso && lecturaEnProceso.id ? `${API_URL}/${lecturaEnProceso.id}` : API_URL;
+        const method = lecturaEnProceso && lecturaEnProceso.id ? 'PUT' : 'POST';
 
-    alert("Progreso guardado");
+        const respuesta = await fetch(url, {
+            method,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(libroPayload)
+        });
+
+        if (!respuesta.ok) {
+            throw new Error('No se pudo guardar el progreso');
+        }
+
+        lecturaEnProceso = await respuesta.json();
+        lecturaEnProceso.portada = document.getElementById('previewPortada').src || await obtenerPortada(lecturaEnProceso.titulo);
+        mostrarTarjetaProgreso();
+        return true;
+    } catch (error) {
+        console.error('Error guardando lectura en la API:', error);
+        alert('Error al guardar el progreso. Revisa la conexión con la API.');
+        return false;
+    }
 }
+
+async function Guardar_progreso() {
+    const guardado = await guardarLecturaEnDB();
+    if (guardado) {
+        alert('Progreso guardado');
+    }
+}
+
+async function Guardar_cambios() {
+    const guardado = await guardarLecturaEnDB();
+    if (guardado) {
+        alert('Cambios guardados correctamente');
+    }
+}
+
 function mostrarTarjetaProgreso() {
-
-    const container = document.getElementById("progresoGuardadoContainer");
-
-    container.innerHTML = `
-        <div class="tarjeta-progreso">
-            <img src="${lecturaEnProceso.portada}" alt="Portada">
-
-            <div class="info-libro">
-                <h3>${lecturaEnProceso.titulo}</h3>
-                <p><strong>Autor:</strong> ${lecturaEnProceso.autor}</p>
-                <p><strong>Género:</strong> ${lecturaEnProceso.genero}</p>
-                <p><strong>Fecha inicio:</strong> ${lecturaEnProceso.inicio || 'No registrada'}</p>
-
-                <button onclick="editarLectura()">
-                    Editar
-                </button>
-            </div>
-        </div>
-    `;
-}
-function editarLectura() {
-
     if (!lecturaEnProceso) return;
 
-    document.getElementById('titulo').value = lecturaEnProceso.titulo;
-    document.getElementById('autor').value = lecturaEnProceso.autor;
-    document.getElementById('genero').value = lecturaEnProceso.genero;
-    document.getElementById('resena').value = lecturaEnProceso.resena;
-    document.getElementById('inicio').value = lecturaEnProceso.inicio;
-    document.getElementById('final').value = lecturaEnProceso.fin;
-
-    document.getElementById('previewPortada').src =
-        lecturaEnProceso.portada;
-
-    calificacionSeleccionada =
-        parseInt(lecturaEnProceso.calificacion) || 0;
-
-    document.getElementById('calificacion').value =
-        calificacionSeleccionada;
-
-    updateStarDisplay(calificacionSeleccionada);
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
-localStorage.setItem(
-    "lecturaActual",
-    JSON.stringify(lecturaEnProceso)
-);
-window.addEventListener('DOMContentLoaded', () => {
-
-    initRatingStars();
-
-    const guardado =
-        localStorage.getItem("lecturaActual");
-
-    if (guardado) {
-        lecturaEnProceso = JSON.parse(guardado);
-        mostrarTarjetaProgreso();
-    }
-
-});
-localStorage.removeItem("lecturaActual");
-function mostrarTarjetaProgreso() {
-
-    const container = document.getElementById("progresoGuardadoContainer");
-
-    let estrellas = '';
-
-    for (let i = 1; i <= 5; i++) {
-        estrellas += `
-            <span style="color:${i <= lecturaEnProceso.calificacion ? '#ffd700' : '#ccc'}">
-                ★
-            </span>
-        `;
-    }
+    const container = document.getElementById('progresoGuardadoContainer');
+    const estrellas = Array.from({ length: 5 }, (_, index) => `
+            <span style="color:${index + 1 <= lecturaEnProceso.calificacion ? '#ffd700' : '#ccc'}">★</span>`
+        ).join('');
 
     container.innerHTML = `
         <div class="libro-card">
-
-            <h2 class="libro-titulo">
-                ${lecturaEnProceso.titulo}
-            </h2>
-
+            <h2 class="libro-titulo">${lecturaEnProceso.titulo}</h2>
             <div class="libro-info">
-
                 <img
-                    src="${lecturaEnProceso.portada}"
+                    src="${lecturaEnProceso.portada || 'https://via.placeholder.com/120x180?text=Sin+portada'}"
                     class="libro-portada"
                     alt="Portada">
-
                 <div class="libro-detalles">
-
-                    <p><strong>Autor:</strong>
-                    ${lecturaEnProceso.autor || 'Sin registrar'}
-                    </p>
-
-                    <p><strong>Género:</strong>
-                    ${lecturaEnProceso.genero || 'Sin registrar'}
-                    </p>
-
-                    <p><strong>Inicio:</strong>
-                    ${lecturaEnProceso.inicio || 'Sin registrar'}
-                    </p>
-
-                    <p><strong>Reseña:</strong>
-                    ${lecturaEnProceso.resena || 'Sin registrar'}
-                    </p>
-
-                    <p>
-                        <strong>Calificación:</strong>
-                        ${estrellas}
-                    </p>
-
-                    <button
-                        class="btn-editar"
-                        onclick="editarLectura()">
-                        Editar lectura
-                    </button>
-
+                    <p><strong>Autor:</strong> ${lecturaEnProceso.autor || 'Sin registrar'}</p>
+                    <p><strong>Género:</strong> ${lecturaEnProceso.genero || 'Sin registrar'}</p>
+                    <p><strong>Inicio:</strong> ${lecturaEnProceso.inicio || 'Sin registrar'}</p>
+                    <p><strong>Reseña:</strong> ${lecturaEnProceso.resena || 'Sin registrar'}</p>
+                    <p><strong>Calificación:</strong> ${estrellas}</p>
+                    <button type="button" onclick="editarLectura()">Editar lectura</button>
                 </div>
-
             </div>
+        </div>`;
+}
 
-        </div>
-    `;
+async function editarLectura() {
+    if (!lecturaEnProceso) return;
+
+    document.getElementById('titulo').value = lecturaEnProceso.titulo || '';
+    document.getElementById('autor').value = lecturaEnProceso.autor || '';
+    document.getElementById('genero').value = lecturaEnProceso.genero || '';
+    document.getElementById('resena').value = lecturaEnProceso.resena || '';
+    document.getElementById('inicio').value = lecturaEnProceso.inicio || '';
+    document.getElementById('final').value = lecturaEnProceso.fin || '';
+    document.getElementById('calificacion').value = lecturaEnProceso.calificacion || 0;
+    calificacionSeleccionada = parseInt(lecturaEnProceso.calificacion) || 0;
+    updateStarDisplay(calificacionSeleccionada);
+
+    const preview = document.getElementById('previewPortada');
+    if (preview) {
+        preview.src = lecturaEnProceso.portada || await obtenerPortada(lecturaEnProceso.titulo);
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
