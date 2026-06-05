@@ -167,3 +167,218 @@ del acceso. Tercero, se notificará a los usuarios afectados y se forzará el
 restablecimiento de contraseñas y la reconfiguración del 2FA. Finalmente, se 
 documentará el incidente, se identificará la vulnerabilidad explotada y se aplicará 
 el parche correspondiente antes de volver a poner el sistema en línea.
+
+
+Aquí está el texto completo:
+
+---
+
+# Seguridad - BookJournal firewall de aplicaciones WEB
+
+
+Se describe las medidas de seguridad implementadas en el backend de BookJournal, incluyendo el Firewall de Aplicaciones Web (WAF) configurado con Nginx y las reglas de control de tráfico activas.
+
+---
+
+## Arquitectura de Seguridad
+
+```
+Cliente
+   │
+   ▼
+┌─────────────────────────┐
+│   Nginx WAF :8081       │  ← Primera línea de defensa
+│   (nginx:alpine)        │
+└────────────┬────────────┘
+             │ Solo tráfico limpio
+             ▼
+┌─────────────────────────┐
+│   Spring Boot :8080     │  ← Backend
+│   (spring-book)         │
+└────────────┬────────────┘
+             │
+             ▼
+┌─────────────────────────┐
+│   PostgreSQL :5432      │  ← Base de datos
+│   (postgres-book)       │
+└─────────────────────────┘
+```
+
+Todo el tráfico externo entra por el puerto `8081` a través de Nginx. El backend en el puerto `8080` y la base de datos en el puerto `5432` no son accesibles directamente desde fuera de la red Docker.
+
+---
+
+## Componentes de Seguridad
+
+### 1. Firewall de Aplicaciones Web (WAF) — Nginx
+
+**Contenedor:** `nginx-waf-book`  
+**Imagen:** `nginx:alpine`  
+**Puerto expuesto:** `8081`  
+**Archivo de configuración:** `backend/nginx/nginx.conf`
+
+Nginx actúa como proxy inverso y aplica reglas de seguridad antes de que cualquier petición llegue a Spring Boot.
+
+---
+
+### 2. Protecciones Implementadas
+
+#### 2.1 Bloqueo de SQL Injection
+
+Detecta y bloquea peticiones que contengan palabras clave propias de ataques de inyección SQL en los parámetros de la URL.
+
+**Palabras bloqueadas:** `union`, `select`, `insert`, `drop`, `delete`, `script`
+
+**Respuesta:** `403 Forbidden`
+
+**Ejemplo de petición bloqueada:**
+```
+GET /api/libros?q=select*from usuarios
+→ 403 Forbidden
+```
+
+#### 2.2 Bloqueo de Métodos HTTP Peligrosos
+
+Solo se permiten los métodos HTTP estándar necesarios para la API REST. Cualquier otro método es rechazado.
+
+**Métodos permitidos:** `GET`, `POST`, `PUT`, `DELETE`, `OPTIONS`
+
+**Respuesta:** `405 Method Not Allowed`
+
+**Ejemplo de petición bloqueada:**
+```
+TRACE /api/libros
+→ 405 Method Not Allowed
+```
+
+#### 2.3 Rate Limiting (Límite de Peticiones)
+
+Limita la cantidad de peticiones que una misma IP puede hacer por segundo, protegiendo contra ataques de denegación de servicio (DoS) y fuerza bruta.
+
+| Parámetro | Valor |
+|---|---|
+| Peticiones por segundo | 10 |
+| Burst permitido | 20 |
+| Zona de memoria | 10MB |
+
+Si una IP supera el límite, las peticiones adicionales son rechazadas con `503 Service Unavailable`.
+
+#### 2.4 Ocultamiento de Información del Servidor
+
+La directiva `server_tokens off` impide que Nginx revele su versión en las cabeceras HTTP de respuesta, reduciendo la superficie de ataque.
+
+**Sin protección:**
+```
+Server: nginx/1.25.3
+```
+
+**Con protección:**
+```
+Server: nginx
+```
+
+#### 2.5 Límite de Tamaño de Peticiones
+
+Se restringe el tamaño máximo del cuerpo de las peticiones a `10MB` para evitar ataques de payload excesivo.
+
+---
+
+### 3. Configuración de Red Docker
+
+Los servicios internos están protegidos por la red interna de Docker:
+
+| Servicio | Puerto interno | Puerto externo | Acceso |
+|---|---|---|---|
+| Nginx WAF | 80 | 8081 | Público (punto de entrada) |
+| Spring Boot | 8080 | 8080 | Público (acceso directo, sin WAF) |
+| PostgreSQL | 5432 | 5433 | Solo red Docker |
+| pgAdmin | 80 | 5050 | Local |
+
+> **Recomendación para producción:** Eliminar la exposición directa del puerto `8080` de Spring Boot, dejando `8081` como único punto de entrada.
+
+---
+
+## Configuración del WAF
+
+Archivo: `backend/nginx/nginx.conf`
+
+```nginx
+events {}
+
+http {
+    server_tokens off;
+    client_max_body_size 10M;
+    limit_req_zone $binary_remote_addr zone=api:10m rate=10r/s;
+
+    server {
+        listen 80;
+
+        if ($request_method !~ ^(GET|POST|PUT|DELETE|OPTIONS)$) {
+            return 405;
+        }
+
+        if ($query_string ~* "(union|select|insert|drop|delete|script)") {
+            return 403;
+        }
+
+        location / {
+            limit_req zone=api burst=20 nodelay;
+            proxy_pass http://spring-book:8080;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+        }
+    }
+}
+```
+
+---
+
+## Monitoreo de Tráfico
+
+Para visualizar el tráfico en tiempo real que pasa por el WAF:
+
+```bash
+docker logs nginx-waf-book -f
+```
+
+Para probar que el bloqueo de SQL Injection funciona:
+
+```bash
+curl "http://localhost:8081/api/libros?q=select*from usuarios"
+# Respuesta esperada: 403 Forbidden
+```
+
+Para probar que el rate limiting funciona:
+
+```bash
+for i in {1..15}; do curl -s -o /dev/null -w "%{http_code}\n" http://localhost:8081/api/libros; done
+# Las últimas peticiones deben devolver 503
+```
+
+---
+
+## Levantar el Proyecto con Seguridad
+
+```bash
+docker compose up -d
+docker compose ps
+```
+
+Todos los servicios deben aparecer con estado `Up`:
+
+```
+nginx-waf-book   Up   0.0.0.0:8081->80/tcp
+spring-book      Up   0.0.0.0:8080->8080/tcp
+postgres-book    Up   0.0.0.0:5433->5432/tcp
+pgadmin-book     Up   0.0.0.0:5050->80/tcp
+```
+
+---
+
+## Mejoras Futuras
+
+- Migrar autenticación a JWT
+- Agregar HTTPS con certificado SSL
+- Configurar ModSecurity para reglas WAF más avanzadas
+- Bloquear acceso directo al puerto 8080 en producción
+- Implementar lista blanca de IPs para entornos restringidos
