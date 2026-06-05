@@ -143,3 +143,15 @@ async function eliminarLibro(id) {
     }
 }
 
+//cambio de posicion
+document.getElementById('titulo').addEventListener('input', () => {
+    const titulo = document.getElementById('titulo').value;
+    const img = document.getElementById('previewPortada');
+
+    if (titulo.trim() === "") {
+        img.src = "";
+        return;
+    }
+
+    img.src = obtenerPortada(titulo);
+});

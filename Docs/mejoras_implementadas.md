@@ -134,8 +134,6 @@ Se deben agregar dos dependencias al archivo `pom.xml` del proyecto.
 </dependency>
 ```
 
-> **Nota:** No es necesario especificar versión, ya que Spring Boot gestiona la compatibilidad a través del BOM (*Bill of Materials*).
-
 ---
 
 ### 2. Configuración de Actuator
