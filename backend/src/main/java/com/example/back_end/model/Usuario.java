@@ -22,7 +22,7 @@ public class Usuario {
     private String twoFactorSecret;
     
     @Column(name = "two_factor_enabled")
-    private boolean twoFactorEnabled = false;
+    private Boolean twoFactorEnabled = false;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -41,8 +41,8 @@ public class Usuario {
     public String getTwoFactorSecret() { return twoFactorSecret; }
     public void setTwoFactorSecret(String twoFactorSecret) { this.twoFactorSecret = twoFactorSecret; }
 
-    public boolean isTwoFactorEnabled() { return twoFactorEnabled; }
-    public void setTwoFactorEnabled(boolean twoFactorEnabled) { this.twoFactorEnabled = twoFactorEnabled; }
+    public Boolean getTwoFactorEnabled() { return twoFactorEnabled; }
+    public void setTwoFactorEnabled(Boolean twoFactorEnabled) { this.twoFactorEnabled = twoFactorEnabled; }
     
     public String getGeneroFavorito() { return generoFavorito; }
     public void setGeneroFavorito(String generoFavorito) { this.generoFavorito = generoFavorito; }  

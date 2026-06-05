@@ -66,7 +66,7 @@ public class TwoFactorController {
         Usuario usuario = usuarioRepository.findByCorreo(correo)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        if (!usuario.isTwoFactorEnabled()) {
+        if (!Boolean.TRUE.equals(usuario.getTwoFactorEnabled())) {
             return ResponseEntity.ok(Map.of("message", "2FA no está activado para este usuario"));
         }
 

@@ -2,6 +2,7 @@ com\example\back_end\model\Admin.class
 com\example\back_end\model\Usuario.class
 com\example\back_end\repository\DeseoRepository.class
 com\example\back_end\repository\LibroRepository.class
+com\example\back_end\security\TwoFactorController.class
 com\example\back_end\model\Deseo.class
 com\example\back_end\controller\DeseoController.class
 com\example\back_end\service\UsuarioService.class
@@ -12,6 +13,7 @@ com\example\back_end\service\LibroService.class
 com\example\back_end\controller\AdminController.class
 com\example\back_end\BackEndApplication.class
 com\example\back_end\controller\UsuarioController.class
+com\example\back_end\security\TwoFactorService.class
 com\example\back_end\config\SecurityConfig.class
 com\example\back_end\service\AdminService.class
 com\example\back_end\controller\LibroController.class

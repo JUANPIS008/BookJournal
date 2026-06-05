@@ -1,37 +1,20 @@
-<<<<<<< HEAD
-C:\Users\dayan\BookJournal\backend\src\main\java\com\example\back_end\BackEndApplication.java
-C:\Users\dayan\BookJournal\backend\src\main\java\com\example\back_end\config\SecurityConfig.java
-C:\Users\dayan\BookJournal\backend\src\main\java\com\example\back_end\controller\DeseoController.java
-C:\Users\dayan\BookJournal\backend\src\main\java\com\example\back_end\controller\LibroController.java
-C:\Users\dayan\BookJournal\backend\src\main\java\com\example\back_end\controller\UsuarioController.java
-C:\Users\dayan\BookJournal\backend\src\main\java\com\example\back_end\model\Deseo.java
-C:\Users\dayan\BookJournal\backend\src\main\java\com\example\back_end\model\Libro.java
-C:\Users\dayan\BookJournal\backend\src\main\java\com\example\back_end\model\Usuario.java
-C:\Users\dayan\BookJournal\backend\src\main\java\com\example\back_end\repository\DeseoRepository.java
-C:\Users\dayan\BookJournal\backend\src\main\java\com\example\back_end\repository\LibroRepository.java
-C:\Users\dayan\BookJournal\backend\src\main\java\com\example\back_end\repository\UsuarioRepository.java
-C:\Users\dayan\BookJournal\backend\src\main\java\com\example\back_end\security\TwoFactorController.java
-C:\Users\dayan\BookJournal\backend\src\main\java\com\example\back_end\security\TwoFactorService.java
-C:\Users\dayan\BookJournal\backend\src\main\java\com\example\back_end\service\DeseoService.java
-C:\Users\dayan\BookJournal\backend\src\main\java\com\example\back_end\service\LibroService.java
-C:\Users\dayan\BookJournal\backend\src\main\java\com\example\back_end\service\UsuarioService.java
-=======
-C:\Users\juanj\Desktop\Book_Journal\BookJournal\backend\src\main\java\com\example\back_end\BackEndApplication.java
-C:\Users\juanj\Desktop\Book_Journal\BookJournal\backend\src\main\java\com\example\back_end\config\SecurityConfig.java
-C:\Users\juanj\Desktop\Book_Journal\BookJournal\backend\src\main\java\com\example\back_end\controller\AdminController.java
-C:\Users\juanj\Desktop\Book_Journal\BookJournal\backend\src\main\java\com\example\back_end\controller\DeseoController.java
-C:\Users\juanj\Desktop\Book_Journal\BookJournal\backend\src\main\java\com\example\back_end\controller\LibroController.java
-C:\Users\juanj\Desktop\Book_Journal\BookJournal\backend\src\main\java\com\example\back_end\controller\UsuarioController.java
-C:\Users\juanj\Desktop\Book_Journal\BookJournal\backend\src\main\java\com\example\back_end\model\Admin.java
-C:\Users\juanj\Desktop\Book_Journal\BookJournal\backend\src\main\java\com\example\back_end\model\Deseo.java
-C:\Users\juanj\Desktop\Book_Journal\BookJournal\backend\src\main\java\com\example\back_end\model\Libro.java
-C:\Users\juanj\Desktop\Book_Journal\BookJournal\backend\src\main\java\com\example\back_end\model\Usuario.java
-C:\Users\juanj\Desktop\Book_Journal\BookJournal\backend\src\main\java\com\example\back_end\repository\AdminRepository.java
-C:\Users\juanj\Desktop\Book_Journal\BookJournal\backend\src\main\java\com\example\back_end\repository\DeseoRepository.java
-C:\Users\juanj\Desktop\Book_Journal\BookJournal\backend\src\main\java\com\example\back_end\repository\LibroRepository.java
-C:\Users\juanj\Desktop\Book_Journal\BookJournal\backend\src\main\java\com\example\back_end\repository\UsuarioRepository.java
-C:\Users\juanj\Desktop\Book_Journal\BookJournal\backend\src\main\java\com\example\back_end\service\AdminService.java
-C:\Users\juanj\Desktop\Book_Journal\BookJournal\backend\src\main\java\com\example\back_end\service\DeseoService.java
-C:\Users\juanj\Desktop\Book_Journal\BookJournal\backend\src\main\java\com\example\back_end\service\LibroService.java
-C:\Users\juanj\Desktop\Book_Journal\BookJournal\backend\src\main\java\com\example\back_end\service\UsuarioService.java
->>>>>>> 00840bc2c4b8959971cd11a11cea11dfe777c7e0
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\BackEndApplication.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\config\SecurityConfig.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\controller\AdminController.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\controller\DeseoController.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\controller\LibroController.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\controller\UsuarioController.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\model\Admin.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\model\Deseo.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\model\Libro.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\model\Usuario.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\repository\AdminRepository.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\repository\DeseoRepository.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\repository\LibroRepository.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\repository\UsuarioRepository.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\security\TwoFactorController.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\security\TwoFactorService.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\service\AdminService.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\service\DeseoService.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\service\LibroService.java
+C:\Users\juanj\Desktop\BookJournal_V2 - copia\BookJournal\backend\src\main\java\com\example\back_end\service\UsuarioService.java
