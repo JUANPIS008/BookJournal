@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración - BOOK Journal</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/admin_login.css">
+</head>
+
+<body>
+
+    <img src="../recursos/Imagen2.png" class="side-image left" alt="Libros">
+
+    <div class="container-login">
+
+        <h1 class="main-title">
+            <span class="font-patrick">Book</span>
+            <span class="font-dancing">Journal</span>
+        </h1>
+
+        <div class="admin-login-card">
+
+            <h2>Ingreso Administrativo</h2>
+
+            <input
+                type="email"
+                id="admin-email"
+                placeholder="Correo electrónico"
+                autocomplete="email">
+
+            <input
+                type="password"
+                id="admin-password"
+                placeholder="Contraseña"
+                autocomplete="current-password">
+
+            <button onclick="loginAdmin()">
+                Ingresar como administrador
+            </button>
+
+            <button
+                type="button"
+                class="secondary"
+                onclick="volverInicio()">
+                Volver al inicio
+            </button>
+
+        </div>
+
+    </div>
+
+    <img src="../recursos/Imagen2.png" class="side-image right" alt="Libros">
+    
+    <script src="../javascript/admin_login.js"></script>
+
+</body>
+
+</html>
+

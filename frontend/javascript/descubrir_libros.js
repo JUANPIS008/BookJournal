@@ -6,9 +6,61 @@ const API_LEIDOS = `${API_BASE}/libros/leidos`;
 const API_USUARIOS = `${API_BASE}/usuarios`;
 const STORAGE_KEY = 'usuarioLogueado';
 
+let listaDeseosActual = [];
+let misLibrosLeidos = [];
+let usuarioActual = null;
+
 document.addEventListener('DOMContentLoaded', () => {
-    generarRecomendacionesPersonalizadas();
+    cargarDatosInicio();
 });
+
+async function cargarDatosInicio() {
+    try {
+        // Obtener usuario logueado
+        const datosLocal = localStorage.getItem(STORAGE_KEY);
+        if (!datosLocal) {
+            console.warn("Usuario no logueado");
+            return;
+        }
+        usuarioActual = JSON.parse(datosLocal);
+
+        // Cargar deseos y leídos desde la API
+        await Promise.all([
+            cargarDeseos(),
+            cargarLibrosLeidos()
+        ]);
+
+        // Generar recomendaciones
+        generarRecomendacionesPersonalizadas();
+    } catch (error) {
+        console.error("Error en carga inicial:", error);
+        generarRecomendacionesPersonalizadas();
+    }
+}
+
+async function cargarDeseos() {
+    try {
+        const respuesta = await fetch(API_DESEOS);
+        if (respuesta.ok) {
+            listaDeseosActual = await respuesta.json();
+        }
+    } catch (error) {
+        console.warn("Error cargando deseos:", error);
+        listaDeseosActual = [];
+    }
+}
+
+async function cargarLibrosLeidos() {
+    try {
+        const respuesta = await fetch(API_LEIDOS);
+        if (respuesta.ok) {
+            misLibrosLeidos = await respuesta.json();
+        }
+    } catch (error) {
+        console.warn("Error cargando libros leídos:", error);
+        misLibrosLeidos = [];
+    }
+}
 
 async function generarRecomendacionesPersonalizadas() {
     const contenedor = document.getElementById('contenedor-recomendados');
@@ -36,21 +88,9 @@ async function generarRecomendacionesPersonalizadas() {
             generoFavorito = usuarioLocal.generoFavorito || "";
         }
 
-        let misDeseos = [];
-        try {
-            const respuestaDeseos = await fetch(API_DESEOS);
-            if (respuestaDeseos.ok) misDeseos = await respuestaDeseos.json();
-        } catch (errDeseos) {
-            console.warn("Fallo al recuperar la lista de deseos.", errDeseos);
-        }
-
-        let misLeidos = [];
-        try {
-            const respuestaLeidos = await fetch(API_LEIDOS);
-            if (respuestaLeidos.ok) misLeidos = await respuestaLeidos.json();
-        } catch (errLeidos) {
-            console.warn("Fallo al recuperar el historial de libros leídos.", errLeidos);
-        }
+        // Usar los datos cargados en cargarDatosInicio
+        let misDeseos = listaDeseosActual;
+        let misLeidos = misLibrosLeidos;
 
         let bolsasDePalabras = [];
         
@@ -140,29 +180,6 @@ async function generarRecomendacionesPersonalizadas() {
 
 async function agregarDesdeRecomendados(tituloLibro) {
     try {
-        const respuesta = await fetch(API_DESEOS, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ titulo: tituloLibro })
-        });
-
-        if (respuesta.ok) {
-            alert(`"${tituloLibro}" se agregó correctamente a tu lista de deseos`);
-            generarRecomendacionesPersonalizadas();
-        } else {
-            alert("No se pudo procesar el guardado del libro seleccionado.");
-        }
-    } catch (error) {
-        console.error("Error al registrar desde recomendados:", error);
-        alert("Error crítico de comunicación por red.");
-    }
-}
-
-//FUNCION PREMIUM
-async function agregarDesdeRecomendados(tituloLibro) {
-    try {
         const datosLocal = localStorage.getItem(STORAGE_KEY);
         if (!datosLocal) {
             alert("Por favor, inicia sesión para realizar esta acción.");
@@ -188,19 +205,27 @@ async function agregarDesdeRecomendados(tituloLibro) {
 }
 
 async function procesarGuardadoLibro(tituloLibro) {
-    const respuesta = await fetch(API_DESEOS, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ titulo: tituloLibro })
-    });
+    try {
+        const respuesta = await fetch(API_DESEOS, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ titulo: tituloLibro })
+        });
 
-    if (respuesta.ok) {
-        alert(`"${tituloLibro}" se agregó correctamente a tu lista de deseos`);
-        generarRecomendacionesPersonalizadas();
-    } else {
-        alert("No se pudo procesar el guardado del libro seleccionado.");
+        if (respuesta.ok) {
+            alert(`"${tituloLibro}" se agregó correctamente a tu lista de deseos`);
+            
+            // Recargar lista de deseos y regenerar recomendaciones
+            await cargarDeseos();
+            generarRecomendacionesPersonalizadas();
+        } else {
+            alert("No se pudo procesar el guardado del libro seleccionado.");
+        }
+    } catch (error) {
+        console.error("Error al registrar desde recomendados:", error);
+        alert("Error crítico de comunicación por red.");
     }
 }
 
