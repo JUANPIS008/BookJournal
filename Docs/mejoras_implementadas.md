@@ -480,7 +480,7 @@ Archivos clave modificados
 ## Pagina funcional
 ![Captura de pantalla interfaz del admin login](imagenesdoc/login_admin.png)
 ![Captura de pantalla interfaz del admin menu](imagenesdoc/login_admin2.png)
-![Captura de pantalla interfaz del admin panel](imagenesdoc/panel_admin.png.png)
+![Captura de pantalla interfaz del admin panel](imagenesdoc/panel_admin.png)
 
 
 Flujo funcional
