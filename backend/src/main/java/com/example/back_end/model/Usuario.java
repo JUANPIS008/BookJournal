@@ -18,6 +18,11 @@ public class Usuario {
     private String generoFavorito;
     private String promedioLectura;
 
+    @Column(name = "two_factor_secret")
+    private String twoFactorSecret;
+    
+    @Column(name = "two_factor_enabled")
+    private boolean twoFactorEnabled = false;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -33,7 +38,12 @@ public class Usuario {
 
     public String getFechaNacimiento() { return fechaNacimiento; }  
     public void setFechaNacimiento(String fechaNacimiento) { this.fechaNacimiento = fechaNacimiento; }
+    public String getTwoFactorSecret() { return twoFactorSecret; }
+    public void setTwoFactorSecret(String twoFactorSecret) { this.twoFactorSecret = twoFactorSecret; }
 
+    public boolean isTwoFactorEnabled() { return twoFactorEnabled; }
+    public void setTwoFactorEnabled(boolean twoFactorEnabled) { this.twoFactorEnabled = twoFactorEnabled; }
+    
     public String getGeneroFavorito() { return generoFavorito; }
     public void setGeneroFavorito(String generoFavorito) { this.generoFavorito = generoFavorito; }  
 
